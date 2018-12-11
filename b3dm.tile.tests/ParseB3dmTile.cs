@@ -13,14 +13,20 @@ namespace B3dm.Tile.Tests
         {
             const string testfile = "B3dm.Tile.Tests.testfixtures.1311.b3dm";
             b3dmfile = Assembly.GetExecutingAssembly().GetManifestResourceStream(testfile);
+            Assert.IsTrue(b3dmfile != null);
         }
 
         [Test]
         public void FirstParsing()
         {
-            Assert.IsTrue(b3dmfile != null);
-            B3dmParser.Parse(b3dmfile);
-            Assert.IsTrue(true);
+            // arrange
+            var expectedMagicHeader = "b3dm";
+
+            // act
+            var actualMagicHeader = B3dmParser.ParseMagicHeader(b3dmfile);
+
+            // assert
+            Assert.IsTrue(expectedMagicHeader== actualMagicHeader);
         }
     }
 }
