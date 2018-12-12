@@ -6,7 +6,7 @@ namespace B3dm.Tile
 {
     public static class B3dmParser
     {
-        public static string ParseMagicHeader(Stream stream)
+        public static B3dmHeader ParseHeader(Stream stream)
         {
             var reader = new FastBinaryReader(stream);
 
@@ -17,7 +17,14 @@ namespace B3dm.Tile
                 s.Append(Convert.ToChar(reader.ReadByte()));
             }
 
-            return s.ToString();
+            var version = reader.ReadUInt32();
+
+            var header = new B3dmHeader
+            {
+                Magic = s.ToString(),
+                Version = Convert.ToInt32(version)
+            };
+            return header;
         }
     }
 }

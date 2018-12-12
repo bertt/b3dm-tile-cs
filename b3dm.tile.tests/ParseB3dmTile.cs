@@ -21,12 +21,14 @@ namespace B3dm.Tile.Tests
         {
             // arrange
             var expectedMagicHeader = "b3dm";
+            var expectedVersionHeader = 1;
 
             // act
-            var actualMagicHeader = B3dmParser.ParseMagicHeader(b3dmfile);
+            var actualHeader = B3dmParser.ParseHeader(b3dmfile);
 
             // assert
-            Assert.IsTrue(expectedMagicHeader== actualMagicHeader);
+            Assert.IsTrue(expectedMagicHeader == actualHeader.Magic);
+            Assert.IsTrue(expectedVersionHeader == actualHeader.Version);
         }
     }
 }
