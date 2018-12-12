@@ -11,11 +11,7 @@ namespace B3dm.Tile
             var reader = new FastBinaryReader(stream);
 
             // first 4 bytes must be 'b3dm' otherwise its not a b3dm file
-            var s = new StringBuilder();
-            for (var i = 0; i < 4; i++)
-            {
-                s.Append(Convert.ToChar(reader.ReadByte()));
-            }
+            var magic = Encoding.UTF8.GetString(reader.ReadBytes(4));
 
             // version should be 1 otherwise its not a b3dm file
             var version = reader.ReadUInt32();
@@ -38,7 +34,7 @@ namespace B3dm.Tile
 
             var header = new B3dmHeader
             {
-                Magic = s.ToString(),
+                Magic = magic,
                 Version = Convert.ToInt32(version)
             };
             return header;
