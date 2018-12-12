@@ -17,7 +17,24 @@ namespace B3dm.Tile
                 s.Append(Convert.ToChar(reader.ReadByte()));
             }
 
+            // version should be 1 otherwise its not a b3dm file
             var version = reader.ReadUInt32();
+            var headerByteLength = 28;
+            var bytelength = reader.ReadUInt32();
+            var featureTableJsonByteLength = reader.ReadUInt32();
+            var featureTableBinaryByteLength = reader.ReadUInt32();
+            var batchTableJsonByteLength = reader.ReadUInt32();
+            var batchTableBinaryByteLength = reader.ReadUInt32();
+            var batchLength = 0;
+
+            var featureTableJsonByteOffset = headerByteLength;
+            var featureTableBinaryByteOffset = featureTableJsonByteOffset + featureTableJsonByteLength;
+            var batchTableJsonByteOffset = featureTableBinaryByteOffset + featureTableBinaryByteLength;
+            var batchTableBinaryByteOffset = batchTableJsonByteOffset + batchTableJsonByteLength;
+            var glbByteOffset = batchTableBinaryByteOffset + batchTableBinaryByteLength;
+
+            var glbBuffer = reader.ReadBytes(bytelength);
+            // todo: do something with glbbuffer
 
             var header = new B3dmHeader
             {

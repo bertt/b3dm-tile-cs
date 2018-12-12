@@ -35,6 +35,16 @@ namespace B3dm.Tile
             return ret;
         }
 
+        public byte[] ReadBytes(uint length)
+        {
+            var bytes = new byte[length];
+            for(int i = 0; i < length; i += 1)
+            {
+                bytes[i] = ReadByte();
+            }
+            return bytes;
+       }
+
         public float ReadSingle()
         {
             float ret = *(float*)fixedPtr;
