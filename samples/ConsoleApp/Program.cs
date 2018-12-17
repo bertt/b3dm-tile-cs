@@ -24,6 +24,8 @@ namespace ConsoleApp
 
             var gltf = JsonConvert.DeserializeObject<Gltf>(json);
 
+            File.WriteAllBytes("test.gltf", b3dm.GlbData);
+
             Console.WriteLine($"Press any key to continue...");
             Console.ReadKey();
         }
