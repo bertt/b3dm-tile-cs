@@ -6,6 +6,7 @@
     <IsPackable>false</IsPackable>
 
     <RootNamespace>B3dm.Tile.Tests</RootNamespace>
+    <ReleaseVersion>0.2</ReleaseVersion>
   </PropertyGroup>
 
   <ItemGroup>

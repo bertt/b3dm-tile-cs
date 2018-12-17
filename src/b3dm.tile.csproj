@@ -14,6 +14,8 @@
     <PackageLicenseUrl>https://github.com/bertt/b3dm-tile-cs/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/bertt/b3dm-tile-cs</RepositoryUrl>
     <PackageTags>b3dm tile gltf</PackageTags>
+    <PackOnBuild>true</PackOnBuild>
+    <ReleaseVersion>0.2</ReleaseVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

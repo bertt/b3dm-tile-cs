@@ -6,7 +6,7 @@ namespace B3dm.Tile
 {
     public static class B3dmParser
     {
-        public static B3dm ParseB3dm(Stream stream)
+        public static B3dm ParseB3dm(Stream stream, bool AddGlbDetails = false)
         {
             using (var reader = new FastBinaryReader(stream)) {
 
@@ -31,14 +31,17 @@ namespace B3dm.Tile
 
                 var glbBuffer = reader.ReadBytes((int)bytelength);
                 var glbStream = new MemoryStream(glbBuffer);
-                var glb = GlbParser.ParseGlb(glbStream);
 
                 var b3dm = new B3dm {
                     Magic = magic,
                     Version =(int)version,
                     GlbData = glbBuffer,
-                    Glb = glb
                 };
+
+                if (AddGlbDetails) {
+                    var glb = GlbParser.ParseGlb(glbStream);
+                    b3dm.Glb = glb;
+                }
                 return b3dm;
             }
         }
