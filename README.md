@@ -2,6 +2,9 @@
 
 .NET Standard 2.0 Library for (de)serializing B3dm files to/from glTF
 
+[![NuGet Status](http://img.shields.io/nuget/v/b3dm-tile-cs.svg?style=flat)](https://www.nuget.org/packages/b3dm-tile-cs/)
+
+
 Sample code:
 
 ```
