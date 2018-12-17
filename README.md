@@ -8,14 +8,14 @@
 Sample code:
 
 ```
-const string testfile = "ConsoleApp.testfixtures.1311.b3dm";
-var b3dmfile = Assembly.GetExecutingAssembly().GetManifestResourceStream(testfile);
-Console.WriteLine($"Start parsing {testfile}...");
-var b3dm = B3dmParser.ParseB3dm(b3dmfile);
-Console.WriteLine($"End parsing {testfile}.");
+string path = "testfixtures/1311.b3dm";
+var memoryStream = new MemoryStream(File.ReadAllBytes(path));
+
+Console.WriteLine("B3dm tile sample application");
+Console.WriteLine($"Start parsing {path}...");
+var b3dm = B3dmParser.ParseB3dm(memoryStream);
+Console.WriteLine($"End parsing {path}.");
 
 var bin = b3dm.Glb.GltfModelBin;
 var json = b3dm.Glb.GltfModelJson;
-
-var gltf = JsonConvert.DeserializeObject<Gltf>(json);
 ```
