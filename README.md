@@ -11,9 +11,16 @@ string path = "testfixtures/1311.b3dm";
 var memoryStream = new MemoryStream(File.ReadAllBytes(path));
 var b3dm = B3dmParser.ParseB3dm(memoryStream);
 
+File.WriteAllBytes("test.gltf", b3dm.GlbData);
+
 var bin = b3dm.Glb.GltfModelBin;
 var json = b3dm.Glb.GltfModelJson;
 ```
+
+Example glTF viewer for test.gltf: https://gltf-viewer.donmccurdy.com/
+
+<img src="test.gltf"/>
+
 
 ## Dependencies
 
