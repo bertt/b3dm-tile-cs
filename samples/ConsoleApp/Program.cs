@@ -23,8 +23,8 @@ namespace ConsoleApp
             var json = b3dm.Glb.GltfModelJson;
 
             var gltf = JsonConvert.DeserializeObject<Gltf>(json);
-            // todo: do something with gltf bin object?
 
+            // todo: do something with gltf bin object?
             Console.WriteLine($"Press any key to continue...");
             Console.ReadKey();
         }

@@ -3,6 +3,17 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>B3dm.Tile</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>b3dm-tile</PackageId>
+    <Version>0.1</Version>
+    <Authors>Bert Temme</Authors>
+    <Company>Geodan</Company>
+    <Product>b3dm-tile</Product>
+    <Description>.NET Standard 2.0 Library for (de)serializing B3dm files to/from glTF</Description>
+    <PackageProjectUrl>https://github.com/bertt/b3dm-tile-cs</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/bertt/b3dm-tile-cs/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/bertt/b3dm-tile-cs</RepositoryUrl>
+    <PackageTags>b3dm tile gltf</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
