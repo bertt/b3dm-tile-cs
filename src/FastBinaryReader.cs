@@ -35,10 +35,10 @@ namespace B3dm.Tile
             return ret;
         }
 
-        public byte[] ReadBytes(uint length)
+        public byte[] ReadBytes(int length)
         {
             var bytes = new byte[length];
-            for(int i = 0; i < length; i += 1)
+            for(var i = 0; i < length; i += 1)
             {
                 bytes[i] = ReadByte();
             }
