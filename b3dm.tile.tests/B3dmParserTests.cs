@@ -29,7 +29,7 @@ namespace B3dm.Tile.Tests
             // assert
             Assert.IsTrue(expectedMagicHeader == b3dm.Magic);
             Assert.IsTrue(expectedVersionHeader == b3dm.Version);
-            Assert.IsTrue(b3dm.Glb.Length>0);
+            Assert.IsTrue(b3dm.GlbData.Length>0);
         }
     }
 }

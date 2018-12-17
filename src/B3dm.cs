@@ -4,6 +4,7 @@
     {
         public string Magic { get; set; }
         public int Version {get; set; }
-        public byte[] Glb { get; set; }
+        public byte[] GlbData { get; set; }
+        public Glb Glb { get; set; }
     }
 }

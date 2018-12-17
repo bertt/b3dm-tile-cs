@@ -30,12 +30,14 @@ namespace B3dm.Tile
                 var glbByteOffset = batchTableBinaryByteOffset + batchTableBinaryByteLength;
 
                 var glbBuffer = reader.ReadBytes((int)bytelength);
+                var glbStream = new MemoryStream(glbBuffer);
+                var glb = GlbParser.ParseGlb(glbStream);
 
                 var b3dm = new B3dm {
                     Magic = magic,
                     Version =(int)version,
-                    Glb = glbBuffer
-
+                    GlbData = glbBuffer,
+                    Glb = glb
                 };
                 return b3dm;
             }

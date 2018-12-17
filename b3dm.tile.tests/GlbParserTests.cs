@@ -14,7 +14,7 @@ namespace B3dm.Tile.Tests
             const string testfile = "B3dm.Tile.Tests.testfixtures.1311.b3dm";
             var b3dmfile = Assembly.GetExecutingAssembly().GetManifestResourceStream(testfile);
             var b3dm = B3dmParser.ParseB3dm(b3dmfile);
-            var glb = b3dm.Glb;
+            var glb = b3dm.GlbData;
             glbStream = new MemoryStream(glb);
             Assert.IsTrue(glbStream != null);
         }
