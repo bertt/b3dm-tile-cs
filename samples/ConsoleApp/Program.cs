@@ -22,6 +22,8 @@ namespace ConsoleApp
             var bin = b3dm.Glb.GltfModelBin;
             var json = b3dm.Glb.GltfModelJson;
 
+            var gltf = JsonConvert.DeserializeObject<Gltf>(json);
+
             Console.WriteLine($"Press any key to continue...");
             Console.ReadKey();
         }
