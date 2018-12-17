@@ -19,8 +19,7 @@ var json = b3dm.Glb.GltfModelJson;
 
 Example glTF viewer for test.gltf: https://gltf-viewer.donmccurdy.com/
 
-<img src="test.gltf"/>
-
+<img src="gltf.png"/>
 
 ## Dependencies
 
