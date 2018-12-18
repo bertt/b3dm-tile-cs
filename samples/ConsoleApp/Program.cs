@@ -14,7 +14,7 @@ namespace ConsoleApp
             var memoryStream = new MemoryStream(File.ReadAllBytes(infile));
             Console.WriteLine("B3dm tile sample application");
             Console.WriteLine($"Start parsing {infile}...");
-            var b3dm = B3dmParser.ParseB3dm(memoryStream,true);
+            var b3dm = B3dmParser.ParseB3dm(memoryStream);
             Console.WriteLine($"Start writing output to {outfile}.");
 
             var fs = File.Create(outfile);
