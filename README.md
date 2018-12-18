@@ -4,16 +4,24 @@
 
 [![NuGet Status](http://img.shields.io/nuget/v/b3dm-tile.svg?style=flat)](https://www.nuget.org/packages/b3dm-tile/)
 
-## Sample code:
+## Sample code for conversion b3dm -> glb:
 
 ```
-string path = "testfixtures/1311.b3dm";
-var memoryStream = new MemoryStream(File.ReadAllBytes(path));
-var b3dm = B3dmParser.ParseB3dm(memoryStream);
-File.WriteAllBytes("test.gltf", b3dm.GlbData);
+string infile = "testfixtures/1311.b3dm";
+string outfile = "test.glb";
+
+var memoryStream = new MemoryStream(File.ReadAllBytes(infile));
+var b3dm = B3dmParser.ParseB3dm(memoryStream,true);
+
+var fs = File.Create(outfile);
+var bw = new BinaryWriter(fs);
+bw.Write(b3dm.GlbData);
+bw.Close();
 ```
 
 Example glTF viewer for test.gltf: https://gltf-viewer.donmccurdy.com/
+
+glTF Validator: http://github.khronos.org/glTF-Validator/
 
 <img src="gltf.png"/>
 

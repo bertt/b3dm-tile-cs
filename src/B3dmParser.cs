@@ -29,7 +29,7 @@ namespace B3dm.Tile
                 var batchTableBinaryByteOffset = batchTableJsonByteOffset + batchTableJsonByteLength;
                 var glbByteOffset = batchTableBinaryByteOffset + batchTableBinaryByteLength;
 
-                var glbBuffer = reader.ReadBytes((int)bytelength);
+                var glbBuffer = reader.ReadBytes((int)bytelength-headerByteLength);
                 var glbStream = new MemoryStream(glbBuffer);
 
                 var b3dm = new B3dm {

@@ -8,16 +8,19 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            string path = "testfixtures/1311.b3dm";
-            var memoryStream = new MemoryStream(File.ReadAllBytes(path));
+            string infile = "testfixtures/1311.b3dm";
+            string outfile = "test.glb";
 
+            var memoryStream = new MemoryStream(File.ReadAllBytes(infile));
             Console.WriteLine("B3dm tile sample application");
-            Console.WriteLine($"Start parsing {path}...");
-            var b3dm = B3dmParser.ParseB3dm(memoryStream);
-            Console.WriteLine($"End parsing {path}.");
+            Console.WriteLine($"Start parsing {infile}...");
+            var b3dm = B3dmParser.ParseB3dm(memoryStream,true);
+            Console.WriteLine($"Start writing output to {outfile}.");
 
-            File.WriteAllBytes("test.gltf", b3dm.GlbData);
-
+            var fs = File.Create(outfile);
+            var bw = new BinaryWriter(fs);
+            bw.Write(b3dm.GlbData);
+            bw.Close();
             Console.WriteLine($"Press any key to continue...");
             Console.ReadKey();
         }

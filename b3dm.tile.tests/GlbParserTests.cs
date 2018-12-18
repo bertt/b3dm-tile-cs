@@ -32,7 +32,7 @@ namespace B3dm.Tile.Tests
             // assert
             Assert.IsTrue(glb.Magic == expectedMagicGlb);
             Assert.IsTrue(glb.Version == expectedVersionGlb);
-            Assert.IsTrue(glb.Length == glbStream.Length-28);
+            Assert.IsTrue(glb.Length == glbStream.Length);
             Assert.IsTrue(glb.GltfModelJson != null);
             Assert.IsTrue(glb.GltfModelJson.Length>0);
             Assert.IsTrue(glb.GltfModelBin.Length>0);
