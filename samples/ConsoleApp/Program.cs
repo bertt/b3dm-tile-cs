@@ -12,10 +12,10 @@ namespace ConsoleApp
             string infile = "testfixtures/1311.b3dm";
             string outfile = "test.glb";
 
-            var memoryStream = new MemoryStream(File.ReadAllBytes(infile));
+            var stream=File.OpenRead(infile);
             Console.WriteLine("B3dm tile sample application");
             Console.WriteLine($"Start parsing {infile}...");
-            var b3dm = B3dmParser.ParseB3dm(memoryStream);
+            var b3dm = B3dmParser.ParseB3dm(stream);
             Console.WriteLine($"Start writing output to {outfile}.");
 
             var fs = File.Create(outfile);

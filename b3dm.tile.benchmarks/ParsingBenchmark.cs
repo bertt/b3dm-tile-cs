@@ -7,18 +7,13 @@ namespace b3dm.tile.benchmarks
 {
     public class ParsingBenchmark
     {
-        // why this does not work?
-        // private MemoryStream stream;
-
-        [GlobalSetup]
-        public void GlobalSetup()
-        {
-        }
+        // why thises not work?
+        // private Stream stream;
 
         [Benchmark]
         public void ParseB3dmTileFromStream()
         {
-            var stream = new MemoryStream(File.ReadAllBytes("1311.b3dm"));
+            var stream = File.OpenRead("1311.b3dm");
             var p = B3dmParser.ParseB3dm(stream);
         }
 
