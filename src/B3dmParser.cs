@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 
 namespace B3dm.Tile
@@ -8,7 +7,7 @@ namespace B3dm.Tile
     {
         public static B3dm ParseB3dm(Stream stream, bool AddGlbDetails = false)
         {
-            using (var reader = new FastBinaryReader(stream)) {
+            using (var reader = new BinaryReader(stream)) {
 
                 // first 4 bytes must be 'b3dm' otherwise its not a b3dm file
                 var magic = Encoding.UTF8.GetString(reader.ReadBytes(4));

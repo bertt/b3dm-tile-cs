@@ -5,7 +5,7 @@
     <RootNamespace>B3dm.Tile</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>b3dm-tile</PackageId>
-    <Version>0.2</Version>
+    <Version>0.3</Version>
     <Authors>Bert Temme</Authors>
     <Company>Geodan</Company>
     <Product>b3dm-tile</Product>
@@ -16,6 +16,7 @@
     <PackageTags>b3dm tile gltf</PackageTags>
     <PackOnBuild>true</PackOnBuild>
     <ReleaseVersion>0.2</ReleaseVersion>
+    <AssemblyVersion>0.3.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
