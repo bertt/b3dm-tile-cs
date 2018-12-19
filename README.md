@@ -10,8 +10,8 @@
 string infile = "testfixtures/1311.b3dm";
 string outfile = "test.glb";
 
-var memoryStream = new MemoryStream(File.ReadAllBytes(infile));
-var b3dm = B3dmParser.ParseB3dm(memoryStream);
+var stream = File.OpenRead(infile);
+var b3dm = B3dmParser.ParseB3dm(stream);
 
 var fs = File.Create(outfile);
 var bw = new BinaryWriter(fs);
