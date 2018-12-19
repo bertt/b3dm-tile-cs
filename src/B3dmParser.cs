@@ -20,16 +20,8 @@ namespace B3dm.Tile
                 var featureTableBinaryByteLength = reader.ReadUInt32();
                 var batchTableJsonByteLength = reader.ReadUInt32();
                 var batchTableBinaryByteLength = reader.ReadUInt32();
-                // var batchLength = 0;
-
-                var featureTableJsonByteOffset = headerByteLength;
-                var featureTableBinaryByteOffset = featureTableJsonByteOffset + featureTableJsonByteLength;
-                var batchTableJsonByteOffset = featureTableBinaryByteOffset + featureTableBinaryByteLength;
-                var batchTableBinaryByteOffset = batchTableJsonByteOffset + batchTableJsonByteLength;
-                var glbByteOffset = batchTableBinaryByteOffset + batchTableBinaryByteLength;
 
                 var glbBuffer = reader.ReadBytes((int)bytelength-headerByteLength);
-                var glbStream = new MemoryStream(glbBuffer);
 
                 var b3dm = new B3dm {
                     Magic = magic,
@@ -38,6 +30,7 @@ namespace B3dm.Tile
                 };
 
                 if (AddGlbDetails) {
+                    var glbStream = new MemoryStream(glbBuffer);
                     var glb = GlbParser.ParseGlb(glbStream);
                     b3dm.Glb = glb;
                 }
