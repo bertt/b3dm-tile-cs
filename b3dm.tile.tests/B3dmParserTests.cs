@@ -29,7 +29,23 @@ namespace B3dm.Tile.Tests
             // assert
             Assert.IsTrue(expectedMagicHeader == b3dm.Magic);
             Assert.IsTrue(expectedVersionHeader == b3dm.Version);
-            Assert.IsTrue(b3dm.GlbData.Length>0);
+            Assert.IsTrue(b3dm.GlbData.Length > 0);
+        }
+
+        [Test]
+        public void ParseB3dmTestIssue3()
+        {
+            // issue https://github.com/bertt/b3dm-tile-cs/issues/3
+            // arrange
+            const string file = "B3dm.Tile.Tests.testfixtures.2.b3dm";
+            var testfile = Assembly.GetExecutingAssembly().GetManifestResourceStream(file);
+
+
+            // act
+            var b3dm = B3dmParser.ParseB3dm(testfile);
+
+            // assert
+            Assert.IsTrue(b3dm != null);
         }
     }
 }

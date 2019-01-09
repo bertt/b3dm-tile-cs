@@ -11,10 +11,12 @@
 
   <ItemGroup>
     <None Remove="testfixtures\1311.b3dm" />
+    <None Remove="testfixtures\2.b3dm" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="testfixtures\1311.b3dm" />
+    <EmbeddedResource Include="testfixtures\2.b3dm" />
   </ItemGroup>
 
   <ItemGroup>
