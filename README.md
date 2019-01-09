@@ -31,7 +31,11 @@ NETStandard.Library 2.0.3
 
 ## History
 
-2019-01-09: version 0.4. 
+2019-01-09: version 0.4.1
+
+- Added parsing FeatureTableJson, FeatureTableBinary, BatchTableJson, batchTableBinary
+
+2019-01-09: version 0.4
 
   - Removed parsing Glb code
 

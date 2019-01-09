@@ -13,26 +13,33 @@ namespace B3dm.Tile
                 var magic = Encoding.UTF8.GetString(reader.ReadBytes(4));
 
                 // version should be 1 otherwise its not a b3dm file
-                var version = reader.ReadUInt32();
+                var version = (int)reader.ReadUInt32();
                 var headerByteLength = 28;
-                var bytelength = reader.ReadUInt32();
-                var featureTableJsonByteLength = reader.ReadUInt32();
-                var featureTableBinaryByteLength = reader.ReadUInt32();
-                var batchTableJsonByteLength = reader.ReadUInt32();
-                var batchTableBinaryByteLength = reader.ReadUInt32();
+                var bytelength = (int)reader.ReadUInt32();
+                var featureTableJsonByteLength = (int)reader.ReadUInt32();
+                var featureTableBinaryByteLength = (int)reader.ReadUInt32();
+                var batchTableJsonByteLength = (int)reader.ReadUInt32();
+                var batchTableBinaryByteLength = (int)reader.ReadUInt32();
 
-                var glbBuffer = reader.ReadBytes((int)bytelength - headerByteLength);
+                var featureTableJson = Encoding.UTF8.GetString(reader.ReadBytes(featureTableJsonByteLength));
+                var featureTableBytes = reader.ReadBytes(featureTableBinaryByteLength);
+                var batchTableJson = Encoding.UTF8.GetString(reader.ReadBytes(batchTableJsonByteLength));
+                var batchTableBytes = reader.ReadBytes(batchTableBinaryByteLength);
 
-                var featureTableJsonBytes = reader.ReadBytes((int)featureTableJsonByteLength);
+                var glbBuffer = reader.ReadBytes(bytelength - headerByteLength- featureTableJsonByteLength - featureTableBinaryByteLength - batchTableJsonByteLength - batchTableBinaryByteLength);
 
                 var b3dm = new B3dm {
                     Magic = magic,
-                    Version = (int)version,
+                    Version = version,
                     GlbData = glbBuffer,
-                    FeatureTableJsonByteLength = (int)featureTableJsonByteLength,
-                    FeatureTableBinaryByteLength = (int)featureTableBinaryByteLength,
-                    BatchTableJsonByteLength = (int)batchTableJsonByteLength,
-                    BatchTableBinaryByteLength = (int)batchTableBinaryByteLength
+                    FeatureTableJsonByteLength = featureTableJsonByteLength,
+                    FeatureTableBinaryByteLength = featureTableBinaryByteLength,
+                    BatchTableJsonByteLength = batchTableJsonByteLength,
+                    BatchTableBinaryByteLength = batchTableBinaryByteLength,
+                    FeatureTableJson = featureTableJson,
+                    FeatureTableBinary = featureTableBytes,
+                    BatchTableJson = batchTableJson,
+                    BatchTableBinary = batchTableBytes
                 };
                 return b3dm;
             }
