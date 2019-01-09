@@ -26,7 +26,7 @@ namespace B3dm.Tile.Tests
             var expectedVersionHeader = 1;
 
             // act
-            var b3dm = B3dmParser.ParseB3dm(b3dmfile);
+            var b3dm = B3dmParser.ParseB3dm(b3dmfile, true);
 
             // assert
             Assert.IsTrue(expectedMagicHeader == b3dm.Magic);
@@ -35,22 +35,19 @@ namespace B3dm.Tile.Tests
         }
 
         [Test]
-        public void ParseB3dmTestIssue3WithDownload()
+        public void ParseB3dmTestIssue3()
         {
             // issue https://github.com/bertt/b3dm-tile-cs/issues/3
             // arrange
-            var url = "https://saturnus.geodan.nl/tomt/data/buildingtiles_texel/tiles/2.b3dm";
-            var httpClient = new HttpClient();
-            var bytes = httpClient.GetByteArrayAsync(url).Result;
-            var stream = new MemoryStream(bytes);
+            const string testfile = "B3dm.Tile.Tests.testfixtures.2.b3dm";
+            var  stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(testfile);
 
             // act
-            var b3dm = B3dmParser.ParseB3dm(stream);
+            // next statement gives EndOfStreamException because Glb.BindaryModel is missing
+            var b3dm = B3dmParser.ParseB3dm(stream, true);
 
             // assert
             Assert.IsTrue(b3dm != null);
         }
-
-
     }
 }
