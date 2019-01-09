@@ -37,5 +37,22 @@ namespace B3dm.Tile.Tests
             Assert.IsTrue(glb.GltfModelJson.Length>0);
             Assert.IsTrue(glb.GltfModelBin.Length>0);
         }
+
+        [Test]
+        public void ParseB3dmTestIssue3()
+        {
+            // issue https://github.com/bertt/b3dm-tile-cs/issues/3
+            // arrange
+            const string testfile = "B3dm.Tile.Tests.testfixtures.2.b3dm";
+            var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(testfile);
+
+            // act
+            // next statement gives EndOfStreamException because Glb.ModelBin is missing
+            var b3dm = B3dmParser.ParseB3dm(stream, true);
+
+            // assert
+            Assert.IsTrue(b3dm != null);
+        }
+
     }
 }
