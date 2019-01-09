@@ -1,7 +1,5 @@
 using NUnit.Framework;
 using System.IO;
-using System.Net;
-using System.Net.Http;
 using System.Reflection;
 
 namespace B3dm.Tile.Tests
@@ -26,12 +24,13 @@ namespace B3dm.Tile.Tests
             var expectedVersionHeader = 1;
 
             // act
-            var b3dm = B3dmParser.ParseB3dm(b3dmfile, false);
+            var b3dm = B3dmParser.ParseB3dm(b3dmfile);
 
             // assert
             Assert.IsTrue(expectedMagicHeader == b3dm.Magic);
             Assert.IsTrue(expectedVersionHeader == b3dm.Version);
             Assert.IsTrue(b3dm.GlbData.Length > 0);
+            Assert.IsTrue(GltfVersionChecker.GetGlbVersion(b3dm.GlbData) == 2);
         }
     }
 }

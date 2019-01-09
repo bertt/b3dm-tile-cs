@@ -5,7 +5,7 @@ namespace B3dm.Tile
 {
     public static class B3dmParser
     {
-        public static B3dm ParseB3dm(Stream stream, bool AddGlbDetails = false)
+        public static B3dm ParseB3dm(Stream stream)
         {
             using (var reader = new BinaryReader(stream)) {
 
@@ -21,19 +21,19 @@ namespace B3dm.Tile
                 var batchTableJsonByteLength = reader.ReadUInt32();
                 var batchTableBinaryByteLength = reader.ReadUInt32();
 
-                var glbBuffer = reader.ReadBytes((int)bytelength-headerByteLength);
+                var glbBuffer = reader.ReadBytes((int)bytelength - headerByteLength);
+
+                var featureTableJsonBytes = reader.ReadBytes((int)featureTableJsonByteLength);
 
                 var b3dm = new B3dm {
                     Magic = magic,
-                    Version =(int)version,
+                    Version = (int)version,
                     GlbData = glbBuffer,
+                    FeatureTableJsonByteLength = (int)featureTableJsonByteLength,
+                    FeatureTableBinaryByteLength = (int)featureTableBinaryByteLength,
+                    BatchTableJsonByteLength = (int)batchTableJsonByteLength,
+                    BatchTableBinaryByteLength = (int)batchTableBinaryByteLength
                 };
-
-                if (AddGlbDetails) {
-                    var glbStream = new MemoryStream(glbBuffer);
-                    var glb = GlbParser.ParseGlb(glbStream);
-                    b3dm.Glb = glb;
-                }
                 return b3dm;
             }
         }

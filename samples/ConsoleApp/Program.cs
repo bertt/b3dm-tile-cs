@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using B3dm.Tile;
 
 namespace ConsoleApp
@@ -10,7 +11,7 @@ namespace ConsoleApp
         static void Main(string[] args)
         {
             string infile = "testfixtures/1311.b3dm";
-            string outfile = "test.glb";
+            string outfile = "1311.glb";
 
             var stream=File.OpenRead(infile);
             Console.WriteLine("B3dm tile sample application");
@@ -22,6 +23,9 @@ namespace ConsoleApp
             var bw = new BinaryWriter(fs);
             bw.Write(b3dm.GlbData);
             bw.Close();
+
+            var gltfVersion = GltfVersionChecker.GetGlbVersion(b3dm.GlbData);
+            Console.WriteLine($"Gltf version: {gltfVersion}");
             Console.WriteLine($"Press any key to continue...");
             Console.ReadKey();
         }

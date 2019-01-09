@@ -29,6 +29,16 @@ glTF Validator: http://github.khronos.org/glTF-Validator/
 
 NETStandard.Library 2.0.3
 
+## History
+
+2019-01-09: version 0.4. 
+
+  - Removed parsing Glb code
+
+  - Added helper methode GltfVersionChecker.GetGlbVersion(b3dm.GlbData) for checking version of glTF data
+
+  - Added b3dm headers FeatureTableJsonByteLength, FeatureTableBinaryByteLength, BatchTableJsonByteLength, batchTableBinaryByteLength. 
+
 ## Benchmark
 
 ```
