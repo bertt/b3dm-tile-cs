@@ -1,5 +1,7 @@
 using NUnit.Framework;
 using System.IO;
+using System.Net;
+using System.Net.Http;
 using System.Reflection;
 
 namespace B3dm.Tile.Tests
@@ -33,19 +35,22 @@ namespace B3dm.Tile.Tests
         }
 
         [Test]
-        public void ParseB3dmTestIssue3()
+        public void ParseB3dmTestIssue3WithDownload()
         {
             // issue https://github.com/bertt/b3dm-tile-cs/issues/3
             // arrange
-            const string file = "B3dm.Tile.Tests.testfixtures.2.b3dm";
-            var testfile = Assembly.GetExecutingAssembly().GetManifestResourceStream(file);
-
+            var url = "https://saturnus.geodan.nl/tomt/data/buildingtiles_texel/tiles/2.b3dm";
+            var httpClient = new HttpClient();
+            var bytes = httpClient.GetByteArrayAsync(url).Result;
+            var stream = new MemoryStream(bytes);
 
             // act
-            var b3dm = B3dmParser.ParseB3dm(testfile);
+            var b3dm = B3dmParser.ParseB3dm(stream);
 
             // assert
             Assert.IsTrue(b3dm != null);
         }
+
+
     }
 }
