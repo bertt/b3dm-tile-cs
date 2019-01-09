@@ -1,17 +1,16 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using B3dm.Tile;
 
 namespace ConsoleApp
 {
-    class Program
+    static class Program
     {
 
         static void Main(string[] args)
         {
-            string infile = "testfixtures/1311.b3dm";
-            string outfile = "1311.glb";
+            string infile = "testfixtures/2.b3dm";
+            string outfile = "2.glb";
 
             var stream=File.OpenRead(infile);
             Console.WriteLine("B3dm tile sample application");
