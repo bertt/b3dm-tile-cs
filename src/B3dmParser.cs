@@ -9,12 +9,8 @@ namespace B3dm.Tile
         {
             using (var reader = new BinaryReader(stream)) {
 
-                // first 4 bytes must be 'b3dm' otherwise its not a b3dm file
                 var magic = Encoding.UTF8.GetString(reader.ReadBytes(4));
-
-                // version should be 1 otherwise its not a b3dm file
                 var version = (int)reader.ReadUInt32();
-                var headerByteLength = 28;
                 var bytelength = (int)reader.ReadUInt32();
                 var featureTableJsonByteLength = (int)reader.ReadUInt32();
                 var featureTableBinaryByteLength = (int)reader.ReadUInt32();
@@ -28,7 +24,6 @@ namespace B3dm.Tile
 
                 var glbLength = (int)(reader.BaseStream.Length - reader.BaseStream.Position);
                 var glbBuffer = reader.ReadBytes(glbLength);
-                // var glbBuffer = reader.ReadBytes(bytelength - headerByteLength- featureTableJsonByteLength - featureTableBinaryByteLength - batchTableJsonByteLength - batchTableBinaryByteLength);
 
                 var b3dm = new B3dm {
                     Magic = magic,
