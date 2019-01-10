@@ -26,7 +26,9 @@ namespace B3dm.Tile
                 var batchTableJson = Encoding.UTF8.GetString(reader.ReadBytes(batchTableJsonByteLength));
                 var batchTableBytes = reader.ReadBytes(batchTableBinaryByteLength);
 
-                var glbBuffer = reader.ReadBytes(bytelength - headerByteLength- featureTableJsonByteLength - featureTableBinaryByteLength - batchTableJsonByteLength - batchTableBinaryByteLength);
+                var glbLength = (int)(reader.BaseStream.Length - reader.BaseStream.Position);
+                var glbBuffer = reader.ReadBytes(glbLength);
+                // var glbBuffer = reader.ReadBytes(bytelength - headerByteLength- featureTableJsonByteLength - featureTableBinaryByteLength - batchTableJsonByteLength - batchTableBinaryByteLength);
 
                 var b3dm = new B3dm {
                     Magic = magic,

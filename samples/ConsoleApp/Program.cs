@@ -6,11 +6,10 @@ namespace ConsoleApp
 {
     static class Program
     {
-
         static void Main(string[] args)
         {
-            string infile = "testfixtures/2.b3dm";
-            string outfile = "2.glb";
+            string infile = "testfixtures/29.b3dm";
+            string outfile = "29.glb";
 
             var stream=File.OpenRead(infile);
             Console.WriteLine("B3dm tile sample application");

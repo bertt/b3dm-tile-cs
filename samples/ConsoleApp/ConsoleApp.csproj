@@ -13,7 +13,7 @@
     <None Update="testfixtures\1311.b3dm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="testfixtures\2.b3dm">
+    <None Update="testfixtures\29.b3dm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
