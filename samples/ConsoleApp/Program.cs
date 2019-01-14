@@ -11,6 +11,24 @@ namespace ConsoleApp
             string infile = "testfixtures/29.b3dm";
             string outfile = "29.glb";
 
+            // extracted from tileset.json (copied from http://saturnus.geodan.nl/tomt/data/buildingtiles_oudeschild/tileset.json)
+            double[] tilesetJsonTransform = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 3830058.036, 324388.491, 5072788.606, 1 };
+
+            // from https://github.com/AnalyticalGraphicsInc/3d-tiles/tree/master/specification#box
+            //"The boundingVolume.box property is an array of 12 numbers that define an oriented bounding box in a right-handed 3 - axis(x, y, z) Cartesian coordinate system 
+            //where the z-axis is up.The first three elements define the x, y, and z values for the center of the box.The next three elements(with indices 3, 4, and 5) 
+            //define the x - axis direction and half - length.The next three elements(indices 6, 7, and 8) define the y - axis direction and half - length.
+            //The last three elements(indices 9, 10, and 11) define the z - axis direction and half - length."
+            // so first three: center of box, then y-axis direction + half length + z-axis direction + half length
+            double[] tile_boundingVolume_29 = { -85.132, 86.914, 58.116, 69.763, 0, 0, 0, 61.386, 0, 0, 0, 59.127 };
+
+
+            // from https://github.com/AnalyticalGraphicsInc/3d-tiles/tree/master/specification#box
+            // "The geometricError property is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not. 
+            // At runtime, the geometric error is used to compute Screen-Space Error(SSE), the error measured in pixels.The SSE determines if a tile is sufficiently 
+            // detailed for the current view or if its children should be considered, see Geometric error."
+            double tilegeometricError_29 = 7.8125;
+
             var stream=File.OpenRead(infile);
             Console.WriteLine("B3dm tile sample application");
             Console.WriteLine($"Start parsing {infile}...");
