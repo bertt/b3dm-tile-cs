@@ -2,6 +2,8 @@
 
 .NET Standard 2.0 Library for (de)serializing B3dm files to/from glTF
 
+Batched 3D specification: https://github.com/AnalyticalGraphicsInc/3d-tiles/blob/master/specification/TileFormats/Batched3DModel/README.md
+
 [![NuGet Status](http://img.shields.io/nuget/v/b3dm-tile.svg?style=flat)](https://www.nuget.org/packages/b3dm-tile/)
 
 ## Sample code for conversion b3dm -> glb:
