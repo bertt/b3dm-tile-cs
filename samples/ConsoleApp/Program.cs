@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using B3dm.Tile;
+using DotSpatial.Positioning;
 
 namespace ConsoleApp
 {
@@ -20,16 +21,22 @@ namespace ConsoleApp
             //define the x - axis direction and half - length.The next three elements(indices 6, 7, and 8) define the y - axis direction and half - length.
             //The last three elements(indices 9, 10, and 11) define the z - axis direction and half - length."
             // so first three: center of box, then y-axis direction + half length + z-axis direction + half length
-            double[] tile_boundingVolume_29 = { -85.132, 86.914, 58.116, 69.763, 0, 0, 0, 61.386, 0, 0, 0, 59.127 };
+            double[] tile_boundingVolume = { -85.132, 86.914, 58.116, 69.763, 0, 0, 0, 61.386, 0, 0, 0, 59.127 };
 
 
             // from https://github.com/AnalyticalGraphicsInc/3d-tiles/tree/master/specification#box
             // "The geometricError property is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not. 
             // At runtime, the geometric error is used to compute Screen-Space Error(SSE), the error measured in pixels.The SSE determines if a tile is sufficiently 
             // detailed for the current view or if its children should be considered, see Geometric error."
-            double tilegeometricError_29 = 7.8125;
+            double tilegeometricError = 7.8125;
 
-            var stream=File.OpenRead(infile);
+            var rtc_cartesian = GetCartesianPoint((float)tilesetJsonTransform[12], (float)tilesetJsonTransform[13], (float)tilesetJsonTransform[14]);
+            var tile_cartesian = GetCartesianPoint((float)tile_boundingVolume[0], (float)tile_boundingVolume[1], (float)tile_boundingVolume[2]);
+
+            var centerPosition = (rtc_cartesian + tile_cartesian).ToPosition3D();
+            Console.WriteLine($"Center tile: {centerPosition.Longitude.DecimalDegrees}, {centerPosition.Latitude.DecimalDegrees}, {centerPosition.Altitude.Value}");
+
+            var stream =File.OpenRead(infile);
             Console.WriteLine("B3dm tile sample application");
             Console.WriteLine($"Start parsing {infile}...");
             var b3dm = B3dmParser.ParseB3dm(stream);
@@ -45,5 +52,17 @@ namespace ConsoleApp
             Console.WriteLine($"Press any key to continue...");
             Console.ReadKey();
         }
+
+
+        private static CartesianPoint GetCartesianPoint(float x, float y, float z)
+        {
+            var distance_x = new Distance(x, DistanceUnit.Meters);
+            var distance_y = new Distance(y, DistanceUnit.Meters);
+            var distance_z = new Distance(z, DistanceUnit.Meters);
+
+            var cartesian = new CartesianPoint(distance_x, distance_y, distance_z);
+            return cartesian;
+        }
+
     }
 }
