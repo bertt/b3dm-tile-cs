@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Numerics;
 using B3dm.Tile;
 using DotSpatial.Positioning;
 
@@ -32,10 +33,16 @@ namespace ConsoleApp
 
             var rtc_cartesian = GetCartesianPoint((float)tilesetJsonTransform[12], (float)tilesetJsonTransform[13], (float)tilesetJsonTransform[14]);
             var tile_cartesian = GetCartesianPoint((float)tile_boundingVolume[0], (float)tile_boundingVolume[1], (float)tile_boundingVolume[2]);
+            // q: is rotation directions correct or not?
+            var rotation_x = tile_boundingVolume[3];
+            var rotation_y = tile_boundingVolume[7];
+            var rotation_z = tile_boundingVolume[11];
+
+            // todo: process rotations
+            var rotationVector = new Vector3((float)rotation_x, (float)rotation_y, (float)rotation_z);
 
             var centerPosition = (rtc_cartesian + tile_cartesian).ToPosition3D();
             Console.WriteLine($"Center tile: {centerPosition.Longitude.DecimalDegrees}, {centerPosition.Latitude.DecimalDegrees}, {centerPosition.Altitude.Value}");
-
             var stream =File.OpenRead(infile);
             Console.WriteLine("B3dm tile sample application");
             Console.WriteLine($"Start parsing {infile}...");
@@ -48,6 +55,12 @@ namespace ConsoleApp
             bw.Close();
 
             var gltfVersion = GltfVersionChecker.GetGlbVersion(b3dm.GlbData);
+
+            // sample: load in gltf loader
+            var model = glTFLoader.Interface.LoadModel(new MemoryStream(b3dm.GlbData));
+
+            Console.WriteLine("Generator: " + model.Asset.Generator);
+
             Console.WriteLine($"Gltf version: {gltfVersion}");
             Console.WriteLine($"Press any key to continue...");
             Console.ReadKey();

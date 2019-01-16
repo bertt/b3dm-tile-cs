@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="DotSpatial.Positioning.PCL" Version="1.7.0" />
+    <PackageReference Include="glTF2Loader" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,6 +16,9 @@
 
   <ItemGroup>
     <None Update="testfixtures\1311.b3dm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testfixtures\15.b3dm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="testfixtures\29.b3dm">
