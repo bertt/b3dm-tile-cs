@@ -10,7 +10,7 @@ namespace b3dm.tile.benchmarks
         public void ParseB3dmTileFromStream()
         {
             var stream = File.OpenRead("1311.b3dm");
-            B3dmParser.ParseB3dm(stream);
+            B3dmReader.ReadB3dm(stream);
         }
 
     }

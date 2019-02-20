@@ -12,6 +12,7 @@
   <ItemGroup>
     <None Remove="testfixtures\1311.b3dm" />
     <None Remove="testfixtures\29.b3dm" />
+    <None Remove="testfixtures\building.wkb" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +20,7 @@
     <EmbeddedResource Include="testfixtures\29.b3dm">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="testfixtures\building.wkb" />
   </ItemGroup>
 
   <ItemGroup>

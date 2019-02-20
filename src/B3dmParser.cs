@@ -3,9 +3,9 @@ using System.Text;
 
 namespace B3dm.Tile
 {
-    public static class B3dmParser
+    public static class B3dmReader
     {
-        public static B3dm ParseB3dm(Stream stream)
+        public static B3dm ReadB3dm(Stream stream)
         {
             using (var reader = new BinaryReader(stream)) {
 

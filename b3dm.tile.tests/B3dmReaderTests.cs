@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace B3dm.Tile.Tests
 {
-    public class B3dmParserTests
+    public class B3dmReaderTests
     {
         Stream b3dmfile;
 
@@ -17,14 +17,14 @@ namespace B3dm.Tile.Tests
         }
 
         [Test]
-        public void ParseB3dmTest()
+        public void ReadB3dmTest()
         {
             // arrange
             var expectedMagicHeader = "b3dm";
             var expectedVersionHeader = 1;
 
             // act
-            var b3dm = B3dmParser.ParseB3dm(b3dmfile);
+            var b3dm = B3dmReader.ReadB3dm(b3dmfile);
 
             // assert
             Assert.IsTrue(expectedMagicHeader == b3dm.Magic);
