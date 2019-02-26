@@ -45,14 +45,14 @@ namespace B3dm.Tile.Tests
 
             // act
             var vectProd = Projections.GetVectorProduct(polygon);
-            var poly = Projections.Get2DPolygon(polygon);
+            var poly = Projections.Get2DPoints(polygon);
             var isyz = Projections.IsYZProjection(vectProd);
             var iszx = Projections.IsZXProjection(vectProd);
 
             // assert
             Assert.IsFalse(isyz);
             Assert.IsTrue(iszx);
-            Assert.IsTrue(poly.ExteriorRing.Points.Count == 5);
+            Assert.IsTrue(poly.Count == 10);
         }
 
 
@@ -80,8 +80,6 @@ namespace B3dm.Tile.Tests
 
             return GetPoly(p0, p1, p2, p3, p4);
         }
-
-
 
         private static Polygon GetPoly(Point p0, Point p1, Point p2, Point p3, Point p4)
         {

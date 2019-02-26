@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Wkx;
 
 namespace B3dm.Tile.Tests
@@ -14,22 +15,20 @@ namespace B3dm.Tile.Tests
             return vectProd;
         }
 
-
-        public static Polygon Get2DPolygon(Polygon polygon3d)
+        public static List<double> Get2DPoints(Polygon polygon3d)
         {
-            var polygon = new Polygon();
-
+            var points2d = new List<double>();
             var vectProd = GetVectorProduct(polygon3d);
+            var points3d = polygon3d.ExteriorRing.Points;
 
-            var points = polygon3d.ExteriorRing.Points;
-
-            foreach (var point3d in points)
+            foreach (var point3d in points3d)
             {
                 var point2d = GetPoint(vectProd, point3d);
-                polygon.ExteriorRing.Points.Add(point2d);
+                points2d.Add((double)point2d.X);
+                points2d.Add((double)point2d.Y);
             }
 
-            return polygon;
+            return points2d;
         }
 
         private static Point GetPoint(Point vectProd, Point point3d)
