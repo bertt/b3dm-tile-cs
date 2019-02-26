@@ -6,6 +6,15 @@ namespace B3dm.Tile.Tests
     public class ProjectionsTests
     {
         [Test]
+        public void DotProductTest()
+        {
+            var p1 = new Point(-23.204334, -0.24502136, 0.0);
+            var p2 = new Point(23.204334, -0.24502136, 0.0);
+            var dotproduct = Projections.DotProduct(p1, p2);
+            Assert.IsTrue(dotproduct == -538.38108091669972);
+        }
+
+        [Test]
         public void IsYZProjection()
         {
             var p = new Point(-23.204334043097425, -0.24502019837234382,0);

@@ -6,6 +6,25 @@ namespace B3dm.Tile.Tests
 {
     public static class Projections
     {
+
+        public static bool InvertTriangle(Point vectProd, Point point0, Point point1, Point point2)
+        {
+            var crossproduct = point1.Minus(point0).Cross(point2.Minus(point0));
+            var dotproduct = DotProduct(vectProd, crossproduct);
+            var invert = (dotproduct < 0);
+            return invert;
+        }
+
+
+        public static double DotProduct(Point vec1, Point vec2)
+        {
+            double product = (double)vec1.X * (double)vec2.X;
+            product += (double)vec1.Y * (double)vec2.Y;
+            product += (double)vec1.Y * (double)vec2.Z;
+            return product;
+        }
+
+
         public static Point GetVectorProduct(Polygon polygon)
         {
             var points = polygon.ExteriorRing.Points;
