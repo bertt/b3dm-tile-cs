@@ -15,7 +15,7 @@ namespace B3dm.Tile.Tests
             var t = new Triangle(p0, p1, p2);
             triangles.Add(t);
 
-            var bytes = triangles.ToBinary();
+            var bytes = triangles.PositionsToBinary();
             Assert.IsTrue(bytes.Length > 0);
         }
     }

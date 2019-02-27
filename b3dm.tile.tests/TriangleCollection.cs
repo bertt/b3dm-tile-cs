@@ -4,7 +4,7 @@ namespace B3dm.Tile.Tests
 {
     public class TriangleCollection: List<Triangle>
     {
-        public byte[] ToBinary()
+        public byte[] PositionsToBinary()
         {
             var floats = new List<float>();
             foreach (var triangle in this)

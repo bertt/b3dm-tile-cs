@@ -29,15 +29,15 @@ namespace B3dm.Tile.Tests
             return p2;
         }
 
-        public double GetNormal()
+        public Vector3 GetNormal()
         {
             var u = p1.Minus(p0);
             var vector_u = new Vector3(u.X, u.Y, u.Z);
             var v = p2.Minus(p0);
             var vector_v = new Vector3(v.X, v.Y, v.Z);
-            var n = Vector3.Cross(vector_u, vector_v);
-            var distance = n.Length();
-            return distance;
+            var c = Vector3.Cross(vector_u, vector_v);
+            var n = Vector3.Normalize(c);
+            return n;
         }
 
         public List<float> ToArray()
