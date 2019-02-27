@@ -1,36 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using Wkx;
 
 namespace B3dm.Tile.Tests
 {
     public static class Projections
     {
-
-        public static bool InvertTriangle(Point vectProd, Point point0, Point point1, Point point2)
+        public static bool InvertTriangle(Vector3 vectProd, Point point0, Point point1, Point point2)
         {
-            var crossproduct = point1.Minus(point0).Cross(point2.Minus(point0));
-            var dotproduct = DotProduct(vectProd, crossproduct);
+            var v1 = point1.Minus(point0);
+            var v2 = point2.Minus(point0);
+            var crossproduct = Vector3.Cross(v1,v2);
+            var dotproduct = Vector3.Dot(vectProd, crossproduct);
             var invert = (dotproduct < 0);
             return invert;
         }
-
-
-        public static double DotProduct(Point vec1, Point vec2)
-        {
-            double product = (double)vec1.X * (double)vec2.X;
-            product += (double)vec1.Y * (double)vec2.Y;
-            product += (double)vec1.Y * (double)vec2.Z;
-            return product;
-        }
-
-
-        public static Point GetVectorProduct(Polygon polygon)
+        public static Vector3 GetVectorProduct(Polygon polygon)
         {
             var points = polygon.ExteriorRing.Points;
             var vect1 = points[1].Minus(points[0]);
             var vect2 = points[2].Minus(points[0]);
-            var vectProd = vect1.Cross(vect2);
+            var vectProd = Vector3.Cross(vect1, vect2);
             return vectProd;
         }
 
@@ -50,7 +41,7 @@ namespace B3dm.Tile.Tests
             return points2d;
         }
 
-        private static Point GetPoint(Point vectProd, Point point3d)
+        private static Point GetPoint(Vector3 vectProd, Point point3d)
         {
             Point newpoint;
             if (IsYZProjection(vectProd))
@@ -70,15 +61,15 @@ namespace B3dm.Tile.Tests
             return newpoint;
         }
 
-        public static bool IsYZProjection(Point vectProd)
+        public static bool IsYZProjection(Vector3 vectProd)
         {
-            return Math.Abs((double)vectProd.X) > Math.Abs((double)vectProd.Y) &&
-                Math.Abs((double)vectProd.X) > Math.Abs((double)vectProd.Z);
+            return Math.Abs(vectProd.X) > Math.Abs(vectProd.Y) &&
+                Math.Abs(vectProd.X) > Math.Abs(vectProd.Z);
         }
 
-        public static bool IsZXProjection(Point vectProd)
+        public static bool IsZXProjection(Vector3 vectProd)
         {
-            return Math.Abs((double)vectProd.Y) > Math.Abs((double)vectProd.Z);
+            return Math.Abs(vectProd.Y) > Math.Abs(vectProd.Z);
         }
 
     }

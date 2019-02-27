@@ -18,7 +18,7 @@ namespace B3dm.Tile.Tests
         }
 
         [Test]
-        public void TraingleBinayConvertorTest()
+        public void TriangleBinayConvertorTest()
         {
             var triangles = new List<Triangle>();
             var p0 = new Point(0, 0, 1);

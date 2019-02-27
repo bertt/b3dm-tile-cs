@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.Numerics;
 using Wkx;
 
 namespace B3dm.Tile.Tests
 {
     public static class PointExtensions
     {
-        public static Point Minus(this Point p, Point other)
+        public static Vector3 Minus(this Point p, Point other)
         {
             var x = p.X - other.X;
             var y = p.Y - other.Y;
             var z = p.Z - other.Z;
-            return new Point((double)x,(double)y,z);
+            return new Vector3((float)x,(float)y,(float)z);
         }
 
         public static Point Cross(this Point p, Point other)

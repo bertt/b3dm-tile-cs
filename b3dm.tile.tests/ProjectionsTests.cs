@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System.Numerics;
 using Wkx;
 
 namespace B3dm.Tile.Tests
@@ -6,18 +7,9 @@ namespace B3dm.Tile.Tests
     public class ProjectionsTests
     {
         [Test]
-        public void DotProductTest()
-        {
-            var p1 = new Point(-23.204334, -0.24502136, 0.0);
-            var p2 = new Point(23.204334, -0.24502136, 0.0);
-            var dotproduct = Projections.DotProduct(p1, p2);
-            Assert.IsTrue(dotproduct == -538.38108091669972);
-        }
-
-        [Test]
         public void IsYZProjection()
         {
-            var p = new Point(-23.204334043097425, -0.24502019837234382,0);
+            var p = new Vector3(-23.204334043097425f, -0.24502019837234382f, 0f);
             Assert.IsTrue(Projections.IsYZProjection(p));
             // heuh next one fails....
             // Assert.IsFalse(Projections.IsZXProjection(p));
@@ -26,7 +18,7 @@ namespace B3dm.Tile.Tests
         [Test]
         public void IsZXProjection()
         {
-            var p = new Point(0.49031478, -46.434658, 0.0);
+            var p = new Vector3(0.49031478f, -46.434658f, 0.0f);
             Assert.IsFalse(Projections.IsYZProjection(p));
             Assert.IsTrue(Projections.IsZXProjection(p));
         }
@@ -41,8 +33,8 @@ namespace B3dm.Tile.Tests
             var vectProd = Projections.GetVectorProduct(polygon);
 
             // assert
-            Assert.IsTrue(vectProd.X == -23.204334043097425);
-            Assert.IsTrue(vectProd.Y == -0.24502019837234382);
+            Assert.IsTrue(vectProd.X == -23.2043343f);
+            Assert.IsTrue(vectProd.Y == -0.245020181f);
             Assert.IsTrue(vectProd.Z == 0);
         }
 
@@ -64,7 +56,6 @@ namespace B3dm.Tile.Tests
             Assert.IsTrue(poly.Count == 10);
         }
 
-
         private Polygon GetFirstBuildingPolygon()
         {
             // arrange (this is first polygon of building.wkb)
@@ -76,7 +67,6 @@ namespace B3dm.Tile.Tests
 
             return GetPoly(p0, p1, p2, p3, p4);
         }
-
 
         private Polygon GetSecondBuildingPolygon()
         {
