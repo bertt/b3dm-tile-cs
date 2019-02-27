@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Numerics;
 using Wkx;
 
@@ -32,12 +32,21 @@ namespace B3dm.Tile.Tests
         public double GetNormal()
         {
             var u = p1.Minus(p0);
-            var vector_u = new Vector3((float)u.X, (float)u.Y, (float)u.Z);
+            var vector_u = new Vector3(u.X, u.Y, u.Z);
             var v = p2.Minus(p0);
-            var vector_v = new Vector3((float)v.X, (float)v.Y, (float)v.Z);
+            var vector_v = new Vector3(v.X, v.Y, v.Z);
             var n = Vector3.Cross(vector_u, vector_v);
             var distance = n.Length();
             return distance;
+        }
+
+        public List<float> ToArray()
+        {
+            var floats = new List<float>();
+            floats.AddRange(GetP0().ToArray());
+            floats.AddRange(GetP1().ToArray());
+            floats.AddRange(GetP2().ToArray());
+            return floats;
         }
     }
 }

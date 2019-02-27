@@ -5,9 +5,9 @@ namespace B3dm.Tile.Tests
 {
     public class Triangulator
     {
-        public static List<Triangle> Triangulate(PolyhedralSurface polyhedralsurface)
+        public static TriangleCollection Triangulate(PolyhedralSurface polyhedralsurface)
         {
-            var allTriangles = new List<Triangle>();
+            var allTriangles = new TriangleCollection();
             foreach (var geometry in polyhedralsurface.Geometries)
             {
                 var points2d = Projections.Get2DPoints(geometry);
@@ -19,12 +19,12 @@ namespace B3dm.Tile.Tests
             return allTriangles;
         }
 
-        public static List<Triangle> GetTriangles(Polygon polygon3d, List<int> triangleIndexes)
+        public static TriangleCollection GetTriangles(Polygon polygon3d, List<int> triangleIndexes)
         {
             var vectProd = Projections.GetVectorProduct(polygon3d);
             var triangles_count = triangleIndexes.Count / 3;
 
-            var triangles = new List<Triangle>();
+            var triangles = new TriangleCollection();
             for (var i = 0; i < triangles_count; i++)
             {
                 var point0 = polygon3d.ExteriorRing.Points[triangleIndexes[i * 3]];

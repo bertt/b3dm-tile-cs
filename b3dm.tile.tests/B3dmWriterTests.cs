@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Numerics;
 using System.Reflection;
 using Wkx;
 
@@ -28,10 +27,8 @@ namespace B3dm.Tile.Tests
             var triangles = Triangulator.Triangulate(polyhedralsurface);
             Assert.IsTrue(triangles.Count == 22);
 
-            var bytes = BinaryConvertor.ToBinary(triangles);
+            var bytes = triangles.ToBinary();
             Assert.IsTrue(bytes.Length == 792);
-
         }
-
     }
 }

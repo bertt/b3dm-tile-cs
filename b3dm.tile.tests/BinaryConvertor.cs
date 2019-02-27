@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 
 namespace B3dm.Tile.Tests
 {
@@ -14,20 +13,6 @@ namespace B3dm.Tile.Tests
                 binaryWriter.Write(f);
             }
             var bytes = ms.ToArray();
-            return bytes;
-        }
-
-
-        public static byte[] ToBinary(List<Triangle> triangles)
-        {
-            var floats = new List<float>();
-            foreach (var triangle in triangles)
-            {
-                floats.AddRange(triangle.GetP0().ToXYZFloatArray());
-                floats.AddRange(triangle.GetP1().ToXYZFloatArray());
-                floats.AddRange(triangle.GetP2().ToXYZFloatArray());
-            }
-            var bytes = BinaryConvertor.ToBinary(floats.ToArray());
             return bytes;
         }
     }

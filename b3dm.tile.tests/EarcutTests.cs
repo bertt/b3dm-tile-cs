@@ -55,7 +55,5 @@ namespace B3dm.Tile.Tests
             polygon.ExteriorRing.Points.Add(p4);
             return polygon;
         }
-
-
     }
 }

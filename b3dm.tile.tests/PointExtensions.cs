@@ -14,16 +14,7 @@ namespace B3dm.Tile.Tests
             return new Vector3((float)x,(float)y,(float)z);
         }
 
-        public static Point Cross(this Point p, Point other)
-        {
-            var x = p.Y * other.Z - other.Y * p.Z;
-            var y = (p.X * other.Z - other.X * p.Z) * -1;
-            var z = p.X * other.Y - other.X * p.Y;
-
-            return new Point((double)x, (double)y, z);
-        }
-
-        public static List<float> ToXYZFloatArray(this Point p)
+        public static List<float> ToArray(this Point p)
         {
             var floats = new List<float>();
             floats.Add((float)p.X);
