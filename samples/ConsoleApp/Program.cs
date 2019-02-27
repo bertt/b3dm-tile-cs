@@ -29,7 +29,7 @@ namespace ConsoleApp
             // "The geometricError property is a nonnegative number that defines the error, in meters, introduced if this tile is rendered and its children are not. 
             // At runtime, the geometric error is used to compute Screen-Space Error(SSE), the error measured in pixels.The SSE determines if a tile is sufficiently 
             // detailed for the current view or if its children should be considered, see Geometric error."
-            double tilegeometricError = 7.8125;
+            // double tilegeometricError = 7.8125;
 
             var rtc_cartesian = GetCartesianPoint((float)tilesetJsonTransform[12], (float)tilesetJsonTransform[13], (float)tilesetJsonTransform[14]);
             var tile_cartesian = GetCartesianPoint((float)tile_boundingVolume[0], (float)tile_boundingVolume[1], (float)tile_boundingVolume[2]);
@@ -38,8 +38,8 @@ namespace ConsoleApp
             var rotation_y = tile_boundingVolume[7];
             var rotation_z = tile_boundingVolume[11];
 
-            // todo: process rotations
-            var rotationVector = new Vector3((float)rotation_x, (float)rotation_y, (float)rotation_z);
+            // process rotations
+            //var rotationVector = new Vector3((float)rotation_x, (float)rotation_y, (float)rotation_z);
 
             var centerPosition = (rtc_cartesian + tile_cartesian).ToPosition3D();
             Console.WriteLine($"Center tile: {centerPosition.Longitude.DecimalDegrees}, {centerPosition.Latitude.DecimalDegrees}, {centerPosition.Altitude.Value}");

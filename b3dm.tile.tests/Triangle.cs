@@ -1,10 +1,12 @@
-﻿using Wkx;
+﻿using System;
+using System.Numerics;
+using Wkx;
 
 namespace B3dm.Tile.Tests
 {
     public class Triangle
     {
-        private Point p0, p1, p2;
+        private readonly Point p0, p1, p2;
         public Triangle(Point p0, Point p1, Point p2)
         {
             this.p0 = p0;
@@ -25,6 +27,17 @@ namespace B3dm.Tile.Tests
         public Point GetP2()
         {
             return p2;
+        }
+
+        public double GetNormal()
+        {
+            var u = p1.Minus(p0);
+            var vector_u = new Vector3((float)u.X, (float)u.Y, (float)u.Z);
+            var v = p2.Minus(p0);
+            var vector_v = new Vector3((float)v.X, (float)v.Y, (float)v.Z);
+            var n = Vector3.Cross(vector_u, vector_v);
+            var distance = n.Length();
+            return distance;
         }
     }
 }

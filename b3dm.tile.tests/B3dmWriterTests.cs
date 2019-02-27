@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.IO;
+using System.Numerics;
 using System.Reflection;
 using Wkx;
 
@@ -31,6 +30,7 @@ namespace B3dm.Tile.Tests
 
             var bytes = BinaryConvertor.ToBinary(triangles);
             Assert.IsTrue(bytes.Length == 792);
+
         }
 
     }
