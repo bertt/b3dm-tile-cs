@@ -1,4 +1,5 @@
-﻿using Wkx;
+﻿using System.Collections.Generic;
+using Wkx;
 
 namespace B3dm.Tile.Tests
 {
@@ -19,6 +20,15 @@ namespace B3dm.Tile.Tests
             var z = p.X * other.Y - other.X * p.Y;
 
             return new Point((double)x, (double)y, z);
+        }
+
+        public static List<float> ToXYZFloatArray(this Point p)
+        {
+            var floats = new List<float>();
+            floats.Add((float)p.X);
+            floats.Add((float)p.Y);
+            floats.Add((float)p.Z);
+            return floats;
         }
     }
 }
