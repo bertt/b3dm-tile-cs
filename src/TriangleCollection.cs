@@ -10,7 +10,7 @@ namespace B3dm.Tile
             var floats = new List<float>();
             foreach (var triangle in this)
             {
-                floats.AddRange(triangle.ToArray());
+                floats.AddRange(triangle.Flatten());
             }
             var bytes = BinaryConvertor.ToBinary(floats.ToArray());
             return bytes;
@@ -40,7 +40,6 @@ namespace B3dm.Tile
 
             return faces;
         }
-
 
         public byte[] NormalsToBinary()
         {

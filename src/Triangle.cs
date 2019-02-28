@@ -40,13 +40,13 @@ namespace B3dm.Tile
             return n;
         }
 
-        public List<float> ToArray()
+        public float[] Flatten()
         {
             var floats = new List<float>();
             floats.AddRange(GetP0().ToArray());
             floats.AddRange(GetP1().ToArray());
             floats.AddRange(GetP2().ToArray());
-            return floats;
+            return floats.ToArray();
         }
     }
 }
