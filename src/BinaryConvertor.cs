@@ -1,7 +1,6 @@
 ﻿using System.IO;
-using System.Numerics;
 
-namespace B3dm.Tile.Tests
+namespace B3dm.Tile
 {
     public static class BinaryConvertor
     {

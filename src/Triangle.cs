@@ -2,7 +2,7 @@
 using System.Numerics;
 using Wkx;
 
-namespace B3dm.Tile.Tests
+namespace B3dm.Tile
 {
     public class Triangle
     {

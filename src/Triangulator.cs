@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Wkx;
 
-namespace B3dm.Tile.Tests
+namespace B3dm.Tile
 {
     public class Triangulator
     {

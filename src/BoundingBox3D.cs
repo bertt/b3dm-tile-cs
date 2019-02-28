@@ -1,6 +1,4 @@
-﻿using Wkx;
-
-namespace B3dm.Tile.Tests
+﻿namespace B3dm.Tile
 {
     public class BoundingBox3D
     {

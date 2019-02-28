@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace B3dm.Tile.Tests
+namespace B3dm.Tile
 {
     public class Earcut
     {
