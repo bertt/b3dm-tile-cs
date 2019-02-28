@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Numerics;
 
 namespace B3dm.Tile.Tests
 {
@@ -8,9 +9,9 @@ namespace B3dm.Tile.Tests
         {
             var ms = new MemoryStream();
             var binaryWriter = new BinaryWriter(ms);
-            foreach (var f in array1)
+            foreach (var p in array1)
             {
-                binaryWriter.Write(f);
+                binaryWriter.Write(p);
             }
             var bytes = ms.ToArray();
             return bytes;

@@ -27,8 +27,13 @@ namespace B3dm.Tile.Tests
             var triangles = Triangulator.Triangulate(polyhedralsurface);
             Assert.IsTrue(triangles.Count == 22);
 
-            var bytes = triangles.PositionsToBinary();
-            Assert.IsTrue(bytes.Length == 792);
+            var bytesPositions = triangles.PositionsToBinary();
+            Assert.IsTrue(bytesPositions.Length == 792);
+
+            var bytesNormals = triangles.NormalsToBinary();
+            Assert.IsTrue(bytesNormals.Length == 792);
+
+            // todo: get data array
         }
     }
 }
