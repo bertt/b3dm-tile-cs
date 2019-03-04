@@ -1,6 +1,8 @@
 ﻿namespace Gltf.Core
 {
-    class GltfMaterial
+    public class GltfMaterial
     {
+        public GltfPbrMetallicRoughness GltfPbrMetallicRoughness { get; set; }
+        public string Name { get; set; }
     }
 }

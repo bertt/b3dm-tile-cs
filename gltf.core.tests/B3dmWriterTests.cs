@@ -1,5 +1,4 @@
-﻿using Gltf.Core;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -45,13 +44,13 @@ namespace Gltf.Core.Tests
                 BBox = bb
             };
 
-            CreateGltf(gltfArray, transform);
+            var gltfHeader = GetGltfHeader(gltfArray, transform);
 
             // todo: make b3dm from gltf
             // in python: B3dm.from_glTF(glTF)
         }
 
-        public void CreateGltf(GltfArray  gltfArray, float[] transform)
+        public GltfHeader GetGltfHeader(GltfArray  gltfArray, float[] transform)
         {
             // q: whats the 12?
             var n= (int)Math.Round((double)gltfArray.Positions.Length / 12, 0);
@@ -65,6 +64,10 @@ namespace Gltf.Core.Tests
             Assert.IsTrue(byteLength == 1584);
             byteLength += gltfArray.Positions.Length / 3;
             Assert.IsTrue(byteLength == 1848);
+            var buffers = new List<GltfBuffer>();
+            var buffer = new GltfBuffer() { ByteLength = byteLength };
+            buffers.Add(buffer);
+
             var bufferViews = new List<GltfBufferView>();
             // q: whats 34962? ## vertices
             bufferViews.Add(new GltfBufferView() { Buffer = 0, ByteLength = gltfArray.Positions.Length, ByteOffset = 0, Target = 34962 });
@@ -123,7 +126,24 @@ namespace Gltf.Core.Tests
             nodes.Add(node);
 
             // # materials
+            var materials = new List<GltfMaterial>();
+            var material = new GltfMaterial() { Name = "Material", GltfPbrMetallicRoughness = new GltfPbrMetallicRoughness() { MetallicFactor = 0 } };
+            materials.Add(material);
 
+            // # GltfHeader
+            var gltfHeader = new GltfHeader();
+            gltfHeader.GltfAsset = new GltfAsset() { Generator = "Glt.Core", Version = "2.0" };
+            gltfHeader.Scene = 0;
+            var gltfScenes = new List<GltfScene>();
+            gltfScenes.Add(new GltfScene() { Nodes = new int[nodes.Count] });
+            gltfHeader.Scenes = gltfScenes;
+            gltfHeader.Nodes = nodes;
+            gltfHeader.Meshes = meshes;
+            gltfHeader.Materials = materials;
+            gltfHeader.Accessors = accessors;
+            gltfHeader.BufferViews = bufferViews;
+            gltfHeader.Buffers = buffers;
+            return gltfHeader;
         }
     }
 }

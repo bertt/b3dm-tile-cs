@@ -1,5 +1,4 @@
-﻿using Gltf.Core;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Gltf.Core.Tests
 {

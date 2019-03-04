@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using Wkx;
-using Gltf.Core;
 
 namespace Gltf.Core.Tests
 {
