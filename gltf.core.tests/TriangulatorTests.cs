@@ -1,8 +1,9 @@
 ﻿using NUnit.Framework;
 using System.Reflection;
 using Wkx;
+using Gltf.Core;
 
-namespace B3dm.Tile.Tests
+namespace Gltf.Core.Tests
 {
     public class TriangulatorTests
     {
@@ -10,7 +11,7 @@ namespace B3dm.Tile.Tests
         public void TriangulateTest()
         {
             // arrange
-            const string testfile = "B3dm.Tile.Tests.testfixtures.building.wkb";
+            const string testfile = "Gltf.Core.Tests.testfixtures.building.wkb";
             var buildingWkb = Assembly.GetExecutingAssembly().GetManifestResourceStream(testfile);
             var g = Geometry.Deserialize<WkbSerializer>(buildingWkb);
             Assert.IsTrue(g.GeometryType == GeometryType.PolyhedralSurface);

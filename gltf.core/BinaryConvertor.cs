@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace B3dm.Tile
+namespace Gltf.Core
 {
     public static class BinaryConvertor
     {

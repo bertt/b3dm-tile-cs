@@ -1,6 +1,7 @@
-﻿using NUnit.Framework;
+﻿using Gltf.Core;
+using NUnit.Framework;
 
-namespace B3dm.Tile.Tests
+namespace Gltf.Core.Tests
 {
     public class GltfArrayTests
     {

@@ -2,7 +2,7 @@
 using System.Numerics;
 using Wkx;
 
-namespace B3dm.Tile
+namespace Gltf.Core
 {
     public static class PointExtensions
     {

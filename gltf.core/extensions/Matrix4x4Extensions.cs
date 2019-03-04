@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace B3dm.Tile
+namespace Gltf.Core
 {
     public static class Matrix4x4Extensions
     {

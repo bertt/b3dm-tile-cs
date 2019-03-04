@@ -3,7 +3,7 @@ using System;
 using System.Reflection;
 using Wkx;
 
-namespace B3dm.Tile.Tests
+namespace Gltf.Core.Tests
 {
     public class PolyhedralSurfaceTests
     {
@@ -11,7 +11,7 @@ namespace B3dm.Tile.Tests
         public void PolyhedralSurfaceBoundingBox3DTest()
         {
             // arrange
-            const string testfile = "B3dm.Tile.Tests.testfixtures.building.wkb";
+            const string testfile = "Gltf.Core.Tests.testfixtures.building.wkb";
             var buildingWkb = Assembly.GetExecutingAssembly().GetManifestResourceStream(testfile);
             var g = Geometry.Deserialize<WkbSerializer>(buildingWkb);
             Assert.IsTrue(g.GeometryType == GeometryType.PolyhedralSurface);

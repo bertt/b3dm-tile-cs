@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Numerics;
 
-namespace B3dm.Tile
+namespace Gltf.Core
 {
     public class TriangleCollection: List<Triangle>
     {

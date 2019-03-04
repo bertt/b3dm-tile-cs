@@ -1,8 +1,9 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
 using Wkx;
+using Gltf.Core;
 
-namespace B3dm.Tile.Tests
+namespace Gltf.Core.Tests
 {
     public class EarcutTests
     {

@@ -1,4 +1,4 @@
-﻿namespace B3dm.Tile
+﻿namespace Gltf.Core
 {
     public class BoundingBox3D
     {

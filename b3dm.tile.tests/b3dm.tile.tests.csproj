@@ -12,7 +12,6 @@
   <ItemGroup>
     <None Remove="testfixtures\1311.b3dm" />
     <None Remove="testfixtures\29.b3dm" />
-    <None Remove="testfixtures\building.wkb" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,7 +19,6 @@
     <EmbeddedResource Include="testfixtures\29.b3dm">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="testfixtures\building.wkb" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\gltf.core\gltf.core.csproj" />
     <ProjectReference Include="..\src\b3dm.tile.csproj" />
   </ItemGroup>
 
