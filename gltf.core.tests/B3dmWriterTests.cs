@@ -14,6 +14,14 @@ namespace Gltf.Core.Tests
         {
             const string testfile = "Gltf.Core.Tests.testfixtures.building.wkb";
             var buildingWkb = Assembly.GetExecutingAssembly().GetManifestResourceStream(testfile);
+            var gltfFile = GetGltfFile(buildingWkb);
+
+            // todo: write gltfFile to file
+            // in python: B3dm.from_glTF(glTF)
+        }
+
+        private GltfFile GetGltfFile(System.IO.Stream buildingWkb)
+        {
             var g = Geometry.Deserialize<WkbSerializer>(buildingWkb);
             var polyhedralsurface = ((PolyhedralSurface)g);
             var bb = polyhedralsurface.GetBoundingBox3D();
@@ -44,21 +52,26 @@ namespace Gltf.Core.Tests
                 BBox = bb
             };
 
-            var gltfHeader = GetGltfHeader(gltfArray, transform);
-
-            // todo: make b3dm from gltf
-            // in python: B3dm.from_glTF(glTF)
-        }
-
-        public GltfHeader GetGltfHeader(GltfArray  gltfArray, float[] transform)
-        {
-            // q: whats the 12?
-            var n= (int)Math.Round((double)gltfArray.Positions.Length / 12, 0);
-            Assert.IsTrue(gltfArray.Positions.Length == 792);
+            var n = (int)Math.Round((double)gltfArray.Positions.Length / 12, 0);
             Assert.IsTrue(n == 66);
-            Assert.IsTrue(gltfArray.Positions[0] == 184);
             var binIds = BinaryConvertor.ToBinary(new float[n]);
             Assert.IsTrue(binIds[0] == 0);
+            Assert.IsTrue(binIds.Length == 264);
+
+            var gltfHeader = GetGltfHeader(gltfArray, transform, n);
+            var gltfBodyLength = gltfArray.Positions.Length + gltfArray.Normals.Length + binIds.Length;
+            Assert.IsTrue(gltfBodyLength == 1848);
+
+            var gltfFile = new GltfFile() { GltfHeader = gltfHeader, GltfBody = gltfArray };
+            return gltfFile;
+        }
+
+        public GltfHeader GetGltfHeader(GltfArray  gltfArray, float[] transform, int n)
+        {
+            // q: whats the 12?
+
+            Assert.IsTrue(gltfArray.Positions.Length == 792);
+            Assert.IsTrue(gltfArray.Positions[0] == 184);
             var batchLength = 1;
             var byteLength = gltfArray.Positions.Length * 2;
             Assert.IsTrue(byteLength == 1584);
