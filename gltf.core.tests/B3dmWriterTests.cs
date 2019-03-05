@@ -15,9 +15,6 @@ namespace Gltf.Core.Tests
             const string testfile = "Gltf.Core.Tests.testfixtures.building.wkb";
             var buildingWkb = Assembly.GetExecutingAssembly().GetManifestResourceStream(testfile);
             var gltfFile = GetGltfFile(buildingWkb);
-
-            // todo: write gltfFile to file
-            // in python: B3dm.from_glTF(glTF)
         }
 
         private GltfFile GetGltfFile(System.IO.Stream buildingWkb)
@@ -62,11 +59,11 @@ namespace Gltf.Core.Tests
             var gltfBodyLength = gltfArray.Positions.Length + gltfArray.Normals.Length + binIds.Length;
             Assert.IsTrue(gltfBodyLength == 1848);
 
-            var gltfFile = new GltfFile() { GltfHeader = gltfHeader, GltfBody = gltfArray };
+            var gltfFile = new GltfFile() { Header = gltfHeader, GltfBody = gltfArray };
             return gltfFile;
         }
 
-        public GltfHeader GetGltfHeader(GltfArray  gltfArray, float[] transform, int n)
+        public Header GetGltfHeader(GltfArray  gltfArray, float[] transform, int n)
         {
             // q: whats the 12?
 
@@ -77,85 +74,87 @@ namespace Gltf.Core.Tests
             Assert.IsTrue(byteLength == 1584);
             byteLength += gltfArray.Positions.Length / 3;
             Assert.IsTrue(byteLength == 1848);
-            var buffers = new List<GltfBuffer>();
-            var buffer = new GltfBuffer() { ByteLength = byteLength };
+            var buffers = new List<Buffer>();
+            var buffer = new Buffer() { byteLength = byteLength };
             buffers.Add(buffer);
 
-            var bufferViews = new List<GltfBufferView>();
+            var bufferViews = new List<Bufferview>();
             // q: whats 34962? ## vertices
-            bufferViews.Add(new GltfBufferView() { Buffer = 0, ByteLength = gltfArray.Positions.Length, ByteOffset = 0, Target = 34962 });
-            bufferViews.Add(new GltfBufferView() { Buffer = 0, ByteLength = gltfArray.Positions.Length, ByteOffset = gltfArray.Positions.Length, Target = 34962 });
-            bufferViews.Add(new GltfBufferView() { Buffer = 0, ByteLength = gltfArray.Positions.Length/3, ByteOffset = 2*gltfArray.Positions.Length, Target = 34962 });
+            bufferViews.Add(new Bufferview() { buffer = 0, byteLength = gltfArray.Positions.Length, byteOffset = 0, target = 34962 });
+            bufferViews.Add(new Bufferview() { buffer = 0, byteLength = gltfArray.Positions.Length, byteOffset = gltfArray.Positions.Length, target = 34962 });
+            bufferViews.Add(new Bufferview() { buffer = 0, byteLength = gltfArray.Positions.Length/3, byteOffset = 2*gltfArray.Positions.Length, target = 34962 });
 
-            var accessors = new List<GltfAccessor>();
+            var accessors = new List<Accessor>();
             var bb = gltfArray.BBox;
             // q: max and min are reversed in next py code?
             // # vertices
-            accessors.Add(new GltfAccessor()
+            accessors.Add(new Accessor()
             {
-                BufferView = 0,
-                ByteOffset = gltfArray.Positions.Length,
-                ComponentType = 5126,
-                Count = n,
-                Max = new double[3] { bb.YMin, bb.ZMin, bb.XMin },
-                Min = new double[3] { bb.YMax, bb.ZMax, bb.XMax },
-                Type = "VEC3"
+                bufferView = 0,
+                byteOffset = gltfArray.Positions.Length,
+                componentType = 5126,
+                count = n,
+                max = new double[3] { bb.YMin, bb.ZMin, bb.XMin },
+                min = new double[3] { bb.YMax, bb.ZMax, bb.XMax },
+                type = "VEC3"
             });
 
             // # normals
-            accessors.Add(new GltfAccessor()
+            accessors.Add(new Accessor()
             {
-                BufferView = 1,
-                ByteOffset = 0,
-                ComponentType = 5126,
-                Count = n,
-                Max = new double[3] { 1,1,1 },
-                Min = new double[3] { -1,-1,-1 },
-                Type = "VEC3"
+                bufferView = 1,
+                byteOffset = 0,
+                componentType = 5126,
+                count = n,
+                max = new double[3] { 1,1,1 },
+                min = new double[3] { -1,-1,-1 },
+                type = "VEC3"
             });
 
             // # batched
-            accessors.Add(new GltfAccessor()
+            accessors.Add(new Accessor()
             {
-                BufferView = 2,
-                ByteOffset = 0,
-                ComponentType = 5126,
-                Count = n,
-                Max = new double[1] { batchLength},
-                Min = new double[1] { 0 },
-                Type = "SCALAR"
+                bufferView = 2,
+                byteOffset = 0,
+                componentType = 5126,
+                count = n,
+                max = new double[1] { batchLength},
+                min = new double[1] { 0 },
+                type = "SCALAR"
             });
 
             // # meshes
-            var meshes = new List<GltfMesh>();
-            var mesh = new GltfMesh() {};
-            var primitive = new GltfPrimitive() { Attributes = new GltfAttribute() { Position = 2, Normal = 2 + 1, BatchID = 2 }, Material = 0, Mode = 4 };
-            mesh.Primitives.Add(primitive);
-            meshes.Add(mesh);
+            var mesh = new Mesh() {};
+            var primitives = new List<Primitive>();
+            var attributes = new Attributes() { POSITION = 2, NORMAL = 2 + 1, _BATCHID = 2 };
+            var primitive = new Primitive() { attributes=attributes, material = 0, mode = 4 };
+            primitives.Add(primitive);
+            mesh.primitives = primitives.ToArray();
+            var meshes = new List<Mesh>();
 
             // # nodes
-            var nodes = new List<GltfNode>();
-            var node = new GltfNode() { Matrix = transform, Mesh = 0 };
+            var nodes = new List<Node>();
+            var node = new Node() { matrix = transform, mesh = 0 };
             nodes.Add(node);
 
             // # materials
-            var materials = new List<GltfMaterial>();
-            var material = new GltfMaterial() { Name = "Material", GltfPbrMetallicRoughness = new GltfPbrMetallicRoughness() { MetallicFactor = 0 } };
+            var materials = new List<Material>();
+            var material = new Material() { name = "Material", pbrMetallicRoughness = new Pbrmetallicroughness() { metallicFactor = 0 } };
             materials.Add(material);
 
             // # GltfHeader
-            var gltfHeader = new GltfHeader();
-            gltfHeader.GltfAsset = new GltfAsset() { Generator = "Glt.Core", Version = "2.0" };
-            gltfHeader.Scene = 0;
-            var gltfScenes = new List<GltfScene>();
-            gltfScenes.Add(new GltfScene() { Nodes = new int[nodes.Count] });
-            gltfHeader.Scenes = gltfScenes;
-            gltfHeader.Nodes = nodes;
-            gltfHeader.Meshes = meshes;
-            gltfHeader.Materials = materials;
-            gltfHeader.Accessors = accessors;
-            gltfHeader.BufferViews = bufferViews;
-            gltfHeader.Buffers = buffers;
+            var gltfHeader = new Header();
+            gltfHeader.asset = new Asset() { generator = "Glt.Core", version = "2.0" };
+            gltfHeader.scene = 0;
+            var gltfScenes = new List<Scene>();
+            gltfScenes.Add(new Scene() { nodes = new int[nodes.Count] });
+            gltfHeader.scenes = gltfScenes.ToArray();
+            gltfHeader.nodes = nodes.ToArray();
+            gltfHeader.meshes = meshes.ToArray();
+            gltfHeader.materials = materials.ToArray();
+            gltfHeader.accessors = accessors.ToArray();
+            gltfHeader.bufferViews = bufferViews.ToArray();
+            gltfHeader.buffers = buffers.ToArray();
             return gltfHeader;
         }
     }

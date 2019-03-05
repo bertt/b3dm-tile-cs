@@ -38,6 +38,7 @@ namespace Gltf.Core.Tests
             Assert.IsTrue(glb.GltfModelJson != null);
             Assert.IsTrue(glb.GltfModelJson.Length > 0);
             Assert.IsTrue(glb.GltfModelBin.Length > 0);
+
         }
     }
 }
