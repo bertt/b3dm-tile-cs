@@ -2,7 +2,7 @@
 {
     public class GltfFile
     {
-        public Header Header {get;set;}
-        public GltfArray GltfBody{get;set;}
+        public Header Header { get; set; }
+        public Body Body { get; set; }
     }
 }

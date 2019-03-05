@@ -7,7 +7,7 @@ namespace Gltf.Core.Tests
         [Test]
         public void TestGlftArrays()
         {
-            var gltfArray = new GltfArray();
+            var gltfArray = new Body();
             gltfArray.Normals = new byte[1];
             gltfArray.Positions = new byte[1];
             gltfArray.BBox = new BoundingBox3D();

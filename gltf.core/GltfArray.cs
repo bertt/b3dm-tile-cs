@@ -1,6 +1,6 @@
 ﻿namespace Gltf.Core
 {
-    public class GltfArray
+    public class Body
     {
         public byte[] Positions { get; set; }
         public byte[] Normals { get; set; }

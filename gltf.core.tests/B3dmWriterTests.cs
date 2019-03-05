@@ -15,6 +15,7 @@ namespace Gltf.Core.Tests
             const string testfile = "Gltf.Core.Tests.testfixtures.building.wkb";
             var buildingWkb = Assembly.GetExecutingAssembly().GetManifestResourceStream(testfile);
             var gltfFile = GetGltfFile(buildingWkb);
+            Assert.IsTrue(gltfFile != null);
         }
 
         private GltfFile GetGltfFile(System.IO.Stream buildingWkb)
@@ -42,7 +43,7 @@ namespace Gltf.Core.Tests
                 );
             var transform = m.Flatten();
 
-            var gltfArray = new GltfArray
+            var gltfArray = new Body
             {
                 Positions = bytesPositions,
                 Normals = bytesNormals,
@@ -55,18 +56,17 @@ namespace Gltf.Core.Tests
             Assert.IsTrue(binIds[0] == 0);
             Assert.IsTrue(binIds.Length == 264);
 
-            var gltfHeader = GetGltfHeader(gltfArray, transform, n);
+            var header = GetHeader(gltfArray, transform, n);
+            // todo: convert to Json and compare with expected header
             var gltfBodyLength = gltfArray.Positions.Length + gltfArray.Normals.Length + binIds.Length;
             Assert.IsTrue(gltfBodyLength == 1848);
 
-            var gltfFile = new GltfFile() { Header = gltfHeader, GltfBody = gltfArray };
+            var gltfFile = new GltfFile() { Header = header, Body = gltfArray };
             return gltfFile;
         }
 
-        public Header GetGltfHeader(GltfArray  gltfArray, float[] transform, int n)
+        public Header GetHeader(Body  gltfArray, float[] transform, int n)
         {
-            // q: whats the 12?
-
             Assert.IsTrue(gltfArray.Positions.Length == 792);
             Assert.IsTrue(gltfArray.Positions[0] == 184);
             var batchLength = 1;
