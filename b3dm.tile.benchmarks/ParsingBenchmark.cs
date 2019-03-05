@@ -4,6 +4,7 @@ using System.IO;
 
 namespace b3dm.tile.benchmarks
 {
+    [MemoryDiagnoser]
     public class ParsingBenchmark
     {
         [Benchmark]

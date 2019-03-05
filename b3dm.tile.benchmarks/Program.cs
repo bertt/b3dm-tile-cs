@@ -1,4 +1,5 @@
 ﻿using BenchmarkDotNet.Running;
+using System;
 
 namespace b3dm.tile.benchmarks
 {
@@ -7,6 +8,9 @@ namespace b3dm.tile.benchmarks
         static void Main(string[] args)
         {
             var summary = BenchmarkRunner.Run<ParsingBenchmark>();
+            Console.Write(summary);
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
         }
     }
 }
