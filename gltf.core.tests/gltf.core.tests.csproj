@@ -9,10 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="testfixtures\1311.b3dm" />
     <None Remove="testfixtures\building.wkb" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="testfixtures\1311.b3dm" />
     <EmbeddedResource Include="testfixtures\building.wkb" />
   </ItemGroup>
 
@@ -25,6 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\gltf.core\gltf.core.csproj" />
+    <ProjectReference Include="..\src\b3dm.tile.csproj" />
   </ItemGroup>
 
 </Project>

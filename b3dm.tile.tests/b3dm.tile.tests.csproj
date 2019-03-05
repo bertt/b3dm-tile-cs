@@ -12,6 +12,7 @@
   <ItemGroup>
     <None Remove="testfixtures\1311.b3dm" />
     <None Remove="testfixtures\29.b3dm" />
+    <None Remove="testfixtures\py3dtiles_test_build_1.b3dm" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +20,7 @@
     <EmbeddedResource Include="testfixtures\29.b3dm">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="testfixtures\py3dtiles_test_build_1.b3dm" />
   </ItemGroup>
 
   <ItemGroup>
