@@ -11,7 +11,7 @@ namespace Gltf.Core
             foreach (var geometry in polyhedralsurface.Geometries)
             {
                 var points2d = Projections.Get2DPoints(geometry);
-                var triangleidx = Earcut.Tessellate(points2d, new List<int>());
+                var triangleidx = Earcut.Earcut.Tessellate(points2d, new List<int>());
                 var triangles = GetTriangles(geometry, triangleidx);
                 allTriangles.AddRange(triangles);
             }

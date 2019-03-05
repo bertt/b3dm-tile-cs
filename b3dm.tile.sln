@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gltf.core", "gltf.core\gltf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gltf.core.tests", "gltf.core.tests\gltf.core.tests.csproj", "{1B25A94D-38E8-4A82-8442-908141997BA1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "earcut", "earcut\earcut.csproj", "{DED0B3AD-D9F3-44C6-80A8-52F22C73F2A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{1B25A94D-38E8-4A82-8442-908141997BA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B25A94D-38E8-4A82-8442-908141997BA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B25A94D-38E8-4A82-8442-908141997BA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DED0B3AD-D9F3-44C6-80A8-52F22C73F2A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DED0B3AD-D9F3-44C6-80A8-52F22C73F2A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DED0B3AD-D9F3-44C6-80A8-52F22C73F2A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DED0B3AD-D9F3-44C6-80A8-52F22C73F2A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

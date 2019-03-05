@@ -20,7 +20,7 @@ namespace Gltf.Core.Tests
             }
 
             // act
-            var res = Earcut.Tessellate(points,new List<int>());
+            var res = Earcut.Earcut.Tessellate(points,new List<int>());
 
             // assert
             Assert.IsTrue(res.Count == 6);

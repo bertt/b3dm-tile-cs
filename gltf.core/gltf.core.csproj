@@ -10,4 +10,8 @@
     <PackageReference Include="Wkx" Version="0.4.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\earcut\earcut.csproj" />
+  </ItemGroup>
+
 </Project>
