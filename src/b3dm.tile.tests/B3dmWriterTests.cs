@@ -16,9 +16,8 @@ namespace B3dm.Tile.Tests
             var buildingWkb = Assembly.GetExecutingAssembly().GetManifestResourceStream(testfile);
             var gltfFile = GltfReader.ReadFromWkb(buildingWkb);
             Assert.IsTrue(gltfFile != null);
-            // vertices + normals + ids + uvs (but uvs is null)
             var body = gltfFile.Body;
-            Assert.IsTrue(body.Vertices.Length + body.Normals.Length + body.Ids.Length == 1848);
+            Assert.IsTrue(body.AsBinary().Length == 1848);
             var actualHeader = gltfFile.Header;
             var l = gltfFile.Header.nodes.Length;
             var expectedHeader = JsonConvert.DeserializeObject<Header>(header);

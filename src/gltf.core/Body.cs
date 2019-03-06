@@ -1,4 +1,6 @@
-﻿namespace Gltf.Core
+﻿using System.Linq;
+
+namespace Gltf.Core
 {
     public class Body
     {
@@ -8,6 +10,10 @@
         public byte[] Uvs { get; set; }
         public BoundingBox3D BBox { get; set; }
 
+        public byte[] AsBinary()
+        {
+            return Vertices.Concat(Normals).Concat(Ids).ToArray();
+        }
         // body = vertices + normals + ids + uvs
     }
 }
