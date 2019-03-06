@@ -3,21 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "b3dm.tile", "src\b3dm.tile.csproj", "{3BEFD243-E80F-4A9D-B144-C663357CC615}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "b3dm.tile", "src\b3dm.tile\b3dm.tile.csproj", "{3BEFD243-E80F-4A9D-B144-C663357CC615}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "b3dm.tile.tests", "b3dm.tile.tests\b3dm.tile.tests.csproj", "{D0DB66F9-4370-488C-BE74-5E140B965293}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "b3dm.tile.tests", "src\b3dm.tile.tests\b3dm.tile.tests.csproj", "{D0DB66F9-4370-488C-BE74-5E140B965293}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{F2BBABBD-C4D0-4DEA-A27D-10B62B0528B1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "src\samples", "{F2BBABBD-C4D0-4DEA-A27D-10B62B0528B1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "samples\ConsoleApp\ConsoleApp.csproj", "{B99BD972-9D17-47DA-A4CD-4409F01AC059}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "src\samples\ConsoleApp\ConsoleApp.csproj", "{B99BD972-9D17-47DA-A4CD-4409F01AC059}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "b3dm.tile.benchmarks", "b3dm.tile.benchmarks\b3dm.tile.benchmarks.csproj", "{104D3EE4-7B02-4469-995C-6D34B59D3C92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "b3dm.tile.benchmarks", "src\b3dm.tile.benchmarks\b3dm.tile.benchmarks.csproj", "{104D3EE4-7B02-4469-995C-6D34B59D3C92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gltf.core", "gltf.core\gltf.core.csproj", "{E8E7700D-4F16-4E3F-BC03-622B016A3769}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gltf.core", "src\gltf.core\gltf.core.csproj", "{E8E7700D-4F16-4E3F-BC03-622B016A3769}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gltf.core.tests", "gltf.core.tests\gltf.core.tests.csproj", "{1B25A94D-38E8-4A82-8442-908141997BA1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gltf.core.tests", "src\gltf.core.tests\gltf.core.tests.csproj", "{1B25A94D-38E8-4A82-8442-908141997BA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "earcut", "earcut\earcut.csproj", "{DED0B3AD-D9F3-44C6-80A8-52F22C73F2A0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "earcut", "src\earcut\earcut.csproj", "{DED0B3AD-D9F3-44C6-80A8-52F22C73F2A0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{E4986773-AFE6-4B70-96B6-9F9395F8FD7C}"
 	ProjectSection(SolutionItems) = preProject

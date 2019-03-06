@@ -13,6 +13,7 @@ namespace Gltf.Core
                 binaryWriter.Write(p);
             }
             var bytes = ms.ToArray();
+            ms.Close();
             return bytes;
         }
     }

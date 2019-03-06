@@ -30,8 +30,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\b3dm.tile\b3dm.tile.csproj" />
     <ProjectReference Include="..\gltf.core\gltf.core.csproj" />
-    <ProjectReference Include="..\src\b3dm.tile.csproj" />
   </ItemGroup>
 
 </Project>
