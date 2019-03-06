@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Gltf.Core;
 
 namespace B3dm.Tile
 {
@@ -8,7 +6,7 @@ namespace B3dm.Tile
     {
         public static void Write(string path)
         {
-            // var p = new GltfFile();
+            var p = new GltfFile();
         }
     }
 }

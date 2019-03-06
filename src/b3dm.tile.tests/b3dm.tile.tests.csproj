@@ -12,7 +12,7 @@
   <ItemGroup>
     <None Remove="testfixtures\1311.b3dm" />
     <None Remove="testfixtures\29.b3dm" />
-    <None Remove="testfixtures\expected_building_header.json" />
+    <None Remove="testfixtures\building.wkb" />
     <None Remove="testfixtures\py3dtiles_test_build_1.b3dm" />
   </ItemGroup>
 
@@ -21,7 +21,7 @@
     <EmbeddedResource Include="testfixtures\29.b3dm">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="testfixtures\expected_building_header.json" />
+    <EmbeddedResource Include="testfixtures\building.wkb" />
     <EmbeddedResource Include="testfixtures\py3dtiles_test_build_1.b3dm" />
   </ItemGroup>
 
@@ -35,6 +35,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\b3dm.tile\b3dm.tile.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="testfixtures\building_header.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

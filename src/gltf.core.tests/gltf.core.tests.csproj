@@ -9,12 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="testfixtures\1311.b3dm" />
     <None Remove="testfixtures\building.wkb" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="testfixtures\1311.b3dm" />
     <EmbeddedResource Include="testfixtures\building.wkb" />
   </ItemGroup>
 
@@ -30,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="testfixtures\expected_building_header.json">
+    <None Update="testfixtures\building_header.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

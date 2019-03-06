@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Gltf.Core;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -7,20 +8,22 @@ using System.Numerics;
 using System.Reflection;
 using Wkx;
 
-namespace Gltf.Core.Tests
+namespace B3dm.Tile.Tests
 {
     public class B3dmWriterTests
     {
         [Test]
         public void WriteB3dmTest()
         {
-            const string testfile = "Gltf.Core.Tests.testfixtures.building.wkb";
-            var header = File.ReadAllText(@".\testfixtures\building_header.json");
+            const string testfile = "B3dm.Tile.Tests.testfixtures.building.wkb";
+            const string headerfile = "testfixtures/expected_building_header.json";
+            var header = File.ReadAllText(headerfile);
             var buildingWkb = Assembly.GetExecutingAssembly().GetManifestResourceStream(testfile);
             var gltfFile = GetGltfFile(buildingWkb);
             Assert.IsTrue(gltfFile != null);
             var actualHeader = gltfFile.Header;
             var actualHeaderString = JsonConvert.SerializeObject(actualHeader);
+            // File.WriteAllText("actual_building_header.json", actualHeaderString);
             var expectedHeader = JsonConvert.DeserializeObject<Header>(header);
             Assert.IsTrue(actualHeader.asset.version.Equals(expectedHeader.asset.version));
             Assert.IsTrue(!actualHeader.asset.generator.Equals(expectedHeader.asset.generator));
@@ -83,8 +86,8 @@ namespace Gltf.Core.Tests
             Assert.IsTrue(byteLength == 1584);
             byteLength += gltfArray.Positions.Length / 3;
             Assert.IsTrue(byteLength == 1848);
-            var buffers = new List<Buffer>();
-            var buffer = new Buffer() { byteLength = byteLength };
+            var buffers = new List<Gltf.Core.Buffer>();
+            var buffer = new Gltf.Core.Buffer() { byteLength = byteLength };
             buffers.Add(buffer);
 
             var bufferViews = new List<Bufferview>();
