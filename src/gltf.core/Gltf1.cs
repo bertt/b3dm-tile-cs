@@ -1,6 +1,6 @@
 ﻿namespace Gltf.Core
 {
-    public class Glb
+    public class Gltf1
     {
         public uint Magic { get; set; }
         public uint Version { get; set; }

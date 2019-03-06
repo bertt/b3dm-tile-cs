@@ -11,15 +11,11 @@
   <ItemGroup>
     <None Remove="testfixtures\1311.b3dm" />
     <None Remove="testfixtures\building.wkb" />
-    <None Remove="testfixtures\expected_building_header.json" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="testfixtures\1311.b3dm" />
     <EmbeddedResource Include="testfixtures\building.wkb" />
-    <EmbeddedResource Include="testfixtures\expected_building_header.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -30,8 +26,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\b3dm.tile\b3dm.tile.csproj" />
     <ProjectReference Include="..\gltf.core\gltf.core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="testfixtures\expected_building_header.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

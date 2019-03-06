@@ -31,4 +31,8 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\gltf.core\gltf.core.csproj" />
+  </ItemGroup>
+
 </Project>

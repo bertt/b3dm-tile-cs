@@ -1,6 +1,8 @@
-﻿using NUnit.Framework;
+﻿using Newtonsoft.Json;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Numerics;
 using System.Reflection;
 using Wkx;
@@ -13,12 +15,22 @@ namespace Gltf.Core.Tests
         public void WriteB3dmTest()
         {
             const string testfile = "Gltf.Core.Tests.testfixtures.building.wkb";
+
+            const string headerfile = "testfixtures/expected_building_header.json";
+            var header = File.ReadAllText(headerfile);
             var buildingWkb = Assembly.GetExecutingAssembly().GetManifestResourceStream(testfile);
             var gltfFile = GetGltfFile(buildingWkb);
             Assert.IsTrue(gltfFile != null);
+            var actualHeader = gltfFile.Header;
+            var actualHeaderString = JsonConvert.SerializeObject(actualHeader);
+            // File.WriteAllText("actual_building_header.json", actualHeaderString);
+            var expectedHeader = JsonConvert.DeserializeObject<Header>(header);
+            Assert.IsTrue(actualHeader.asset.version.Equals(expectedHeader.asset.version));
+            Assert.IsTrue(!actualHeader.asset.generator.Equals(expectedHeader.asset.generator));
+
         }
 
-        private GltfFile GetGltfFile(System.IO.Stream buildingWkb)
+        private GltfFile GetGltfFile(Stream buildingWkb)
         {
             var g = Geometry.Deserialize<WkbSerializer>(buildingWkb);
             var polyhedralsurface = ((PolyhedralSurface)g);
@@ -91,7 +103,7 @@ namespace Gltf.Core.Tests
             accessors.Add(new Accessor()
             {
                 bufferView = 0,
-                byteOffset = gltfArray.Positions.Length,
+                byteOffset = 0,
                 componentType = 5126,
                 count = n,
                 max = new double[3] { bb.YMin, bb.ZMin, bb.XMin },
@@ -126,11 +138,12 @@ namespace Gltf.Core.Tests
             // # meshes
             var mesh = new Mesh() {};
             var primitives = new List<Primitive>();
-            var attributes = new Attributes() { POSITION = 2, NORMAL = 2 + 1, _BATCHID = 2 };
+            var attributes = new Attributes() { POSITION = 2, NORMAL = 1, _BATCHID = 2 };
             var primitive = new Primitive() { attributes=attributes, material = 0, mode = 4 };
             primitives.Add(primitive);
             mesh.primitives = primitives.ToArray();
             var meshes = new List<Mesh>();
+            meshes.Add(mesh);
 
             // # nodes
             var nodes = new List<Node>();

@@ -3,9 +3,9 @@ using System.Text;
 
 namespace Gltf.Core
 {
-    public class GlbReader
+    public class GltfReader
     {
-        public static Glb ReadGlb(Stream stream)
+        public static Gltf1 ReadGltf(Stream stream)
         {
             var binaryReader = new BinaryReader(stream);
 
@@ -25,7 +25,7 @@ namespace Gltf.Core
             var chunkFormat1 = binaryReader.ReadUInt32();
             var bin = binaryReader.ReadBytes((int)chunkLength1);
 
-            return new Glb
+            return new Gltf1
             {
                 Magic = magic,
                 Version = version,

@@ -1,9 +1,9 @@
-﻿using B3dm.Tile;
+﻿using Gltf.Core;
 using NUnit.Framework;
 using System.IO;
 using System.Reflection;
 
-namespace Gltf.Core.Tests
+namespace B3dm.Tile.Tests
 {
     public class GlbReaderTests
     {
@@ -12,7 +12,7 @@ namespace Gltf.Core.Tests
         [SetUp]
         public void Setup()
         {
-            const string testfile = "Gltf.Core.Tests.testfixtures.1311.b3dm";
+            const string testfile = "B3dm.Tile.Tests.testfixtures.1311.b3dm";
             var b3dmfile = Assembly.GetExecutingAssembly().GetManifestResourceStream(testfile);
             var b3dm = B3dmReader.ReadB3dm(b3dmfile);
             var glb = b3dm.GlbData;
@@ -28,7 +28,7 @@ namespace Gltf.Core.Tests
             var expectedVersionGlb = 2;
 
             // act
-            var glb = GlbReader.ReadGlb(glbStream);
+            var glb = GltfReader.ReadGltf(glbStream);
 
             // assert
             Assert.IsTrue(glb.Magic == expectedMagicGlb);

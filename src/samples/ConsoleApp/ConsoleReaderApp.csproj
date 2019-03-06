@@ -7,11 +7,11 @@
 
   <ItemGroup>
     <PackageReference Include="DotSpatial.Positioning.PCL" Version="1.7.0" />
-    <PackageReference Include="glTF2Loader" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\b3dm.tile\b3dm.tile.csproj" />
+    <ProjectReference Include="..\..\gltf.core\gltf.core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
