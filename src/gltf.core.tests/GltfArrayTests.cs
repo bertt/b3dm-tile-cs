@@ -9,7 +9,7 @@ namespace Gltf.Core.Tests
         {
             var gltfArray = new Body();
             gltfArray.Normals = new byte[1];
-            gltfArray.Positions = new byte[1];
+            gltfArray.Vertices = new byte[1];
             gltfArray.BBox = new BoundingBox3D();
 
             Assert.IsTrue(gltfArray != null);

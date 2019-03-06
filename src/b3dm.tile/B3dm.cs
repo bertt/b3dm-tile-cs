@@ -4,6 +4,8 @@ namespace B3dm.Tile
 {
     public class B3dm
     {
+        public const int HeaderByteLength = 28;
+
         public string Magic { get; set; }
         public int Version {get; set; }
         public byte[] GlbData { get; set; }
@@ -18,6 +20,11 @@ namespace B3dm.Tile
             var bw = new BinaryWriter(fs);
             bw.Write(GlbData);
             bw.Close();
+        }
+
+        public byte[] GetHeaderArray()
+        {
+            return System.Text.Encoding.UTF8.GetBytes(Magic);
         }
     }
 }

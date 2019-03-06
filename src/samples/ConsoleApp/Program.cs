@@ -53,14 +53,8 @@ namespace ConsoleApp
             bw.Write(b3dm.GlbData);
             bw.Close();
 
-            // var gltfVersion = GltfReader.ReadGltf(b3dm.GlbData);
-            // sample: load in gltf loader
             //var model = glTFLoader.Interface.LoadModel(new MemoryStream(b3dm.GlbData));
-            // glTFLoader.Interface.SaveModel(model,)
-            // model.
-
             // Console.WriteLine("Generator: " + model.Asset.Generator);
-            // Console.WriteLine($"Gltf version: {gltfVersion}");
             Console.WriteLine($"Press any key to continue...");
             Console.ReadKey();
         }

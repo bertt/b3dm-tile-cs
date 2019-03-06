@@ -54,12 +54,12 @@ namespace Gltf.Core.Tests
 
             var gltfArray = new Body
             {
-                Positions = bytesPositions,
+                Vertices = bytesPositions,
                 Normals = bytesNormals,
                 BBox = bb
             };
 
-            var n = (int)Math.Round((double)gltfArray.Positions.Length / 12, 0);
+            var n = (int)Math.Round((double)gltfArray.Vertices.Length / 12, 0);
             Assert.IsTrue(n == 66);
             var binIds = BinaryConvertor.ToBinary(new float[n]);
             Assert.IsTrue(binIds[0] == 0);
@@ -67,7 +67,7 @@ namespace Gltf.Core.Tests
 
             var header = GetHeader(gltfArray, transform, n);
             // todo: convert to Json and compare with expected header
-            var gltfBodyLength = gltfArray.Positions.Length + gltfArray.Normals.Length + binIds.Length;
+            var gltfBodyLength = gltfArray.Vertices.Length + gltfArray.Normals.Length + binIds.Length;
             Assert.IsTrue(gltfBodyLength == 1848);
 
             var gltfFile = new GltfFile() { Header = header, Body = gltfArray };
@@ -76,12 +76,12 @@ namespace Gltf.Core.Tests
 
         public Header GetHeader(Body  gltfArray, float[] transform, int n)
         {
-            Assert.IsTrue(gltfArray.Positions.Length == 792);
-            Assert.IsTrue(gltfArray.Positions[0] == 184);
+            Assert.IsTrue(gltfArray.Vertices.Length == 792);
+            Assert.IsTrue(gltfArray.Vertices[0] == 184);
             var batchLength = 1;
-            var byteLength = gltfArray.Positions.Length * 2;
+            var byteLength = gltfArray.Vertices.Length * 2;
             Assert.IsTrue(byteLength == 1584);
-            byteLength += gltfArray.Positions.Length / 3;
+            byteLength += gltfArray.Vertices.Length / 3;
             Assert.IsTrue(byteLength == 1848);
             var buffers = new List<Buffer>();
             var buffer = new Buffer() { byteLength = byteLength };
@@ -89,9 +89,9 @@ namespace Gltf.Core.Tests
 
             var bufferViews = new List<Bufferview>();
             // q: whats 34962? ## vertices
-            bufferViews.Add(new Bufferview() { buffer = 0, byteLength = gltfArray.Positions.Length, byteOffset = 0, target = 34962 });
-            bufferViews.Add(new Bufferview() { buffer = 0, byteLength = gltfArray.Positions.Length, byteOffset = gltfArray.Positions.Length, target = 34962 });
-            bufferViews.Add(new Bufferview() { buffer = 0, byteLength = gltfArray.Positions.Length/3, byteOffset = 2*gltfArray.Positions.Length, target = 34962 });
+            bufferViews.Add(new Bufferview() { buffer = 0, byteLength = gltfArray.Vertices.Length, byteOffset = 0, target = 34962 });
+            bufferViews.Add(new Bufferview() { buffer = 0, byteLength = gltfArray.Vertices.Length, byteOffset = gltfArray.Vertices.Length, target = 34962 });
+            bufferViews.Add(new Bufferview() { buffer = 0, byteLength = gltfArray.Vertices.Length/3, byteOffset = 2*gltfArray.Vertices.Length, target = 34962 });
 
             var accessors = new List<Accessor>();
             var bb = gltfArray.BBox;
