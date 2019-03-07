@@ -5,6 +5,8 @@
         public B3dm()
         {
             B3dmHeader = new B3dmHeader();
+            FeatureTableJson = string.Empty;
+            BatchTableJson = string.Empty;
         }
 
         public B3dmHeader B3dmHeader { get; set; }

@@ -29,8 +29,7 @@ namespace Gltf.Core
                 Magic = magic,
                 Version = version,
                 GltfModelJson = json,
-                GltfModelBin = bin,
-                Length = length
+                GltfModelBin = bin
             };
         }
 

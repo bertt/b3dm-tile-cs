@@ -12,13 +12,11 @@ namespace B3dm.Tile.Tests
             // arrange
             const string testfile = "B3dm.Tile.Tests.testfixtures.building.wkb";
             var buildingWkb = Assembly.GetExecutingAssembly().GetManifestResourceStream(testfile);
-            var gltfFile = GltfReader.ReadFromWkb(buildingWkb);
-            var glb = GlbWriter.ToGlb(gltfFile);
-
-            // act
-            BinaryFileWriter.WriteGlb(@"d:\aaa\b3dm\2.glb", glb);
-
-            // assert
+            var gltf = GltfReader.ReadFromWkb(buildingWkb);
+            var glb = GlbWriter.ToGlb(gltf);
+            var b3dm = new B3dm();
+            b3dm.GlbData = glb;
+            B3dmWriter.WriteB3dm(@"d:\aaa\b3dm\7.b3dm", b3dm);
             Assert.IsTrue(true);
         }
     }

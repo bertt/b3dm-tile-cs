@@ -47,7 +47,6 @@ namespace Gltf.Core
             gltf.Version = 2;
             gltf.GltfModelJson = JsonConvert.SerializeObject(header);
             gltf.GltfModelBin = gltfArray.AsBinary();
-            gltf.Length = (uint) (28 + gltf.GltfModelBin.Length + Encoding.UTF8.GetBytes(gltf.GltfModelJson).Length);
 
             return gltf;
         }
@@ -106,7 +105,7 @@ namespace Gltf.Core
             // # meshes
             var mesh = new Mesh() { };
             var primitives = new List<Primitive>();
-            var attributes = new Attributes() { POSITION = 2, NORMAL = 1, _BATCHID = 2 };
+            var attributes = new Attributes() { POSITION = 0, NORMAL = 1, _BATCHID = 2 };
             var primitive = new Primitive() { attributes = attributes, material = 0, mode = 4 };
             primitives.Add(primitive);
             mesh.primitives = primitives.ToArray();

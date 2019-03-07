@@ -11,9 +11,13 @@ namespace B3dm.Tile
             var binaryWriter = new BinaryWriter(fileStream);
             binaryWriter.Write(b3dm.B3dmHeader.AsBinary());
             binaryWriter.Write(Encoding.UTF8.GetBytes(b3dm.FeatureTableJson));
-            binaryWriter.Write(b3dm.FeatureTableBinary);
+            if (b3dm.FeatureTableBinary != null) {
+                binaryWriter.Write(b3dm.FeatureTableBinary);
+            }
             binaryWriter.Write(Encoding.UTF8.GetBytes(b3dm.BatchTableJson));
-            binaryWriter.Write(b3dm.BatchTableBinary);
+            if (b3dm.BatchTableBinary != null) {
+                binaryWriter.Write(b3dm.BatchTableBinary);
+            }
             binaryWriter.Write(b3dm.GlbData);
             binaryWriter.Flush();
             binaryWriter.Close();

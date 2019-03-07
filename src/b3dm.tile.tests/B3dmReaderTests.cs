@@ -54,5 +54,16 @@ namespace B3dm.Tile.Tests
             Assert.IsTrue(ActualHeader != null);
             Assert.IsTrue(gltf.GltfModelBin.Length==1848);
         }
+
+        [Test]
+        public void AnotherTest()
+        {
+            string path = @"D:\aaa\b3dm\7.b3dm";
+            var fs = File.Open(path, FileMode.Open);
+            var b3dm = B3dmReader.ReadB3dm(b3dmfile);
+            var glbBinary = b3dm.GlbData;
+            B3dmWriter.WriteGlb(@"d:/aaa/b3dm/8.glb", b3dm);
+
+        }
     }
 }
