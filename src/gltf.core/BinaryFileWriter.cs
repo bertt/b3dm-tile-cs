@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace Gltf.Core.Tests
+namespace Gltf.Core
 {
     public class BinaryFileWriter
     {

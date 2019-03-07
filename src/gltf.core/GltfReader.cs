@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
+using System.Text;
+using Newtonsoft.Json;
 using Wkx;
 
 namespace Gltf.Core
 {
     public static class GltfReader
     {
-        public static GltfFile ReadFromWkb(Stream buildingWkb)
+        public static Gltf1 ReadFromWkb(Stream buildingWkb)
         {
             var g = Geometry.Deserialize<WkbSerializer>(buildingWkb);
             var polyhedralsurface = ((PolyhedralSurface)g);
@@ -38,13 +40,16 @@ namespace Gltf.Core
             var binIds = BinaryConvertor.ToBinary(new float[n]);
 
             gltfArray.Ids = binIds;
-
             var header = GetHeader(gltfArray, transform, n);
-            // todo: convert to Json and compare with expected header
-            var gltfBodyLength = gltfArray.Vertices.Length + gltfArray.Normals.Length + binIds.Length;
 
-            var gltfFile = new GltfFile() { Header = header, Body = gltfArray };
-            return gltfFile;
+            var gltf = new Gltf1();
+            gltf.Magic = 1179937895;
+            gltf.Version = 2;
+            gltf.GltfModelJson = JsonConvert.SerializeObject(header);
+            gltf.GltfModelBin = gltfArray.AsBinary();
+            gltf.Length = (uint) (28 + gltf.GltfModelBin.Length + Encoding.UTF8.GetBytes(gltf.GltfModelJson).Length);
+
+            return gltf;
         }
 
         public static Header GetHeader(Body gltfArray, float[] transform, int n)
