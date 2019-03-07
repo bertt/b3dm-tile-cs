@@ -49,8 +49,8 @@ namespace ConsoleApp
             Console.WriteLine($"Start parsing {infile}...");
             var b3dm = B3dmReader.ReadB3dm(stream);
             Console.WriteLine($"Start writing output to {outfile}.");
-            b3dm.WriteGlb(outfile);
-            b3dm.WriteB3dm(outfileb3dm);
+            B3dmWriter.WriteGlb(outfile, b3dm);
+            B3dmWriter.WriteB3dm(outfileb3dm, b3dm);
 
             //var model = glTFLoader.Interface.LoadModel(new MemoryStream(b3dm.GlbData));
             // Console.WriteLine("Generator: " + model.Asset.Generator);
