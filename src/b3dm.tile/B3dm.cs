@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace B3dm.Tile
+﻿namespace B3dm.Tile
 {
     public class B3dm
     {
