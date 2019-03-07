@@ -9,8 +9,10 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            string infile = "testfixtures/29.b3dm";
-            string outfile = "29.glb";
+            // string infile = "testfixtures/29.b3dm";
+            string infile = "testfixtures/py3dtiles_test_build_1.b3dm";
+            string outfile = "d:/aaa/py3dtiles.glb";
+            string outfileb3dm = "d:/aaa/core.b3dm";
 
             // extracted from tileset.json (copied from http://saturnus.geodan.nl/tomt/data/buildingtiles_oudeschild/tileset.json)
             double[] tilesetJsonTransform = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 3830058.036, 324388.491, 5072788.606, 1 };
@@ -47,11 +49,8 @@ namespace ConsoleApp
             Console.WriteLine($"Start parsing {infile}...");
             var b3dm = B3dmReader.ReadB3dm(stream);
             Console.WriteLine($"Start writing output to {outfile}.");
-
-            var fs = File.Create(outfile);
-            var bw = new BinaryWriter(fs);
-            bw.Write(b3dm.GlbData);
-            bw.Close();
+            b3dm.WriteGlb(outfile);
+            b3dm.WriteB3dm(outfileb3dm);
 
             //var model = glTFLoader.Interface.LoadModel(new MemoryStream(b3dm.GlbData));
             // Console.WriteLine("Generator: " + model.Asset.Generator);

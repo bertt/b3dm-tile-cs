@@ -8,26 +8,17 @@ namespace B3dm.Tile
         public static B3dm ReadB3dm(Stream stream)
         {
             using (var reader = new BinaryReader(stream)) {
-
-                var magic = Encoding.UTF8.GetString(reader.ReadBytes(4));
-                var version = (int)reader.ReadUInt32();
-                var bytelength = (int)reader.ReadUInt32();
-                var featureTableJsonByteLength = (int)reader.ReadUInt32();
-                var featureTableBinaryByteLength = (int)reader.ReadUInt32();
-                var batchTableJsonByteLength = (int)reader.ReadUInt32();
-                var batchTableBinaryByteLength = (int)reader.ReadUInt32();
-
-                var featureTableJson = Encoding.UTF8.GetString(reader.ReadBytes(featureTableJsonByteLength));
-                var featureTableBytes = reader.ReadBytes(featureTableBinaryByteLength);
-                var batchTableJson = Encoding.UTF8.GetString(reader.ReadBytes(batchTableJsonByteLength));
-                var batchTableBytes = reader.ReadBytes(batchTableBinaryByteLength);
+                var b3dmHeader = new B3dmHeader(reader);
+                var featureTableJson = Encoding.UTF8.GetString(reader.ReadBytes(b3dmHeader.FeatureTableJsonByteLength));
+                var featureTableBytes = reader.ReadBytes(b3dmHeader.FeatureTableBinaryByteLength);
+                var batchTableJson = Encoding.UTF8.GetString(reader.ReadBytes(b3dmHeader.BatchTableJsonByteLength));
+                var batchTableBytes = reader.ReadBytes(b3dmHeader.BatchTableBinaryByteLength);
 
                 var glbLength = (int)(reader.BaseStream.Length - reader.BaseStream.Position);
                 var glbBuffer = reader.ReadBytes(glbLength);
 
                 var b3dm = new B3dm {
-                    Magic = magic,
-                    Version = version,
+                    B3dmHeader = b3dmHeader,
                     GlbData = glbBuffer,
                     FeatureTableJson = featureTableJson,
                     FeatureTableBinary = featureTableBytes,

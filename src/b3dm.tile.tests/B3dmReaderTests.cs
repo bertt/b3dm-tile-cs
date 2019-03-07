@@ -30,8 +30,8 @@ namespace B3dm.Tile.Tests
             var b3dm = B3dmReader.ReadB3dm(b3dmfile);
 
             // assert
-            Assert.IsTrue(expectedMagicHeader == b3dm.Magic);
-            Assert.IsTrue(expectedVersionHeader == b3dm.Version);
+            Assert.IsTrue(expectedMagicHeader == b3dm.B3dmHeader.Magic);
+            Assert.IsTrue(expectedVersionHeader == b3dm.B3dmHeader.Version);
             Assert.IsTrue(b3dm.BatchTableJson.Length >= 0); 
             Assert.IsTrue(b3dm.GlbData.Length > 0);
             var gltf = GltfReader.ReadFromGlb(new MemoryStream(b3dm.GlbData));
