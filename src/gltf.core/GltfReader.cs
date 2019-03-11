@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
-using System.Text;
 using Newtonsoft.Json;
 using Wkx;
 
@@ -10,10 +9,23 @@ namespace Gltf.Core
 {
     public static class GltfReader
     {
+        public static Gltf1 ReadFromWkt(string wkt)
+        {
+            var g = Geometry.Deserialize<WktSerializer>(wkt);
+            var polyhedralsurface = (PolyhedralSurface)g;
+            var gltf = ReadFromPolyHedralSurface(polyhedralsurface);
+            return gltf;
+        }
+
         public static Gltf1 ReadFromWkb(Stream buildingWkb)
         {
             var g = Geometry.Deserialize<WkbSerializer>(buildingWkb);
             var polyhedralsurface = ((PolyhedralSurface)g);
+            return ReadFromPolyHedralSurface(polyhedralsurface);
+        }
+
+        private static Gltf1 ReadFromPolyHedralSurface(PolyhedralSurface polyhedralsurface)
+        {
             var bb = polyhedralsurface.GetBoundingBox3D();
 
             var triangles = Triangulator.Triangulate(polyhedralsurface);
