@@ -9,38 +9,28 @@ namespace Gltf.Core
 {
     public static class GltfReader
     {
-        public static Gltf1 ReadFromWkt(string wkt)
+        public static Gltf1 ReadFromWkt(string wkt, float[] transform)
         {
             var g = Geometry.Deserialize<WktSerializer>(wkt);
             var polyhedralsurface = (PolyhedralSurface)g;
-            var gltf = ReadFromPolyHedralSurface(polyhedralsurface);
+            var gltf = ReadFromPolyHedralSurface(polyhedralsurface, transform);
             return gltf;
         }
 
-        public static Gltf1 ReadFromWkb(Stream buildingWkb)
+        public static Gltf1 ReadFromWkb(Stream buildingWkb, float[] transform)
         {
             var g = Geometry.Deserialize<WkbSerializer>(buildingWkb);
             var polyhedralsurface = ((PolyhedralSurface)g);
-            return ReadFromPolyHedralSurface(polyhedralsurface);
+            return ReadFromPolyHedralSurface(polyhedralsurface, transform);
         }
 
-        private static Gltf1 ReadFromPolyHedralSurface(PolyhedralSurface polyhedralsurface)
+        private static Gltf1 ReadFromPolyHedralSurface(PolyhedralSurface polyhedralsurface, float[] transform)
         {
             var bb = polyhedralsurface.GetBoundingBox3D();
 
             var triangles = Triangulator.Triangulate(polyhedralsurface);
             var bytesPositions = triangles.PositionsToBinary();
             var bytesNormals = triangles.NormalsToBinary();
-
-            // what's this for matrix??? 
-            // translation : 1842015.125, 5177109.25, 247.87364196777344
-            // Later comment: World coordinates transformation flattend matrix
-            var m = new Matrix4x4(1, 0, 0, 1842015.125f,
-                0, 1, 0, 5177109.25f,
-                0, 0, 1, 247.87364196777344f,
-                0, 0, 0, 1
-                );
-            var transform = m.Flatten();
 
             var gltfArray = new Body {
                 Vertices = bytesPositions,

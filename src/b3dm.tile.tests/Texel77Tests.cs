@@ -1,6 +1,8 @@
 ﻿using System.IO;
+using System.Numerics;
 using Gltf.Core;
 using NUnit.Framework;
+using Wkx;
 
 namespace B3dm.Tile.Tests
 {
@@ -11,7 +13,15 @@ namespace B3dm.Tile.Tests
         {
             // arrange
             var file = File.ReadAllText(@".\testfixtures\texel77.wkt");
-            var gltf = GltfReader.ReadFromWkt(file);
+
+            // transform matrix according to py3dtiles tool for 388 records tmp.tmp
+            var transform = new float[] { 539085.1221813804f, 6989220.68008033f, 52.98474913463f };
+            var gltf = GltfReader.ReadFromWkt(file, transform);
+            var g = Geometry.Deserialize<WktSerializer>(file);
+
+            var fs = new FileStream(@"d:\aaa\b3dm\texel77.wkb",FileMode.OpenOrCreate);
+            g.Serialize<WkbSerializer>(fs);
+
             var glb = GlbWriter.ToGlb(gltf);
             var b3dm = new B3dm();
             b3dm.GlbData = glb;
