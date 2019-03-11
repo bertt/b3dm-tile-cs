@@ -1,4 +1,6 @@
-﻿namespace Gltf.Core
+﻿using Wkx;
+
+namespace Gltf.Core
 {
     public class BoundingBox3D
     {
@@ -8,5 +10,13 @@
         public double YMax { get; set; }
         public double ZMin { get; set; }
         public double ZMax { get; set; }
+
+        public Point GetCenter()
+        {
+            var x = (XMax + XMin) / 2;
+            var y = (YMax + YMin) / 2;
+            var z = (ZMax + ZMin) / 2;
+            return new Point(x,y,z);
+        }
     }
 }
