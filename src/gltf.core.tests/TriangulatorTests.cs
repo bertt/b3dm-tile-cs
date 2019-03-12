@@ -1,5 +1,5 @@
-﻿using NUnit.Framework;
-using System.Reflection;
+﻿using System.IO;
+using NUnit.Framework;
 using Wkx;
 
 namespace Gltf.Core.Tests
@@ -10,8 +10,7 @@ namespace Gltf.Core.Tests
         public void TriangulateTest()
         {
             // arrange
-            const string testfile = "Gltf.Core.Tests.testfixtures.building.wkb";
-            var buildingWkb = Assembly.GetExecutingAssembly().GetManifestResourceStream(testfile);
+            var buildingWkb = File.OpenRead(@"testfixtures/building.wkb");
             var g = Geometry.Deserialize<WkbSerializer>(buildingWkb);
             Assert.IsTrue(g.GeometryType == GeometryType.PolyhedralSurface);
             var polyhedralsurface = ((PolyhedralSurface)g);

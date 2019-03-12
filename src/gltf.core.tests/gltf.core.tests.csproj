@@ -9,14 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="testfixtures\building.wkb" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="testfixtures\building.wkb" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="nunit" Version="3.11.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.11.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
@@ -28,6 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="testfixtures\building.wkb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="testfixtures\building_header.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

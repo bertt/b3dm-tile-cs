@@ -7,7 +7,7 @@ namespace B3dm.Tile.Tests
     public class GltfLoaderTests
     {
         [Test]
-        public void LoadGltf()
+        public void LoadSampleGltf()
         {
             var gltf = Interface.LoadModel(@"testfixtures/2CylinderEngine.gltf");
             var stream = File.OpenRead(@"testfixtures/2CylinderEngine0.bin");
@@ -17,6 +17,22 @@ namespace B3dm.Tile.Tests
                 buf.Uri = null;
             }
             gltf.SaveBinaryModel(bytes, "test.glb");
+        }
+
+        [Test]
+        public void LoadB3dmWithGltf2LoaderTest()
+        {
+            var b3dmfile = File.OpenRead(@"testfixtures/py3dtiles_test_build_1.b3dm");
+            var b3dm = B3dmReader.ReadB3dm(b3dmfile);
+            var stream = new MemoryStream(b3dm.GlbData);
+            var gltf = Interface.LoadModel(stream);
+            Assert.IsTrue(gltf.Asset.Generator == "py3dtiles");
+        }
+
+        [Test]
+        public void GenerateGltfTest()
+        {
+
         }
     }
 }

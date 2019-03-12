@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using System.IO;
 using System.Numerics;
-using System.Reflection;
 
 namespace B3dm.Tile.Tests
 {
@@ -13,9 +12,7 @@ namespace B3dm.Tile.Tests
         {
             // arrange
             var tempPath = Path.GetTempPath();
-
-            const string testfile = "B3dm.Tile.Tests.testfixtures.building.wkb";
-            var buildingWkb = Assembly.GetExecutingAssembly().GetManifestResourceStream(testfile);
+            var buildingWkb = File.OpenRead(@"testfixtures/building.wkb");
 
             var m = new Matrix4x4(1, 0, 0, 1842015.125f,
                 0, 1, 0, 5177109.25f,

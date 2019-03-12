@@ -1,11 +1,7 @@
 using Gltf.Core;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using System;
 using System.IO;
-using System.Numerics;
-using System.Reflection;
-using Wkx;
 
 namespace B3dm.Tile.Tests
 {
@@ -16,9 +12,7 @@ namespace B3dm.Tile.Tests
         [SetUp]
         public void Setup()
         {
-            //const string testfile = "B3dm.Tile.Tests.testfixtures.29.b3dm";
-            const string testfile = "B3dm.Tile.Tests.testfixtures.py3dtiles_test_build_1.b3dm";
-            b3dmfile = Assembly.GetExecutingAssembly().GetManifestResourceStream(testfile);
+            b3dmfile = File.OpenRead(@"testfixtures/py3dtiles_test_build_1.b3dm");
             Assert.IsTrue(b3dmfile != null);
         }
 
@@ -44,8 +38,6 @@ namespace B3dm.Tile.Tests
         [Test]
         public void ReadPy3DTilesB3dm()
         {
-            const string testfile = "B3dm.Tile.Tests.testfixtures.py3dtiles_test_build_1.b3dm";
-            b3dmfile = Assembly.GetExecutingAssembly().GetManifestResourceStream(testfile);
             Assert.IsTrue(b3dmfile != null);
             var b3dm = B3dmReader.ReadB3dm(b3dmfile);
             var glbBinary = b3dm.GlbData;
