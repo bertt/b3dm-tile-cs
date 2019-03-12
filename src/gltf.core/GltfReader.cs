@@ -31,17 +31,16 @@ namespace Gltf.Core
             var triangles = Triangulator.Triangulate(polyhedralsurface);
             var bytesPositions = triangles.PositionsToBinary();
             var bytesNormals = triangles.NormalsToBinary();
+            var n = (int)Math.Round((double)bytesPositions.Length / 12, 0);
+            var binIds = BinaryConvertor.ToBinary(new float[n]);
+
 
             var gltfArray = new Body {
                 Vertices = bytesPositions,
                 Normals = bytesNormals,
-                BBox = bb
+                BBox = bb,
+                Ids = binIds
             };
-
-            var n = (int)Math.Round((double)gltfArray.Vertices.Length / 12, 0);
-            var binIds = BinaryConvertor.ToBinary(new float[n]);
-
-            gltfArray.Ids = binIds;
             var header = GetHeader(gltfArray, transform, n);
 
             var gltf = new Gltf1();

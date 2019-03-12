@@ -1,7 +1,6 @@
 ﻿using Gltf.Core;
 using NUnit.Framework;
 using System.IO;
-using System.Numerics;
 
 namespace B3dm.Tile.Tests
 {
@@ -14,13 +13,7 @@ namespace B3dm.Tile.Tests
             var tempPath = Path.GetTempPath();
             var buildingWkb = File.OpenRead(@"testfixtures/building.wkb");
 
-            var m = new Matrix4x4(1, 0, 0, 1842015.125f,
-                0, 1, 0, 5177109.25f,
-                0, 0, 1, 247.87364196777344f,
-                0, 0, 0, 1
-                );
-            var transform = m.Flatten();
-
+            var transform = Transformer.GetTransform(1842015.125f, 5177109.25f, 247.87364196777344f);
             var gltf = GltfReader.ReadFromWkb(buildingWkb, transform);
             var glb = Packer.Pack(gltf);
             var b3dm = new B3dm();
