@@ -23,22 +23,29 @@ namespace pg2b3dm
             conn.Open();
 
             var bbox3d = GetBoundingBox3D(conn, geometry_table, geometry_column);
+            var center = bbox3d.GetCenter();
+            var transform = new float[] { (float)center.X,(float)center.Y,(float)center.Z };
 
-            var cmd = new NpgsqlCommand("SELECT * from tmp.tmp", conn);
+            var cmd = new NpgsqlCommand("SELECT ST_ASBinary(geom) from tmp.tmp where id=77", conn);
             var reader = cmd.ExecuteReader();
-            while (reader.Read()) {
-                Console.WriteLine(reader.GetInt64(0));
+            reader.Read();
+            var stream = reader.GetStream(0);
+
+            var gltf = GltfReader.ReadFromWkb(stream, transform);
+            var glb = Packer.Pack(gltf);
+            var b3dm = new B3dm.Tile.B3dm {
+                GlbData = glb
             };
-            conn.Close();
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadKey();
+            B3dmWriter.WriteB3dm(@"d:\aaa\b3dm\core\texel77.b3dm", b3dm);
+            B3dmWriter.WriteGlb(@"d:\aaa\b3dm\core\texel77.glb", b3dm);
+
         }
 
 
         private static BoundingBox3D GetBoundingBox3D(NpgsqlConnection connection, string geometry_table, string geometry_column)
         {
             // read bounding box
-            var cmd = new NpgsqlCommand($"SELECT st_xmin(geom1), st_ymin(geom1), st_zmin(geom1), st_xmax(geom1), st_ymax(geom1), st_xmax(geom1) FROM (select ST_3DExtent({geometry_column}) as geom1 from {geometry_table}) as t", connection);
+            var cmd = new NpgsqlCommand($"SELECT st_xmin(geom1), st_ymin(geom1), st_zmin(geom1), st_xmax(geom1), st_ymax(geom1), st_zmax(geom1) FROM (select ST_3DExtent({geometry_column}) as geom1 from {geometry_table}) as t", connection);
             var reader = cmd.ExecuteReader();
             reader.Read();
             var xmin = reader.GetDouble(0);

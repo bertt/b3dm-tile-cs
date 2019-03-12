@@ -13,7 +13,7 @@ namespace Gltf.Core.Tests
             //const string testfile = @"d:\aaa\b3dm\2.glb";
             var fs =  File.Open(testfile, FileMode.Open);
             // act
-            var gltf = GlbReader.ReadFromGlb(fs);
+            var gltf = Packer.Unpack(fs);
             // assert
             Assert.IsTrue(gltf.Version == 2);
 

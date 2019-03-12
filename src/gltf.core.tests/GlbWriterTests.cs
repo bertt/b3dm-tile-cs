@@ -11,10 +11,10 @@ namespace Gltf.Core.Tests
             // arrange
             const string testfile = @".\testfixtures\building.glb";
             var fs = File.Open(testfile, FileMode.Open);
-            var gltf = GlbReader.ReadFromGlb(fs);
+            var gltf = Packer.Unpack(fs);
 
             // act
-            var glb = GlbWriter.ToGlb(gltf);
+            var glb = Packer.Pack(gltf);
 
             // assert 
             Assert.IsTrue(glb.Length == 20 + gltf.GltfModelJson.Length + 8 + gltf.GltfModelBin.Length);

@@ -22,7 +22,7 @@ namespace B3dm.Tile.Tests
             var transform = m.Flatten();
 
             var gltf = GltfReader.ReadFromWkb(buildingWkb, transform);
-            var glb = GlbWriter.ToGlb(gltf);
+            var glb = Packer.Pack(gltf);
             var b3dm = new B3dm();
             b3dm.GlbData = glb;
             B3dmWriter.WriteB3dm(@"d:\aaa\b3dm\7.b3dm", b3dm);
