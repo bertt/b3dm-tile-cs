@@ -35,13 +35,12 @@ namespace Gltf.Core
             var binIds = BinaryConvertor.ToBinary(new float[n]);
 
 
-            var gltfArray = new Body {
+            var gltfArray = new GltfArray(bytesPositions) {
                 Vertices = bytesPositions,
                 Normals = bytesNormals,
                 BBox = bb,
-                Ids = binIds
             };
-            var header = GetHeader(gltfArray, transform, n);
+            var header = GetHeader(gltfArray, transform, gltfArray.Count);
 
             var gltf = new Gltf1();
             gltf.Magic = 1179937895;
@@ -52,7 +51,7 @@ namespace Gltf.Core
             return gltf;
         }
 
-        public static Header GetHeader(Body gltfArray, float[] transform, int n)
+        public static Header GetHeader(GltfArray gltfArray, float[] transform, int n)
         {
             var batchLength = 1;
             var byteLength = gltfArray.Vertices.Length * 2;
