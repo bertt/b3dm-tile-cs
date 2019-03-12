@@ -1,5 +1,6 @@
 ﻿using Gltf.Core;
 using NUnit.Framework;
+using System.IO;
 using System.Numerics;
 using System.Reflection;
 
@@ -11,6 +12,8 @@ namespace B3dm.Tile.Tests
         public void WriteB3dmTest()
         {
             // arrange
+            var tempPath = Path.GetTempPath();
+
             const string testfile = "B3dm.Tile.Tests.testfixtures.building.wkb";
             var buildingWkb = Assembly.GetExecutingAssembly().GetManifestResourceStream(testfile);
 
@@ -25,7 +28,7 @@ namespace B3dm.Tile.Tests
             var glb = Packer.Pack(gltf);
             var b3dm = new B3dm();
             b3dm.GlbData = glb;
-            B3dmWriter.WriteB3dm(@"d:\aaa\b3dm\7.b3dm", b3dm);
+            B3dmWriter.WriteB3dm(tempPath + "7.b3dm", b3dm);
             Assert.IsTrue(true);
         }
     }

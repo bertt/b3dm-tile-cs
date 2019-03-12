@@ -36,9 +36,9 @@ namespace pg2b3dm
             var b3dm = new B3dm.Tile.B3dm {
                 GlbData = glb
             };
-            B3dmWriter.WriteB3dm(@"d:\aaa\b3dm\core\texel77.b3dm", b3dm);
-            B3dmWriter.WriteGlb(@"d:\aaa\b3dm\core\texel77.glb", b3dm);
 
+            B3dmWriter.WriteB3dm(@"./result/texel77.b3dm", b3dm);
+            B3dmWriter.WriteGlb(@"./result/texel77.glb", b3dm);
         }
 
 

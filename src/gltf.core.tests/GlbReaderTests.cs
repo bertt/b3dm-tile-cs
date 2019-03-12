@@ -10,7 +10,6 @@ namespace Gltf.Core.Tests
         {
             // arrange
             const string testfile = @".\testfixtures\building.glb";
-            //const string testfile = @"d:\aaa\b3dm\2.glb";
             var fs =  File.Open(testfile, FileMode.Open);
             // act
             var gltf = Packer.Unpack(fs);
