@@ -21,7 +21,7 @@ namespace B3dm.Tile.Tests
                 GlbData = glb
             };
             B3dmWriter.WriteB3dm(tempPath + "texel88.b3dm", b3dm);
-            B3dmWriter.WriteGlb(tempPath + "texel88.glb", b3dm);
+            B3dmWriter.WriteGlb(tempPath + "texel89.glb", b3dm);
             Assert.IsTrue(true);
         }
     }
