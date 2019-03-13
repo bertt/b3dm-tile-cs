@@ -7,11 +7,11 @@ namespace B3dm.Tile
 {
     public static class Gltf2Loader
     {
-        public static GltfAll GetGltf(PolyhedralSurface polyhedralsurface, float[] translation)
+        public static GltfAll GetGltf(PolyhedralSurface polyhedralsurface, float[] translation, string buffer_uri="")
         {
             var gltfArray = Gltf2Loader.GetGltfArray(polyhedralsurface);
             var body = gltfArray.AsBinary();
-            var gltf = Gltf2Loader.GetGltf(gltfArray, translation);
+            var gltf = Gltf2Loader.GetGltf(gltfArray, translation, buffer_uri);
             var all = new GltfAll() { Gltf = gltf, Body = body };
             return all;
         }
@@ -32,14 +32,14 @@ namespace B3dm.Tile
             return gltfArray;
         }
 
-        public static glTFLoader.Schema.Gltf GetGltf(GltfArray gltfArray, float[] translation)
+        public static glTFLoader.Schema.Gltf GetGltf(GltfArray gltfArray, float[] translation, string buffer_uri = "")
         {
             var gltf = new glTFLoader.Schema.Gltf();
             gltf.Asset = GetAsset();
             gltf.Scene = 0;
             gltf.Materials = GetMaterials();
             gltf.Nodes = GetNodes(translation);
-            gltf.Buffers = GetBuffers(gltfArray.Vertices.Length);
+            gltf.Buffers = GetBuffers(gltfArray.Vertices.Length, buffer_uri);
             gltf.Meshes = GetMeshes();
             gltf.BufferViews = GetBufferViews(gltfArray.Vertices.Length);
             gltf.Accessors = GetAccessors(gltfArray.BBox, gltfArray.Count);
@@ -119,7 +119,7 @@ namespace B3dm.Tile
             return new glTFLoader.Schema.Mesh[] { mesh };
         }
 
-        private static glTFLoader.Schema.Buffer[] GetBuffers(int verticesLength)
+        private static glTFLoader.Schema.Buffer[] GetBuffers(int verticesLength, string buffer_uri = "")
         {
             var byteLength = verticesLength * 2;
             byteLength += verticesLength / 3;
@@ -127,6 +127,10 @@ namespace B3dm.Tile
             var buffer = new glTFLoader.Schema.Buffer() {
                 ByteLength = byteLength
             };
+            if (!string.IsNullOrEmpty(buffer_uri)) {
+                buffer.Uri = buffer_uri;
+            } 
+
             return new glTFLoader.Schema.Buffer[] { buffer };
         }
 
