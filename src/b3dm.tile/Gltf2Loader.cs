@@ -25,7 +25,6 @@ namespace B3dm.Tile
             var bb = polyhedralsurface.GetBoundingBox3D();
 
             var gltfArray = new GltfArray(bytesVertices) {
-                Vertices = bytesVertices,
                 Normals = bytesNormals,
                 BBox = bb
             };
@@ -47,35 +46,35 @@ namespace B3dm.Tile
             return gltf;
         }
 
-        private static glTFLoader.Schema.Scene[] GetScenes(int nodes)
+        private static Scene[] GetScenes(int nodes)
         {
-            var scene = new glTFLoader.Schema.Scene();
+            var scene = new Scene();
             scene.Nodes = new int[nodes];
-            return new glTFLoader.Schema.Scene[] { scene };
+            return new Scene[] { scene };
         }
 
-        private static glTFLoader.Schema.Accessor[] GetAccessors(BoundingBox3D bb, int n)
+        private static Accessor[] GetAccessors(BoundingBox3D bb, int n)
         {
             // q: max and min are reversed in next py code?
             var max = new float[3] { (float)bb.YMin, (float)bb.ZMin, (float)bb.XMin };
             var min = new float[3] { (float)bb.YMax, (float)bb.ZMax, (float)bb.XMax };
-            var accessor = GetAccessor(0, n, min, max, glTFLoader.Schema.Accessor.TypeEnum.VEC3);
+            var accessor = GetAccessor(0, n, min, max, Accessor.TypeEnum.VEC3);
             max = new float[3] { 1, 1, 1 };
             min = new float[3] { -1, -1, -1 };
-            var accessorNormals = GetAccessor(1, n, min, max, glTFLoader.Schema.Accessor.TypeEnum.VEC3);
+            var accessorNormals = GetAccessor(1, n, min, max, Accessor.TypeEnum.VEC3);
             var batchLength = 1;
             max = new float[1] { batchLength };
             min = new float[1] { 0 };
-            var accessorBatched = GetAccessor(2, n, min, max, glTFLoader.Schema.Accessor.TypeEnum.SCALAR);
-            return new glTFLoader.Schema.Accessor[] { accessor, accessorNormals, accessorBatched };
+            var accessorBatched = GetAccessor(2, n, min, max, Accessor.TypeEnum.SCALAR);
+            return new Accessor[] { accessor, accessorNormals, accessorBatched };
         }
 
-        private static glTFLoader.Schema.Accessor GetAccessor(int bufferView, int n, float[] min, float[] max, glTFLoader.Schema.Accessor.TypeEnum type)
+        private static Accessor GetAccessor(int bufferView, int n, float[] min, float[] max, Accessor.TypeEnum type)
         {
-            var accessor = new glTFLoader.Schema.Accessor();
+            var accessor = new Accessor();
             accessor.BufferView = bufferView;
             accessor.ByteOffset = 0;
-            accessor.ComponentType = glTFLoader.Schema.Accessor.ComponentTypeEnum.FLOAT;
+            accessor.ComponentType = Accessor.ComponentTypeEnum.FLOAT;
             accessor.Count = n;
             accessor.Min = min;
             accessor.Max = max;
@@ -102,9 +101,9 @@ namespace B3dm.Tile
             return bufferView1;
         }
 
-        private static glTFLoader.Schema.Mesh[] GetMeshes()
+        private static Mesh[] GetMeshes()
         {
-            var mesh = new glTFLoader.Schema.Mesh();
+            var mesh = new Mesh();
 
             var attributes = new Dictionary<string, int>();
             attributes.Add("POSITION", 0);
@@ -116,49 +115,48 @@ namespace B3dm.Tile
             primitive.Material = 0;
             primitive.Mode = MeshPrimitive.ModeEnum.TRIANGLES;
             mesh.Primitives = new MeshPrimitive[] { primitive };
-            return new glTFLoader.Schema.Mesh[] { mesh };
+            return new Mesh[] { mesh };
         }
 
-        private static glTFLoader.Schema.Buffer[] GetBuffers(int verticesLength, string buffer_uri = "")
+        private static Buffer[] GetBuffers(int verticesLength, string buffer_uri = "")
         {
             var byteLength = verticesLength * 2;
             byteLength += verticesLength / 3;
 
-            var buffer = new glTFLoader.Schema.Buffer() {
+            var buffer = new Buffer() {
                 ByteLength = byteLength
             };
             if (!string.IsNullOrEmpty(buffer_uri)) {
                 buffer.Uri = buffer_uri;
             } 
 
-            return new glTFLoader.Schema.Buffer[] { buffer };
+            return new Buffer[] { buffer };
         }
 
-        private static glTFLoader.Schema.Node[] GetNodes(float[] translation)
+        private static Node[] GetNodes(float[] translation)
         {
-            var node = new glTFLoader.Schema.Node() {
+            var node = new Node() {
                 Translation = translation,
                 Mesh = 0
             };
-            return new glTFLoader.Schema.Node[] { node };
+            return new Node[] { node };
         }
 
-        private static glTFLoader.Schema.Material[] GetMaterials()
+        private static Material[] GetMaterials()
         {
-            var material = new glTFLoader.Schema.Material() {
+            var material = new Material() {
                 Name = "Material",
                 PbrMetallicRoughness = new MaterialPbrMetallicRoughness() { MetallicFactor = 0 }
             };
-            return new glTFLoader.Schema.Material[] { material };
+            return new Material[] { material };
         }
 
-        private static glTFLoader.Schema.Asset GetAsset()
+        private static Asset GetAsset()
         {
-            var asset = new glTFLoader.Schema.Asset();
+            var asset = new Asset();
             asset.Generator = "Glt.Core";
             asset.Version = "2.0";
             return asset;
         }
-
     }
 }

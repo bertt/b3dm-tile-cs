@@ -14,7 +14,11 @@ namespace Gltf.Core
             this.n = (int)Math.Round((double)vertices.Length / 12, 0);
 
         }
-        public byte[] Vertices { get; set; }
+        public byte[] Vertices {
+            get {
+                return vertices;
+            }
+        }
         public byte[] Normals { get; set; }
         public byte[] Ids { get { return BinaryConvertor.ToBinary(new float[n]); } }
 
