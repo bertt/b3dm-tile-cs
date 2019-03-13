@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Numerics;
-using Gltf.Core;
+﻿using System.IO;
 using glTFLoader;
-using glTFLoader.Schema;
 using NUnit.Framework;
 using Wkx;
 
