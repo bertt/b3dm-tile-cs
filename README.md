@@ -8,28 +8,40 @@ Batched 3D specification: https://github.com/AnalyticalGraphicsInc/3d-tiles/blob
 
 ## Sample code for conversion b3dm -> glb:
 
+In this sample a b3dm is read and written to GLB format and glTF/bin format. 
+
+For unpacking the GLB library glTF2Loader (https://www.nuget.org/packages/glTF2Loader/1.1.3-alpha) is used.
+
 ```
-string infile = "testfixtures/1311.b3dm";
-string outfile = "test.glb";
-
-var stream = File.OpenRead(infile);
-var b3dm = B3dmReader.ReadB3dm(stream);
-
-var fs = File.Create(outfile);
-var bw = new BinaryWriter(fs);
-bw.Write(b3dm.GlbData);
-bw.Close();
+Console.WriteLine("Sample code for unpacking a b3dm to glb and glTF/bin file");
+var f = File.OpenRead(@"testfixtures/51.b3dm");
+var b3dm = B3dmReader.ReadB3dm(f);
+Console.WriteLine("b3dm version: " + b3dm.B3dmHeader.Version);
+var stream = new MemoryStream(b3dm.GlbData);
+var gltf = Interface.LoadModel(stream);
+Console.WriteLine("glTF asset generator: " + gltf.Asset.Generator);
+Console.WriteLine("glTF version: " + gltf.Asset.Version);
+var model = gltf.SerializeModel();
+Console.WriteLine("glTF model: " + model);
+var bufferBytes = gltf.Buffers[0].ByteLength;
+Console.WriteLine("Buffer bytes: " + bufferBytes);
+File.WriteAllBytes("testfixtures/51.glb", b3dm.GlbData);
+Interface.Unpack("testfixtures/51.glb", "testfixtures");
 ```
 
-Example glTF viewer for test.gltf: https://gltf-viewer.donmccurdy.com/
+Example glTF viewers for .glTF: 
 
-glTF Validator: http://github.khronos.org/glTF-Validator/
+- https://gltf-viewer.donmccurdy.com/
+
+- glTF Validator: http://github.khronos.org/glTF-Validator/
+
+- Visual Studio Code: https://github.com/AnalyticalGraphicsInc/gltf-vscode
 
 <img src="gltf.png"/>
 
 ## Dependencies
 
-NETStandard.Library 2.0.3
+- NETStandard.Library 2.0.3
 
 ## History
 
