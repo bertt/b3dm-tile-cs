@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using B3dm.Tile;
 using Gltf.Core;
@@ -21,54 +20,33 @@ namespace pg2b3dm
             var connectionString = configuration["connectionstring"];
             var geometry_table = configuration["geometry_table"];
             var geometry_column = configuration["geometry_column"];
-            var id_column = configuration["id_column"];
 
             var conn = new NpgsqlConnection(connectionString);
             conn.Open();
 
-            var ids = GetIds(conn, geometry_table, id_column);
             var translation = GetTransform(conn, geometry_table, geometry_column);
 
-            foreach (var record_id in ids) {
-                Console.Write(".");
-                var gltfall = GetGltf(conn, geometry_table, geometry_column, id_column, translation, record_id);
-                Directory.CreateDirectory("glb");
-                File.WriteAllBytes($"./glb/texel_{record_id}.bin", gltfall.Body);
-                gltfall.Gltf.SaveModel($"./glb/texel_{record_id}.gltf");
-                // gltfall.Gltf.SaveBinaryModel(null, $"./glb/texel_{record_id}.glb");
-                // gltfall.Gltf.SaveBinaryModel(gltfall.Body, $"./glb/texel_{id}.glb");
-                //B3dmWriter.WriteB3dm($"./b3dm/texel{id}.b3dm", b3dm);
-                //B3dmWriter.WriteGlb($"./b3dm/texel{id}.glb", b3dm);
-            }
-
-            conn.Close();
-        }
-
-        private static List<long> GetIds(NpgsqlConnection conn, string geometry_table, string id_column)
-        {
-            var res = new List<long>();
-            var cmd = new NpgsqlCommand($"select {id_column} from {geometry_table}", conn);
+            var i = 0;
+            var cmd = new NpgsqlCommand($"SELECT ST_ASBinary({geometry_column}) from {geometry_table}", conn);
             var reader = cmd.ExecuteReader();
             while (reader.Read()) {
-                var id = reader.GetInt64(0);
-                res.Add(id);
+                Console.Write(".");
+                var stream = reader.GetStream(0);
+                var g = Geometry.Deserialize<WkbSerializer>(stream);
+                if (g.GeometryType == GeometryType.PolyhedralSurface) {
+                    var polyhedralsurface = ((PolyhedralSurface)g);
+                    var gltf = Gltf2Loader.GetGltf(polyhedralsurface, translation, $"texel_{i}.bin");
+                    File.WriteAllBytes($"./glb/texel_{i}.bin", gltf.Body);
+                    gltf.Gltf.SaveModel($"./glb/texel_{i}.gltf");
+                }
+                else {
+                    Console.WriteLine("Geometry type: " + g.GeometryType.ToString() + " detected");
+                }
+                i++;
             }
-            reader.Close();
-            return res;
-        }
-
-        private static GltfAll GetGltf(NpgsqlConnection conn, string geometry_table, string geometry_column, string id_column, float[] translation, long id)
-        {
-            var cmd = new NpgsqlCommand($"SELECT ST_ASBinary({geometry_column}) from {geometry_table} where {id_column}={id}", conn);
-            var reader = cmd.ExecuteReader();
-            reader.Read();
-            var stream = reader.GetStream(0);
-            var g = Geometry.Deserialize<WkbSerializer>(stream);
-            var polyhedralsurface = ((PolyhedralSurface)g);
-            var gltf = Gltf2Loader.GetGltf(polyhedralsurface, translation, $"texel_{id}.bin");
 
             reader.Close();
-            return gltf;
+            conn.Close();
         }
 
         private static float[] GetTransform(NpgsqlConnection conn, string geometry_table, string geometry_column)
