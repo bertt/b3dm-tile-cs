@@ -23,6 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="testfixtures\building.glb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="testfixtures\building.wkb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

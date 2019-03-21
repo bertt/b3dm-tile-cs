@@ -10,8 +10,7 @@ namespace b3dm.tooling
     {
         static void Main(string[] args)
         {
-            if (args.Length == 0)
-            {
+            if (args.Length == 0) {
                 var versionString = Assembly.GetEntryAssembly()
                                         .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
                                         .InformationalVersion
@@ -24,15 +23,17 @@ namespace b3dm.tooling
                 return;
             }
 
-            if(args[0] == "unpack")
-            {
+            if (args[0] == "unpack") {
                 Unpack(args[1]);
+            }
+            else if (args[0] == "info") {
+                Info(args[1]);
             }
         }
 
         static void Unpack(string file)
         {
-            var f = File.OpenRead(@file);
+            var f = File.OpenRead(file);
             var b3dm = B3dmReader.ReadB3dm(f);
             Console.WriteLine("b3dm version: " + b3dm.B3dmHeader.Version);
             var stream = new MemoryStream(b3dm.GlbData);
@@ -44,6 +45,16 @@ namespace b3dm.tooling
             var glbfile = Path.GetFileNameWithoutExtension(file) + ".glb";
             File.WriteAllBytes(glbfile, b3dm.GlbData);
             Console.WriteLine("Glb created " + glbfile);
+        }
+
+        static void Info(string file)
+        {
+            var f = File.OpenRead(file);
+            var b3dm = B3dmReader.ReadB3dm(f);
+            Console.WriteLine("b3dm version: " + b3dm.B3dmHeader.Version);
+            var stream = new MemoryStream(b3dm.GlbData);
+            var gltf = Interface.LoadModel(stream);
+            Console.WriteLine(gltf.SerializeModel());
         }
     }
 }

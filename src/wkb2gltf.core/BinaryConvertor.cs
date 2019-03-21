@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace Wkb2Gltf.Core
+namespace Wkb2Gltf
 {
     public static class BinaryConvertor
     {

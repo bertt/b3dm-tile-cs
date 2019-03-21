@@ -4,7 +4,7 @@ using glTFLoader;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 using Wkx;
-using Wkb2Gltf.Core;
+using Wkb2Gltf;
 
 namespace pg2b3dm
 {

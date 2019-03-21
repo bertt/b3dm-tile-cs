@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{E4986773-AFE
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "wkb2gltf.core", "src\wkb2gltf.core\wkb2gltf.core.csproj", "{5CE3031C-206B-4F82-A780-5CEB4A93ACB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "wkb2gltf", "src\wkb2gltf.core\wkb2gltf.csproj", "{5CE3031C-206B-4F82-A780-5CEB4A93ACB9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "earcut", "src\earcut\earcut.csproj", "{7A4B4715-01CB-4F37-A033-CD8466F91EE2}"
 EndProject

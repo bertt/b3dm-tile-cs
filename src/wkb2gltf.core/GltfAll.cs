@@ -1,4 +1,4 @@
-﻿namespace Wkb2Gltf.Core
+﻿namespace Wkb2Gltf
 {
     public class GltfAll
     {

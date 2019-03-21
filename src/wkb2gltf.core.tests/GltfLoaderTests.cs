@@ -3,7 +3,7 @@ using glTFLoader;
 using NUnit.Framework;
 using Wkx;
 
-namespace Wkb2Gltf.Core.Tests
+namespace Wkb2Gltf.Tests
 {
     public class GltfLoaderTests
     {

@@ -5,7 +5,7 @@
 
     <IsPackable>false</IsPackable>
 
-    <RootNamespace>Wkb2Gltf.Core.Tests</RootNamespace>
+    <RootNamespace>Wkb2Gltf.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\wkb2gltf.core\wkb2gltf.core.csproj" />
+    <ProjectReference Include="..\wkb2gltf.core\wkb2gltf.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System.Numerics;
 
-namespace Wkb2Gltf.Core.Tests
+namespace Wkb2Gltf.Tests
 {
     public class Matrix4x4Tests
     {

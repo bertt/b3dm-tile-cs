@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace Wkb2Gltf.Core
+namespace Wkb2Gltf
 {
     public static class Matrix4x4Extensions
     {

@@ -2,7 +2,7 @@
 using glTFLoader.Schema;
 using Wkx;
 
-namespace Wkb2Gltf.Core
+namespace Wkb2Gltf
 {
     public static class Gltf2Loader
     {

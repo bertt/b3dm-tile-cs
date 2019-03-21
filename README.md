@@ -83,7 +83,15 @@ $ dotnet tool update --global --add-source ./nupkg b3dm.tooling
 
 - run:
 
-Command unpack b3dm_filename unpacks a b3dm file to GLB format
+1] Command Info b3dm_file gives header info about b3dm file
+
+Example:
+
+```
+$ b3dm info test.b3dm
+```
+
+2] Command unpack b3dm_filename unpacks a b3dm file to GLB format
 
 Example:
 
@@ -95,4 +103,13 @@ glTF asset generator: py3dtiles
 glTF version: 2.0
 Buffer bytes: 1848
 Glb created test.glb
+```
+
+## Glt2Loader sample code
+
+```
+// save gltf bin and gltf file
+File.WriteAllBytes($"building.bin", gltf.Body);
+gltf.Gltf.SaveModel($"building.gltf");
+
 ```

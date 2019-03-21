@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>Wkb2Gltf.Core</RootNamespace>
-    <AssemblyName>wkb2gltf.core</AssemblyName>
+    <RootNamespace>Wkb2Gltf</RootNamespace>
+    <AssemblyName>wkb2gltf</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

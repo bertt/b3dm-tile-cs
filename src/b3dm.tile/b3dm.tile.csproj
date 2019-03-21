@@ -32,7 +32,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\wkb2gltf.core\wkb2gltf.core.csproj" />
+    <ProjectReference Include="..\wkb2gltf.core\wkb2gltf.csproj" />
   </ItemGroup>
 
 </Project>

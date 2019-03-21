@@ -2,7 +2,7 @@
 using System.Numerics;
 using Wkx;
 
-namespace Wkb2Gltf.Core.Tests
+namespace Wkb2Gltf.Tests
 {
     public class ProjectionsTests
     {
