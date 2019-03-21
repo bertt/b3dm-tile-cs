@@ -1,4 +1,4 @@
-﻿namespace B3dm.Tile
+﻿namespace Wkb2Gltf.Core
 {
     public class GltfAll
     {

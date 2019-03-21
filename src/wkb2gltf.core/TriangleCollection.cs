@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Numerics;
 
-namespace Gltf.Core
+namespace Wkb2Gltf.Core
 {
     public class TriangleCollection: List<Triangle>
     {

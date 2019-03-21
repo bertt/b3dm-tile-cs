@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Wkx;
 
-namespace Gltf.Core
+namespace Wkb2Gltf.Core
 {
     public class Triangulator
     {

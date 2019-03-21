@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using Wkx;
 
-namespace Gltf.Core
+namespace Wkb2Gltf.Core
 {
     public static class Projections
     {

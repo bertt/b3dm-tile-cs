@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace Gltf.Core.Tests
+namespace Wkb2Gltf.Core.Tests
 {
     public class BinaryConvertorTests
     {

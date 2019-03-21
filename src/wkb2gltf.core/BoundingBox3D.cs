@@ -1,6 +1,6 @@
 ﻿using Wkx;
 
-namespace Gltf.Core
+namespace Wkb2Gltf.Core
 {
     public class BoundingBox3D
     {

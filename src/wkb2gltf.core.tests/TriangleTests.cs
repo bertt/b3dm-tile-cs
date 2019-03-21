@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using Wkx;
 
-namespace Gltf.Core.Tests
+namespace Wkb2Gltf.Core.Tests
 {
     public class TriangleTests
     {
@@ -12,7 +12,7 @@ namespace Gltf.Core.Tests
             var p0 = new Point(-7.75033199996687, -7.35523200035095, 1.90862603222655);
             var p1 = new Point(-7.81216700002551, -1.49922499991953, 1.90862603222655);
             var p2 = new Point(-7.75033199996687, -7.35523200035095, -2.05385796777344);
-            var triangle = new global::Gltf.Core.Triangle(p0, p1, p2);
+            var triangle = new Triangle(p0, p1, p2);
 
             // act
             var normal = triangle.GetNormal();
@@ -29,7 +29,7 @@ namespace Gltf.Core.Tests
             var p0 = new Point(-7.75033199996687, -7.35523200035095, 1.90862603222655);
             var p1 = new Point(-7.81216700002551, -1.49922499991953, 1.90862603222655);
             var p2 = new Point(-7.75033199996687, -7.35523200035095, -2.05385796777344);
-            var triangle = new global::Gltf.Core.Triangle(p0, p1, p2);
+            var triangle = new Triangle(p0, p1, p2);
             Assert.IsTrue(triangle.Flatten().Length==9);
         }
     }

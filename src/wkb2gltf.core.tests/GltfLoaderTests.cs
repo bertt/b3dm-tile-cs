@@ -3,7 +3,7 @@ using glTFLoader;
 using NUnit.Framework;
 using Wkx;
 
-namespace B3dm.Tile.Tests
+namespace Wkb2Gltf.Core.Tests
 {
     public class GltfLoaderTests
     {
@@ -18,21 +18,6 @@ namespace B3dm.Tile.Tests
                 buf.Uri = null;
             }
             gltf.SaveBinaryModel(bytes, "test.glb");
-        }
-
-        [Test]
-        public void LoadB3dmWithGltf2LoaderTest()
-        {
-            var b3dmfile = File.OpenRead(@"testfixtures/py3dtiles_test_build_1.b3dm");
-            var b3dm = B3dmReader.ReadB3dm(b3dmfile);
-            var stream1 = new MemoryStream(b3dm.GlbData);
-            var gltf = Interface.LoadModel(stream1);
-            Assert.IsTrue(gltf.Buffers[0].ByteLength == 1848);
-            var stream2 = new MemoryStream(b3dm.GlbData);
-            var bytes = Interface.LoadBinaryBuffer(stream2);
-            Assert.IsTrue(bytes.Length == 1848);
-
-            //Assert.IsTrue(gltf.Asset.Generator == "py3dtiles");
         }
 
         [Test]

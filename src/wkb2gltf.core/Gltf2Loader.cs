@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using Gltf.Core;
 using glTFLoader.Schema;
 using Wkx;
 
-namespace B3dm.Tile
+namespace Wkb2Gltf.Core
 {
     public static class Gltf2Loader
     {
@@ -31,9 +30,9 @@ namespace B3dm.Tile
             return gltfArray;
         }
 
-        public static glTFLoader.Schema.Gltf GetGltf(GltfArray gltfArray, float[] translation, string buffer_uri = "")
+        public static Gltf GetGltf(GltfArray gltfArray, float[] translation, string buffer_uri = "")
         {
-            var gltf = new glTFLoader.Schema.Gltf();
+            var gltf = new Gltf();
             gltf.Asset = GetAsset();
             gltf.Scene = 0;
             gltf.Materials = GetMaterials();

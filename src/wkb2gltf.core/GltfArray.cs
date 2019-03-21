@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Gltf.Core
+namespace Wkb2Gltf.Core
 {
     public class GltfArray
     {

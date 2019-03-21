@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
 
     <IsPackable>false</IsPackable>
 
-    <RootNamespace>Gltf.Core.Tests</RootNamespace>
+    <RootNamespace>Wkb2Gltf.Core.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,10 +16,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\gltf.core\gltf.core.csproj" />
+    <ProjectReference Include="..\wkb2gltf.core\wkb2gltf.core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="testfixtures\2CylinderEngine.gltf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testfixtures\2CylinderEngine0.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="testfixtures\building.wkb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

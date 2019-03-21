@@ -1,5 +1,3 @@
-using Gltf.Core;
-using Newtonsoft.Json;
 using NUnit.Framework;
 using System.IO;
 

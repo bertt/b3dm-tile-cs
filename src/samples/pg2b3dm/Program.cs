@@ -1,11 +1,10 @@
 ﻿using System;
 using System.IO;
-using B3dm.Tile;
-using Gltf.Core;
 using glTFLoader;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 using Wkx;
+using Wkb2Gltf.Core;
 
 namespace pg2b3dm
 {
