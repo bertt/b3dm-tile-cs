@@ -10,7 +10,9 @@ namespace sample_read_b3dm
         static void Main(string[] args)
         {
             Console.WriteLine("Sample code for unpacking a b3dm to glb and glTF/bin file");
-            var f = File.OpenRead(@"testfixtures/51.b3dm");
+            var inputfile = @"testfixtures/building.b3dm";
+            var outputfile = Path.GetFileNameWithoutExtension(inputfile) + ".glb";
+            var f = File.OpenRead(inputfile);
             var b3dm = B3dmReader.ReadB3dm(f);
             Console.WriteLine("b3dm version: " + b3dm.B3dmHeader.Version);
             var stream = new MemoryStream(b3dm.GlbData);
@@ -21,8 +23,8 @@ namespace sample_read_b3dm
             Console.WriteLine("glTF model: " + model);
             var bufferBytes = gltf.Buffers[0].ByteLength;
             Console.WriteLine("Buffer bytes: " + bufferBytes);
-            File.WriteAllBytes("testfixtures/51.glb", b3dm.GlbData);
-            Interface.Unpack("testfixtures/51.glb", "testfixtures");
+            File.WriteAllBytes(outputfile, b3dm.GlbData);
+            Interface.Unpack(outputfile, "testfixtures");
             Console.WriteLine("press any key to continue...");
             Console.ReadKey();
         }
