@@ -1,11 +1,12 @@
 ﻿using System;
 using System.IO;
-using glTFLoader;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 using Wkx;
 using Wkb2Gltf;
 using B3dm.Tile;
+using System.Diagnostics;
+using Newtonsoft.Json;
 
 namespace pg2b3dm
 {
@@ -13,6 +14,10 @@ namespace pg2b3dm
     {
         static void Main(string[] args)
         {
+            // testing out reading tileset.json stuff
+            var json = File.ReadAllText("./testfixtures/sample_tileset.json");
+            var tileset = JsonConvert.DeserializeObject<TileSet>(json);
+
             Console.WriteLine("tool: pg2b3dm");
             Console.WriteLine("version: alpha alpha alpha");
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
@@ -21,13 +26,17 @@ namespace pg2b3dm
             var geometry_table = configuration["geometry_table"];
             var geometry_column = configuration["geometry_column"];
 
+
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
             var conn = new NpgsqlConnection(connectionString);
             conn.Open();
 
             var translation = GetTransform(conn, geometry_table, geometry_column);
 
             var i = 0;
-            var cmd = new NpgsqlCommand($"SELECT ST_ASBinary({geometry_column}) from {geometry_table}", conn);
+            var sql = $"SELECT ST_AsBinary(ST_RotateX(ST_Translate(geom, {translation[0]}*-1,{translation[1]}*-1 , {translation[2]}*-1), -pi() / 2)),ST_Area(ST_Force2D({geometry_column})) AS weight FROM {geometry_table} ORDER BY weight DESC";
+            var cmd = new NpgsqlCommand(sql, conn);
             var reader = cmd.ExecuteReader();
             while (reader.Read()) {
                 Console.Write(".");
@@ -46,6 +55,9 @@ namespace pg2b3dm
 
             reader.Close();
             conn.Close();
+
+            stopWatch.Stop();
+            Console.WriteLine("Elapsed: " + stopWatch.ElapsedMilliseconds);
         }
 
         private static float[] GetTransform(NpgsqlConnection conn, string geometry_table, string geometry_column)
