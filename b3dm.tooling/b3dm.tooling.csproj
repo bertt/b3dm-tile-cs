@@ -7,11 +7,17 @@
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>b3dm</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\src\b3dm.tile\b3dm.tile.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="test.b3dm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
