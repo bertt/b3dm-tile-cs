@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Npgsql;
 using Wkx;
 using Wkb2Gltf;
+using B3dm.Tile;
 
 namespace pg2b3dm
 {
@@ -33,10 +34,9 @@ namespace pg2b3dm
                 var stream = reader.GetStream(0);
                 var g = Geometry.Deserialize<WkbSerializer>(stream);
                 if (g.GeometryType == GeometryType.PolyhedralSurface) {
-                    var polyhedralsurface = ((PolyhedralSurface)g);
-                    var gltf = Gltf2Loader.GetGltf(polyhedralsurface, translation, $"texel_{i}.bin");
-                    File.WriteAllBytes($"./glb/texel_{i}.bin", gltf.Body);
-                    gltf.Gltf.SaveModel($"./glb/texel_{i}.gltf");
+                    var glb = GeometryToGlbConvertor.Convert(g, translation);
+                    var b3dm = GlbToB3dmConvertor.Convert(glb);
+                    B3dmWriter.WriteB3dm($"./glb/texel_{i}.b3dm", b3dm);
                 }
                 else {
                     Console.WriteLine("Geometry type: " + g.GeometryType.ToString() + " detected");
