@@ -83,6 +83,16 @@ $ dotnet tool update --global --add-source ./nupkg b3dm.tooling
 
 - run:
 
+Command unpack b3dm_filename unpacks a b3dm file to GLB format
+
+Example:
+
 ```
 $ b3dm unpack test.b3dm
+
+b3dm version: 1
+glTF asset generator: py3dtiles
+glTF version: 2.0
+Buffer bytes: 1848
+Glb created test.glb
 ```
