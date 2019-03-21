@@ -28,7 +28,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pg2b3dm", "src\samples\pg2b
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sample_read_b3dm", "src\samples\sample_read_b3dm\sample_read_b3dm.csproj", "{D71D1CE7-079B-44D6-9DF0-029193FCC35E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b3dm.tooling", "b3dm.tooling\b3dm.tooling.csproj", "{CBC1AC2C-FD04-4882-9225-D1100DDFADF5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b3dm.tooling", "src\b3dm.tooling\b3dm.tooling.csproj", "{CBC1AC2C-FD04-4882-9225-D1100DDFADF5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
