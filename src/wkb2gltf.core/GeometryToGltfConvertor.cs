@@ -8,10 +8,7 @@ namespace Wkb2Gltf
     {
         public static byte[] Convert(Geometry g, float[] translation)
         {
-            var polyhedralsurface = ((PolyhedralSurface)g);
-            var center = polyhedralsurface.GetCenter();
-            var bbox = polyhedralsurface.GetBoundingBox3D();
-            var gltf = Gltf2Loader.GetGltf(polyhedralsurface, translation);
+            var gltf = Gltf2Loader.GetGltf((PolyhedralSurface)g, translation);
             var ms = new MemoryStream();
             gltf.Gltf.SaveBinaryModel(gltf.Body, ms);
             return ms.ToArray();

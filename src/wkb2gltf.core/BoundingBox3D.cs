@@ -18,5 +18,17 @@ namespace Wkb2Gltf
             var z = (ZMax + ZMin) / 2;
             return new Point(x,y,z);
         }
+
+        public BoundingBox3D TransformYToZ()
+        {
+            var res = new BoundingBox3D();
+            res.XMin = XMin;
+            res.YMin = ZMin * -1;
+            res.ZMin = YMin;
+            res.XMax = XMax;
+            res.YMax = ZMin * -1; // heuh?
+            res.ZMax = YMax;
+            return res;
+        }
     }
 }

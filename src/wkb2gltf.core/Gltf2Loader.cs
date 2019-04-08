@@ -8,9 +8,9 @@ namespace Wkb2Gltf
     {
         public static GltfAll GetGltf(PolyhedralSurface polyhedralsurface, float[] translation, string buffer_uri="")
         {
-            var gltfArray = Gltf2Loader.GetGltfArray(polyhedralsurface);
+            var gltfArray = GetGltfArray(polyhedralsurface);
             var body = gltfArray.AsBinary();
-            var gltf = Gltf2Loader.GetGltf(gltfArray, translation, buffer_uri);
+            var gltf = GetGltf(gltfArray, translation, buffer_uri);
             var all = new GltfAll() { Gltf = gltf, Body = body };
             return all;
         }
@@ -32,23 +32,25 @@ namespace Wkb2Gltf
 
         public static Gltf GetGltf(GltfArray gltfArray, float[] translation, string buffer_uri = "")
         {
-            var gltf = new Gltf();
-            gltf.Asset = GetAsset();
-            gltf.Scene = 0;
-            gltf.Materials = GetMaterials();
-            gltf.Nodes = GetNodes(translation);
-            gltf.Buffers = GetBuffers(gltfArray.Vertices.Length, buffer_uri);
-            gltf.Meshes = GetMeshes();
-            gltf.BufferViews = GetBufferViews(gltfArray.Vertices.Length);
-            gltf.Accessors = GetAccessors(gltfArray.BBox, gltfArray.Count);
+            var gltf = new Gltf {
+                Asset = GetAsset(),
+                Scene = 0,
+                Materials = GetMaterials(),
+                Nodes = GetNodes(translation),
+                Buffers = GetBuffers(gltfArray.Vertices.Length, buffer_uri),
+                Meshes = GetMeshes(),
+                BufferViews = GetBufferViews(gltfArray.Vertices.Length),
+                Accessors = GetAccessors(gltfArray.BBox, gltfArray.Count)
+            };
             gltf.Scenes = GetScenes(gltf.Nodes.Length);
             return gltf;
         }
 
         private static Scene[] GetScenes(int nodes)
         {
-            var scene = new Scene();
-            scene.Nodes = new int[nodes];
+            var scene = new Scene {
+                Nodes = new int[nodes]
+            };
             return new Scene[] { scene };
         }
 

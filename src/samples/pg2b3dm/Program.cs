@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using B3dm.Tile;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -41,11 +43,18 @@ namespace pg2b3dm
             var sql = $"SELECT ST_AsBinary(ST_RotateX(ST_Translate(geom, {translation[0]}*-1,{translation[1]}*-1 , {translation[2]}*-1), -pi() / 2)),ST_Area(ST_Force2D({geometry_column})) AS weight FROM {geometry_table} ORDER BY weight DESC";
             var cmd = new NpgsqlCommand(sql, conn);
             var reader = cmd.ExecuteReader();
+            var zupboxes = new List<BoundingBox3D>();
             while (reader.Read()) {
                 Console.Write(".");
                 var stream = reader.GetStream(0);
                 var g = Geometry.Deserialize<WkbSerializer>(stream);
                 if (g.GeometryType == GeometryType.PolyhedralSurface) {
+                    var polyhedralsurface = (PolyhedralSurface)g;
+                    var center = polyhedralsurface.GetCenter();
+                    var bbox = polyhedralsurface.GetBoundingBox3D();
+                    var zupBox = bbox.TransformYToZ();
+                    zupboxes.Add(zupBox);
+
                     var glb = GeometryToGlbConvertor.Convert(g, translation);
                     var b3dm = GlbToB3dmConvertor.Convert(glb);
                     B3dmWriter.WriteB3dm($"./glb/texel_{i}.b3dm", b3dm);
@@ -58,6 +67,18 @@ namespace pg2b3dm
 
             reader.Close();
             conn.Close();
+
+            // select min and max from zupboxes for x and y
+
+            var xmin = zupboxes.Select(x => x.XMin).Min();
+            var ymin = zupboxes.Select(x => x.YMin).Min();
+            var xmax = zupboxes.Select(x => x.XMax).Max();
+            var ymax = zupboxes.Select(x => x.YMax).Max();
+
+            var extentX = xmax - xmin;
+            var extentY = ymax - ymin;
+
+            // todo: create quadtree
 
             stopWatch.Stop();
             Console.WriteLine("Elapsed: " + stopWatch.ElapsedMilliseconds);
