@@ -1,12 +1,12 @@
 ﻿using System;
-using System.IO;
-using Microsoft.Extensions.Configuration;
-using Npgsql;
-using Wkx;
-using Wkb2Gltf;
-using B3dm.Tile;
 using System.Diagnostics;
+using System.IO;
+using B3dm.Tile;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Npgsql;
+using Wkb2Gltf;
+using Wkx;
 
 namespace pg2b3dm
 {
@@ -15,8 +15,12 @@ namespace pg2b3dm
         static void Main(string[] args)
         {
             // testing out reading tileset.json stuff
-            var json = File.ReadAllText("./testfixtures/sample_tileset.json");
-            var tileset = JsonConvert.DeserializeObject<TileSet>(json);
+            // var json = File.ReadAllText("./testfixtures/sample_tileset.json");
+            // var tileset = JsonConvert.DeserializeObject<TileSet>(json);
+
+            var tileset = GetTileSetJson();
+            var s= JsonConvert.SerializeObject(tileset,Formatting.Indented);
+            File.WriteAllText("./testfixtures/sample_tileset_new.json", s);
 
             Console.WriteLine("tool: pg2b3dm");
             Console.WriteLine("version: alpha alpha alpha");
@@ -25,7 +29,6 @@ namespace pg2b3dm
             var connectionString = configuration["connectionstring"];
             var geometry_table = configuration["geometry_table"];
             var geometry_column = configuration["geometry_column"];
-
 
             var stopWatch = new Stopwatch();
             stopWatch.Start();
@@ -58,6 +61,52 @@ namespace pg2b3dm
 
             stopWatch.Stop();
             Console.WriteLine("Elapsed: " + stopWatch.ElapsedMilliseconds);
+        }
+
+        private static TileSet GetTileSetJson()
+        {
+            var tileset = new TileSet();
+            tileset.geometricError = 500;
+            tileset.asset = new Asset() { version = "1.0" };
+            var root = new Root();
+            root.geometricError = 500;
+            root.refine = "add";
+            root.transform = new double[]{
+              1.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0,
+              0.0,
+              141584.274,
+              471164.637,
+              15.816,
+              1.0
+            };
+            var boundingvolume = new Boundingvolume();
+            boundingvolume.box = new double[]{
+                0.0,
+                2.205,
+                0.0,
+                183.872,
+                0,
+                0,
+                0,
+                136.383,
+                0,
+                0,
+                0,
+                11.731
+            };
+            root.boundingVolume = boundingvolume;
+            tileset.root = root;
+            return tileset;
         }
 
         private static float[] GetTransform(NpgsqlConnection conn, string geometry_table, string geometry_column)

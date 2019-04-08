@@ -10,6 +10,7 @@ namespace Wkb2Gltf
         {
             var polyhedralsurface = ((PolyhedralSurface)g);
             var center = polyhedralsurface.GetCenter();
+            var bbox = polyhedralsurface.GetBoundingBox3D();
             var gltf = Gltf2Loader.GetGltf(polyhedralsurface, translation);
             var ms = new MemoryStream();
             gltf.Gltf.SaveBinaryModel(gltf.Body, ms);
