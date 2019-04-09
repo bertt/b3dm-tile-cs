@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using B3dm.Tile;
+using B3dm.Tile.Extensions;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Npgsql;
@@ -21,7 +22,7 @@ namespace pg2b3dm
             // var tileset = JsonConvert.DeserializeObject<TileSet>(json);
 
             var tileset = GetTileSetJson();
-            var s= JsonConvert.SerializeObject(tileset,Formatting.Indented);
+            var s = JsonConvert.SerializeObject(tileset, Formatting.Indented);
             File.WriteAllText("./testfixtures/sample_tileset_new.json", s);
 
             Console.WriteLine("tool: pg2b3dm");
@@ -50,7 +51,6 @@ namespace pg2b3dm
                 var g = Geometry.Deserialize<WkbSerializer>(stream);
                 if (g.GeometryType == GeometryType.PolyhedralSurface) {
                     var polyhedralsurface = (PolyhedralSurface)g;
-                    var center = polyhedralsurface.GetCenter();
                     var bbox = polyhedralsurface.GetBoundingBox3D();
                     var zupBox = bbox.TransformYToZ();
                     zupboxes.Add(zupBox);
@@ -69,20 +69,60 @@ namespace pg2b3dm
             conn.Close();
 
             // select min and max from zupboxes for x and y
-
-            var xmin = zupboxes.Select(x => x.XMin).Min();
-            var ymin = zupboxes.Select(x => x.YMin).Min();
-            var xmax = zupboxes.Select(x => x.XMax).Max();
-            var ymax = zupboxes.Select(x => x.YMax).Max();
-
-            var extentX = xmax - xmin;
-            var extentY = ymax - ymin;
+            var bbox1 = BoundingBoxCalculator.GetBoundingBox(zupboxes);
+            var extentX = bbox1.XMax - bbox1.XMin;
+            var extentY = bbox1.YMax - bbox1.YMin;
 
             // todo: create quadtree
+            var maxTileSize = 2000;
+            var featuresPerTile = 20;
+
+            var xrange = (int)Math.Ceiling(extentX / maxTileSize);
+            var yrange = (int)Math.Ceiling(extentY / maxTileSize);
+
+            for(var x = 0; x < xrange; x++) {
+                for (var y = 0; y < yrange; y++){
+                    var tileextent = B3dmTile.GetExtent(bbox1, maxTileSize, x, y);
+                    var geomids = new List<int>();
+
+                    // loop through all zupboxes
+                    for(var t = 0; t < zupboxes.Count; t++) {
+                        var center= zupboxes[t].GetCenter();
+                        var isinside = tileextent.Inside(center);
+                        if (isinside) {
+                            geomids.Add(t);
+                        }
+                    }
+
+                    Console.WriteLine($"{x},{y},{geomids.Count}");
+
+                    if (geomids.Count > featuresPerTile) {
+                        // stop de eerste 2000 in tree
+
+                    }
+
+                }
+
+            }
 
             stopWatch.Stop();
             Console.WriteLine("Elapsed: " + stopWatch.ElapsedMilliseconds);
+            Console.WriteLine("Program finished. Press any key to continue...");
+            Console.ReadKey();
         }
+
+        /**
+         * def tile_extent(extent, size, i, j):
+    minExtent = [
+        extent.min[0] + i * size,
+        extent.min[1] + j * size]
+    maxExtent = [
+        extent.min[0] + (i + 1) * size,
+        extent.min[1] + (j + 1) * size]
+    return BoundingBox(minExtent, maxExtent)
+    */
+
+
 
         private static TileSet GetTileSetJson()
         {
