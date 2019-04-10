@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using B3dm.Tile;
-using B3dm.Tile.Extensions;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Npgsql;
@@ -36,7 +34,15 @@ namespace pg2b3dm
             var stopWatch = new Stopwatch();
             stopWatch.Start();
             var zupboxes = WriteB3dms(connectionString, geometry_table, geometry_column);
-            ConstructTree(zupboxes);
+            // write zupboxes to file for unit testing
+            var writer = File.CreateText("bboxes.txt");
+            foreach (var zupbox in zupboxes) {
+                var s1 = zupbox.ToString();
+                writer.WriteLine(s1);
+            }
+            writer.Close();
+
+            var tree = TileCutter.ConstructTree(zupboxes);
 
             stopWatch.Stop();
             Console.WriteLine("Elapsed: " + stopWatch.ElapsedMilliseconds);
@@ -44,57 +50,6 @@ namespace pg2b3dm
             Console.ReadKey();
         }
 
-        private static void ConstructTree(List<BoundingBox3D> zupboxes)
-        {
-            // select min and max from zupboxes for x and y
-            var bbox1 = BoundingBoxCalculator.GetBoundingBox(zupboxes);
-            var extentX = bbox1.XMax - bbox1.XMin;
-            var extentY = bbox1.YMax - bbox1.YMin;
-
-            // todo: create quadtree
-            var maxTileSize = 2000;
-            var featuresPerTile = 20;
-
-            var xrange = (int)Math.Ceiling(extentX / maxTileSize);
-            var yrange = (int)Math.Ceiling(extentY / maxTileSize);
-
-            var tree = new Node();
-
-            for (var x = 0; x < xrange; x++) {
-                for (var y = 0; y < yrange; y++) {
-                    var tileextent = B3dmTile.GetExtent(bbox1, maxTileSize, x, y);
-                    var features = new List<Feature>();
-
-                    // loop through all zupboxes
-                    for (var t = 0; t < zupboxes.Count; t++) {
-                        var center = zupboxes[t].GetCenter();
-                        var isinside = tileextent.Inside(center);
-                        if (isinside) {
-                            var f = new Feature() { Id = t, BoundingBox = zupboxes[t] };
-                            features.Add(f);
-                        }
-                    }
-
-                    Console.WriteLine($"{x},{y},{features.Count}");
-                    if (features.Count == 0) {
-                        continue;
-                    }
-                    var node = new Node();
-                    if (features.Count > featuresPerTile) {
-                        node.FeatureIds = features.Take(featuresPerTile).ToList();
-                        var geomeidsrest = features.GetRange(featuresPerTile, features.Count - featuresPerTile).ToList();
-                        var new_x = x * 2;
-                        var new_y = y * 2;
-                        var new_maxTileSize = maxTileSize / 2;
-                    }
-                    else {
-                        node.FeatureIds = features;
-                    }
-                    tree.Children.Add(node);
-                }
-
-            }
-        }
 
         private static List<BoundingBox3D> WriteB3dms(string connectionString, string geometry_table, string geometry_column)
         {

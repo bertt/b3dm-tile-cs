@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace pg2b3dm
+namespace B3dm.Tile
 {
     public class Node
     {
@@ -9,6 +9,6 @@ namespace pg2b3dm
             Children = new List<Node>();
         }
         public List<Node> Children { get; set; }
-        public List<Feature> FeatureIds { get; set; }
+        public List<Feature> Features { get; set; }
     }
 }

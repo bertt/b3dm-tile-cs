@@ -44,5 +44,10 @@ namespace Wkb2Gltf
             res.ZMax = YMax;
             return res;
         }
+
+        public override string ToString()
+        {
+            return $"{XMin},{YMin},{ZMin},{XMax},{YMax},{ZMax}";
+        }
     }
 }

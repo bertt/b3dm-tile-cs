@@ -35,5 +35,20 @@ namespace Wkb2Gltf.Tests
             Assert.IsTrue(zUpBox.YMax == -72.374);
             Assert.IsTrue(zUpBox.ZMax == -7.228368);
         }
+
+        [Test]
+        public void BoundingBoxToStringTest()
+        {
+            // Arrange
+            var bb = new BoundingBox3D() { XMin = -105.4645, YMin = -11.3846445, ZMin = 72.374, XMax = -58.6345, YMax = -7.228368, ZMax = 127.598 };
+
+            // act 
+            var zUpBox = bb.ToString();
+
+            // assert
+            Assert.IsTrue(zUpBox == "-105.4645,-11.3846445,72.374,-58.6345,-7.228368,127.598");
+
+
+        }
     }
 }
