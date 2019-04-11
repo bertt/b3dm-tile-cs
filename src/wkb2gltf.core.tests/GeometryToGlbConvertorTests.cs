@@ -12,7 +12,7 @@ namespace Wkb2Gltf.Tests
             // arrange
             var buildingWkb = File.OpenRead(@"testfixtures/building.wkb");
             var g = Geometry.Deserialize<WkbSerializer>(buildingWkb);
-            var translation = new float[] { 539085.1f, 6989220.68f, 52.98f };
+            var translation = new double[] { 539085.1, 6989220.68, 52.98 };
 
             // act
             var glb = GeometryToGlbConvertor.Convert(g, translation);

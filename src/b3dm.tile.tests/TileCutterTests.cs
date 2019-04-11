@@ -16,12 +16,19 @@ namespace B3dm.Tile.Tests
 
             // act
             var tree= TileCutter.ConstructTree(zUpBoxes);
-
+            var bbox0 = tree.Children[0].GetBoundingBox3D();
             // assert
             Assert.IsTrue(zUpBoxes.Count == 1580);
             Assert.IsTrue(tree.Children[0].Features.Count == 20);
             Assert.IsTrue(tree.Children[0].Features[0].Id == 0);
             Assert.IsTrue(tree.Children[0].Children[0].Features[0].Id == 20);
+            Assert.IsTrue(bbox0.XMin == -183.897999999986);
+            Assert.IsTrue(bbox0.XMax == 183.847000000009);
+            Assert.IsTrue(bbox0.YMin == -134.141648505291);
+            Assert.IsTrue(bbox0.YMax == 138.625);
+            Assert.IsTrue(bbox0.ZMin == -11.7305252024974);
+            Assert.IsTrue(bbox0.ZMax == 11.7305220562124);
+            var c = bbox0.GetCenter();
         }
 
 

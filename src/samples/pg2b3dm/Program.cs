@@ -5,6 +5,7 @@ using System.IO;
 using B3dm.Tile;
 using B3dm.Tile.Extensions;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using Npgsql;
 using Wkb2Gltf;
 using Wkx;
@@ -27,7 +28,9 @@ namespace pg2b3dm
             stopWatch.Start();
             var (zupboxes,translation) = WriteB3dms(connectionString, geometry_table, geometry_column);
             var tree = TileCutter.ConstructTree(zupboxes);
-            var tileset1 = tree.ToTileset(translation);
+            var tileset = tree.ToTileset(translation);
+            var s = JsonConvert.SerializeObject(tileset, Formatting.Indented);
+            File.WriteAllText("./testfixtures/sample_tileset_new.json", s);
 
             stopWatch.Stop();
             Console.WriteLine("Elapsed: " + stopWatch.ElapsedMilliseconds);
@@ -36,7 +39,7 @@ namespace pg2b3dm
         }
 
 
-        private static (List<BoundingBox3D>, float[] transform) WriteB3dms(string connectionString, string geometry_table, string geometry_column)
+        private static (List<BoundingBox3D>, double[] transform) WriteB3dms(string connectionString, string geometry_table, string geometry_column)
         {
             var conn = new NpgsqlConnection(connectionString);
             conn.Open();

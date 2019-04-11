@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 namespace Wkb2Gltf.Tests
 {
@@ -47,8 +48,18 @@ namespace Wkb2Gltf.Tests
 
             // assert
             Assert.IsTrue(zUpBox == "-105.4645,-11.3846445,72.374,-58.6345,-7.228368,127.598");
-
-
         }
+        [Test]
+        public void BoundBoxToBoxTest()
+        {
+            // arrange
+            var bb = new BoundingBox3D(-183.87249755859375, -134.17864990234375, -11.730524063110352, 183.87249755859375, 138.58799743652344, 11.730524063110352);
+
+            // act
+            var actual_result = bb.GetBox();
+
+            // assert
+            var expected_result = new double[] { 0.0, 2.205, 0.0, 183.872, 0, 0, 0, 136.383, 0, 0, 0, 11.731 };
+    }
     }
 }

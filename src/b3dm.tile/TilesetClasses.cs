@@ -10,7 +10,7 @@
     public class Root
     {
         public Child[] children { get; set; }
-        public float[] transform { get; set; }
+        public double[] transform { get; set; }
         public int geometricError { get; set; }
         public string refine { get; set; }
         public Boundingvolume boundingVolume { get; set; }

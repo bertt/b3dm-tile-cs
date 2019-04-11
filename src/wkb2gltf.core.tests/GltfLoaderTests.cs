@@ -28,7 +28,7 @@ namespace Wkb2Gltf.Tests
             var buildingWkb = File.OpenRead(@"testfixtures/building.wkb");
             var g = Geometry.Deserialize<WkbSerializer>(buildingWkb);
             var polyhedralsurface = ((PolyhedralSurface)g);
-            var translation = new float[] { 1842015.125f, 5177109.25f, 247.87364196777344f };
+            var translation = new double[] { 1842015.125, 5177109.25, 247.87364196777344};
             var gltf = Gltf2Loader.GetGltf(polyhedralsurface, translation);
             gltf.Gltf.SaveBinaryModel(gltf.Body, @"d:\aaa\hihi.glb");
             //var ms = new MemoryStream();

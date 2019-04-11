@@ -4,9 +4,9 @@ namespace B3dm.Tile.Extensions
 {
     public static class PointExtension
     {
-        public static float[] ToVector(this Point p)
+        public static double[] ToVector(this Point p)
         {
-            var vector = new float[] { (float)p.X, (float)p.Y, (float)p.Z };
+            var vector = new double[] { (double)p.X, (double)p.Y, (double)p.Z };
             return vector;
         }
 

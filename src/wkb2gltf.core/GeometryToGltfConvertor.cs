@@ -6,7 +6,7 @@ namespace Wkb2Gltf
 {
     public static class GeometryToGlbConvertor
     {
-        public static byte[] Convert(Geometry g, float[] translation)
+        public static byte[] Convert(Geometry g, double[] translation)
         {
             var gltf = Gltf2Loader.GetGltf((PolyhedralSurface)g, translation);
             var ms = new MemoryStream();

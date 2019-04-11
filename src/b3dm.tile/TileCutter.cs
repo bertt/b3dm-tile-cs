@@ -35,7 +35,7 @@ namespace B3dm.Tile
                         var center = zupboxes[t].GetCenter();
                         var isinside = tileextent.Inside(center);
                         if (isinside) {
-                            var f = new Feature() { Id = t, BoundingBox = zupboxes[t] };
+                            var f = new Feature() { Id = t, BoundingBox3D = zupboxes[t] };
                             features.Add(f);
                         }
                     }
@@ -71,10 +71,10 @@ namespace B3dm.Tile
                     var insideFeatures = new List<Feature>();
 
                     foreach (var f in features) {
-                        var center = f.BoundingBox.GetCenter();
+                        var center = f.BoundingBox3D.GetCenter();
                         var isinside = tileextent.Inside(center);
                         if (isinside) {
-                            var new_f = new Feature() { Id = f.Id, BoundingBox = f.BoundingBox };
+                            var new_f = new Feature() { Id = f.Id, BoundingBox3D = f.BoundingBox3D };
                             insideFeatures.Add(new_f);
                         }
                     }

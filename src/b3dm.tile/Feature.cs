@@ -5,6 +5,6 @@ namespace B3dm.Tile
     public class Feature
     {
         public int Id { get; set; }
-        public BoundingBox3D BoundingBox { get; set; }
+        public BoundingBox3D BoundingBox3D { get; set; }
     }
 }

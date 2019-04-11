@@ -6,7 +6,7 @@ namespace Wkb2Gltf
 {
     public static class Gltf2Loader
     {
-        public static GltfAll GetGltf(PolyhedralSurface polyhedralsurface, float[] translation, string buffer_uri="")
+        public static GltfAll GetGltf(PolyhedralSurface polyhedralsurface, double[] translation, string buffer_uri="")
         {
             var gltfArray = GetGltfArray(polyhedralsurface);
             var body = gltfArray.AsBinary();
@@ -30,7 +30,7 @@ namespace Wkb2Gltf
             return gltfArray;
         }
 
-        public static Gltf GetGltf(GltfArray gltfArray, float[] translation, string buffer_uri = "")
+        public static Gltf GetGltf(GltfArray gltfArray, double[] translation, string buffer_uri = "")
         {
             var gltf = new Gltf {
                 Asset = GetAsset(),
@@ -134,10 +134,10 @@ namespace Wkb2Gltf
             return new Buffer[] { buffer };
         }
 
-        private static Node[] GetNodes(float[] translation)
+        private static Node[] GetNodes(double[] translation)
         {
             var node = new Node() {
-                Translation = translation,
+                Translation = new float[] { (float)translation[0], (float)translation[1], (float)translation[2] },
                 Mesh = 0
             };
             return new Node[] { node };
