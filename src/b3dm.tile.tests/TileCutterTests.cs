@@ -19,7 +19,11 @@ namespace B3dm.Tile.Tests
 
             // assert
             Assert.IsTrue(zUpBoxes.Count == 1580);
+            Assert.IsTrue(tree.Children[0].Features.Count == 20);
+            Assert.IsTrue(tree.Children[0].Features[0].Id == 0);
+            Assert.IsTrue(tree.Children[0].Children[0].Features[0].Id == 20);
         }
+
 
         private static List<BoundingBox3D> GetTestData()
         {

@@ -12,6 +12,5 @@ namespace B3dm.Tile
             var ymax = extent.YMin + (j + 1) * size;
             return new BoundingBox(xmin, ymin, xmax, ymax);
         }
-
     }
 }

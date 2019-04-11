@@ -49,5 +49,23 @@ namespace Wkb2Gltf
         {
             return $"{XMin},{YMin},{ZMin},{XMax},{YMax},{ZMax}";
         }
+
+        public BoundingBox ToBoundingBox()
+        {
+            return new BoundingBox(XMin, YMin, XMax, YMax);
+        }
+
+        public double ExtentX()
+        {
+            return (XMax - XMin);
+        }
+        public double ExtentY()
+        {
+            return (YMax - YMin);
+        }
+        public double ExtentZ()
+        {
+            return (ZMax - ZMin);
+        }
     }
 }

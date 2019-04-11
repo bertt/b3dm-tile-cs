@@ -12,16 +12,16 @@ namespace B3dm.Tile
         public static Node ConstructTree(List<BoundingBox3D> zupboxes)
         {
             // select min and max from zupboxes for x and y
-            var bbox = BoundingBoxCalculator.GetBoundingBox(zupboxes);
-            var extentX = bbox.XMax - bbox.XMin;
-            var extentY = bbox.YMax - bbox.YMin;
+            var bbox3d = BoundingBoxCalculator.GetBoundingBox(zupboxes);
+            var c = bbox3d.GetCenter();
+            var bbox = bbox3d.ToBoundingBox();
 
             // todo: create quadtree
             var maxTileSize = 2000;
             var featuresPerTile = 20;
 
-            var xrange = (int)Math.Ceiling(extentX / maxTileSize);
-            var yrange = (int)Math.Ceiling(extentY / maxTileSize);
+            var xrange = (int)Math.Ceiling(bbox3d.ExtentX() / maxTileSize);
+            var yrange = (int)Math.Ceiling(bbox3d.ExtentY() / maxTileSize);
 
             var tree = new Node();
 
