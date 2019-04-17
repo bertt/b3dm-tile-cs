@@ -4,7 +4,7 @@ namespace B3dm.Tile
 {
     public static class B3dmTile
     {
-        public static BoundingBox GetExtent(BoundingBox extent, int size, int i, int j)
+        public static BoundingBox GetExtent(BoundingBox extent, double size, int i, int j)
         {
             var xmin = extent.XMin + i * size;
             var ymin = extent.YMin + j * size;

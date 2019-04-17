@@ -16,7 +16,7 @@ namespace B3dm.Tile
             var bbox = bbox3d.ToBoundingBox();
 
             // todo: create quadtree
-            var maxTileSize = 2000;
+            double maxTileSize = 2000.0;
             var featuresPerTile = 20;
 
             var xrange = (int)Math.Ceiling(bbox3d.ExtentX() / maxTileSize);
@@ -62,7 +62,7 @@ namespace B3dm.Tile
             return tree;
         }
 
-        private static void Divide(BoundingBox extent, List<Feature> features, int XOffset, int YOffset, int TileSize, int FeaturesPerTile, Node parent)
+        private static void Divide(BoundingBox extent, List<Feature> features, int XOffset, int YOffset, double TileSize, int FeaturesPerTile, Node parent)
         {
             for (var i = 0; i < 2; i++) {
                 for (var j = 0; j < 2; j++) {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 using Wkb2Gltf;
 
@@ -16,19 +15,16 @@ namespace B3dm.Tile.Tests
 
             // act
             var tree = TileCutter.ConstructTree(zUpBoxes);
+            var grouped_bb = GetBoundingBoxes(tree);
 
-            var intfeatures = GetNrOfChildren(tree);
-            Assert.IsTrue(intfeatures == bboxes_grouped_expected.Count);
-            Assert.IsTrue(intfeatures == 124);
 
             // assert
-            Assert.IsTrue(tree.CalculateBoundingBox3D().Equals(bboxes_grouped_expected[0]));
-            Assert.IsTrue(tree.Children[0].CalculateBoundingBox3D().Equals(bboxes_grouped_expected[1]));
-            Assert.IsTrue(tree.Children[0].Children[0].CalculateBoundingBox3D().Equals(bboxes_grouped_expected[2]));
-            Assert.IsTrue(tree.Children[0].Children[0].Children[0].CalculateBoundingBox3D().Equals(bboxes_grouped_expected[3]));
-            // todo: fix next one...
-            // Assert.IsTrue(tree.Children[0].Children[0].Children[0].Children[0].CalculateBoundingBox3D().Equals(bboxes_grouped_expected[4]));
-
+            // now check if all bbox'es are found...
+            foreach (var bb in grouped_bb) {
+                var found = FindInList(bboxes_grouped_expected, bb);
+                Assert.IsTrue(found);
+            }
+            Assert.IsTrue(grouped_bb.Count == bboxes_grouped_expected.Count);
 
             Assert.IsTrue(zUpBoxes.Count == 1580);
             Assert.IsTrue(tree.Children[0].Features.Count == 20);
@@ -36,13 +32,25 @@ namespace B3dm.Tile.Tests
             Assert.IsTrue(tree.Children[0].Children[0].Features[0].Id == 20);
         }
 
-        public int GetNrOfChildren(Node tree)
+        public bool FindInList(List<BoundingBox3D> bbs, BoundingBox3D bb)
         {
-            var f = tree.Children.Count;
-            foreach(var c in tree.Children) {
-                f+= GetNrOfChildren(c);
+            foreach(var b in bbs) {
+                if (b.Equals(bb)) return true;
             }
-            return f;
+            return false;
+        }
+
+        public List<BoundingBox3D> GetBoundingBoxes(Node node)
+        {
+            var res = new List<BoundingBox3D>();
+            var bb = node.CalculateBoundingBox3D();
+            res.Add(bb);
+
+            foreach (var c in node.Children) {
+                var newbb = GetBoundingBoxes(c);
+                res.AddRange(newbb);
+            }
+            return res;
         }
     }
 }
