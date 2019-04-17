@@ -26,11 +26,24 @@ namespace pg2b3dm
 
             var stopWatch = new Stopwatch();
             stopWatch.Start();
-            var (zupboxes,translation) = WriteB3dms(connectionString, geometry_table, geometry_column);
-            var tree = TileCutter.ConstructTree(zupboxes);
+
+            var bbox3d = BoundingBoxRepository.GetBoundingBox3D(connectionString, geometry_table, geometry_column);
+            var translation = bbox3d.GetCenter().ToVector();
+            var bboxes = BoundingBoxRepository.GetAllBoundingBoxes(connectionString, geometry_table, geometry_column, translation);
+
+            var zupBoxes = new List<BoundingBox3D>();
+            foreach(var bbox in bboxes) {
+                var zupBox = bbox.TransformYToZ();
+                zupBoxes.Add(zupBox);
+            }
+
+            var tree = TileCutter.ConstructTree(zupBoxes);
             var tileset = TreeSerializer.ToTileset(tree, translation);
             var s = JsonConvert.SerializeObject(tileset, Formatting.Indented);
-            File.WriteAllText("./testfixtures/sample_tileset_new.json", s);
+            File.WriteAllText("tileset.json", s);
+
+            // todo: write b3dms
+            // var zupboxes = WriteB3dms(connectionString, geometry_table, geometry_column, translation);
 
             stopWatch.Stop();
             Console.WriteLine("Elapsed: " + stopWatch.ElapsedMilliseconds);
@@ -39,12 +52,10 @@ namespace pg2b3dm
         }
 
 
-        private static (List<BoundingBox3D>, double[] transform) WriteB3dms(string connectionString, string geometry_table, string geometry_column)
+        private static List<BoundingBox3D> WriteB3dms(string connectionString, string geometry_table, string geometry_column, double[] translation)
         {
             var conn = new NpgsqlConnection(connectionString);
             conn.Open();
-            var bbox3d = BoundingBoxRepository.GetBoundingBox3D(conn, geometry_table, geometry_column);
-            var translation = bbox3d.GetCenter().ToVector(); 
 
             var i = 0;
             var sql = $"SELECT ST_AsBinary(ST_RotateX(ST_Translate(geom, {translation[0]}*-1,{translation[1]}*-1 , {translation[2]}*-1), -pi() / 2)),ST_Area(ST_Force2D({geometry_column})) AS weight FROM {geometry_table} ORDER BY weight DESC";
@@ -79,7 +90,7 @@ namespace pg2b3dm
 
             reader.Close();
             conn.Close();
-            return (zupboxes, translation);
+            return zupboxes;
         }
     }
 }
