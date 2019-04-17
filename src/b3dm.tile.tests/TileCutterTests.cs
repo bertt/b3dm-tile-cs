@@ -32,7 +32,7 @@ namespace B3dm.Tile.Tests
             Assert.IsTrue(tree.Children[0].Children[0].Features[0].Id == 20);
         }
 
-        public bool FindInList(List<BoundingBox3D> bbs, BoundingBox3D bb)
+        private bool FindInList(List<BoundingBox3D> bbs, BoundingBox3D bb)
         {
             foreach(var b in bbs) {
                 if (b.Equals(bb)) return true;
@@ -40,7 +40,7 @@ namespace B3dm.Tile.Tests
             return false;
         }
 
-        public List<BoundingBox3D> GetBoundingBoxes(Node node)
+        private List<BoundingBox3D> GetBoundingBoxes(Node node)
         {
             var res = new List<BoundingBox3D>();
             var bb = node.CalculateBoundingBox3D();
