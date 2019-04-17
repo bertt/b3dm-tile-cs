@@ -7,7 +7,7 @@ namespace B3dm.Tile
     {
         public static TileSet ToTileset(Node n, double[] transform)
         {
-            Counter.Count = 1;
+            Counter.Count = 0;
             double geometricError = 500.0;
             var tileset = new TileSet();
             tileset.asset = new Asset() { version = "1.0" };
@@ -25,6 +25,7 @@ namespace B3dm.Tile
             root.refine = "add";
             root.transform = t;
             root.boundingVolume = GetBoundingvolume(n);
+            n.Id = Counter.Count;
             var children = GetChildren(n, geometricError);
             root.children = children;
             return root;
@@ -35,6 +36,7 @@ namespace B3dm.Tile
             var children = new List<Child>();
             foreach (var node in n.Children) {
                 Counter.Count++;
+                n.Id = Counter.Count;
                 var child = GetChild(node, geometricError / 2);
                 children.Add(child);
             }
@@ -48,7 +50,7 @@ namespace B3dm.Tile
             child.geometricError=geometricError;
             child.refine = "add";
             child.content = new Content();
-            child.content.uri = $"tiles/1.b3dm";
+            child.content.uri = $"tiles/{Counter.Count}.b3dm";
             child.boundingVolume = GetBoundingvolume(node);
             child.children = GetChildren(node,geometricError);
             return child;

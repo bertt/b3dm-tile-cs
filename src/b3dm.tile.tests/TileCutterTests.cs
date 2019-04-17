@@ -17,9 +17,7 @@ namespace B3dm.Tile.Tests
             var tree = TileCutter.ConstructTree(zUpBoxes);
             var grouped_bb = GetBoundingBoxes(tree);
 
-
             // assert
-            // now check if all bbox'es are found...
             foreach (var bb in grouped_bb) {
                 var found = FindInList(bboxes_grouped_expected, bb);
                 Assert.IsTrue(found);

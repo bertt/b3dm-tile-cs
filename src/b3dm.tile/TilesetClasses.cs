@@ -9,7 +9,7 @@ namespace B3dm.Tile
         public Asset asset { get; set; }
     }
 
-    public class Root
+    public class Child
     {
         public List<Child> children { get; set; }
         public double[] transform { get; set; }
@@ -20,7 +20,7 @@ namespace B3dm.Tile
 
     }
 
-    public class Child : Root
+    public class Root : Child
     {
     }
 
