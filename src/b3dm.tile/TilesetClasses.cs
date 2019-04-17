@@ -1,4 +1,6 @@
-﻿namespace B3dm.Tile
+﻿using System.Collections.Generic;
+
+namespace B3dm.Tile
 {
     public class TileSet
     {
@@ -9,7 +11,7 @@
 
     public class Root
     {
-        public Child[] children { get; set; }
+        public List<Child> children { get; set; }
         public double[] transform { get; set; }
         public int geometricError { get; set; }
         public string refine { get; set; }
@@ -22,8 +24,8 @@
     }
     public class Child
     {
-        public Child[] children { get; set; }
-        public float geometricError { get; set; }
+        public List<Child> children { get; set; }
+        public double geometricError { get; set; }
         public string refine { get; set; }
         public Boundingvolume boundingVolume { get; set; }
         public Content content { get; set; }

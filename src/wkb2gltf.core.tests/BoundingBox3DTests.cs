@@ -49,6 +49,7 @@ namespace Wkb2Gltf.Tests
             // assert
             Assert.IsTrue(zUpBox == "-105.4645,-11.3846445,72.374,-58.6345,-7.228368,127.598");
         }
+
         [Test]
         public void BoundBoxToBoxTest()
         {
@@ -60,6 +61,20 @@ namespace Wkb2Gltf.Tests
 
             // assert
             var expected_result = new double[] { 0.0, 2.205, 0.0, 183.872, 0, 0, 0, 136.383, 0, 0, 0, 11.731 };
-    }
+        }
+
+        [Test]
+        public void BoundBoxEqualsTest()
+        {
+            // arrange
+            var bb = new BoundingBox3D(-183.87249755859375, -134.17864990234375, -11.730524063110352, 183.87249755859375, 138.58799743652344, 11.730524063110352);
+            var bb1 = new BoundingBox3D(-183.88249755859375, -134.18864990234375, -11.740524063110352, 183.86249755859375, 138.57799743652344, 11.720524063110352);
+
+            // act
+            var isequal = bb.Equals(bb1);
+
+            // assert
+            Assert.IsTrue(isequal);
+        }
     }
 }

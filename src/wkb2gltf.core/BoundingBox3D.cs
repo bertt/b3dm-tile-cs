@@ -7,7 +7,6 @@ namespace Wkb2Gltf
     {
         public BoundingBox3D()
         {
-
         }
         public BoundingBox3D(double XMin, double YMin, double ZMin, double XMax, double YMax, double ZMax)
         {
@@ -80,6 +79,18 @@ namespace Wkb2Gltf
                 xAxis,0,0,0,yAxis,0,0,0,zAxis
             };
             return result;
+        }
+
+        public override bool Equals(object other)
+        {
+            var o_box = (BoundingBox3D)other;
+            var xmin = Comparer.IsSimilar(XMin, o_box.XMin);
+            var ymin= Comparer.IsSimilar(YMin, o_box.YMin);
+            var zmin = Comparer.IsSimilar(ZMin, o_box.ZMin);
+            var xmax = Comparer.IsSimilar(XMax, o_box.XMax);
+            var ymax= Comparer.IsSimilar(YMax, o_box.YMax);
+            var zmax = Comparer.IsSimilar(ZMax, o_box.ZMax);
+            return xmin && ymin && zmin && xmax && ymax && zmax;
         }
     }
 }

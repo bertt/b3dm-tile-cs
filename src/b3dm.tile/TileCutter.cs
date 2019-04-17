@@ -13,7 +13,6 @@ namespace B3dm.Tile
         {
             // select min and max from zupboxes for x and y
             var bbox3d = BoundingBoxCalculator.GetBoundingBox(zupboxes);
-            var c = bbox3d.GetCenter();
             var bbox = bbox3d.ToBoundingBox();
 
             // todo: create quadtree
@@ -96,10 +95,8 @@ namespace B3dm.Tile
                         node.Features = insideFeatures;
                     }
                     parent.Children.Add(node);
-
                 }
             }
         }
-
     }
 }
