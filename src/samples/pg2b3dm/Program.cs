@@ -32,6 +32,7 @@ namespace pg2b3dm
             var translation = bbox3d.GetCenter().ToVector();
             var bboxes = BoundingBoxRepository.GetAllBoundingBoxes(connectionString, geometry_table, geometry_column, translation);
             var zupBoxes = new List<BoundingBox3D>();
+            Directory.CreateDirectory("./tiles");
             foreach(var bbox in bboxes) {
                 var zupBox = bbox.TransformYToZ();
                 zupBoxes.Add(zupBox);
@@ -40,7 +41,7 @@ namespace pg2b3dm
             var tree = TileCutter.ConstructTree(zupBoxes);
             var tileset = TreeSerializer.ToTileset(tree, translation);
             var s = JsonConvert.SerializeObject(tileset, Formatting.Indented);
-            File.WriteAllText("tileset.json", s);
+            File.WriteAllText("./tiles/tileset.json", s);
 
             // get first batch of id's
             var subset = (from f in tree.Children[0].Features select(f.Id)).ToArray();
@@ -53,7 +54,7 @@ namespace pg2b3dm
             stopWatch.Stop();
             Console.WriteLine("Elapsed: " + stopWatch.ElapsedMilliseconds/1000);
             Console.WriteLine("Program finished. Press any key to continue...");
-            Console.Read();
+            Console.ReadKey();
         }
 
         private static void WriteB3dm(List<GeometryRecord> geomrecords, int tile_id, double[] translation)
@@ -61,7 +62,7 @@ namespace pg2b3dm
             var g = geomrecords[0].Geometry;
             var glb = GeometryToGlbConvertor.Convert(g, translation);
             var b3dm = GlbToB3dmConvertor.Convert(glb);
-            B3dmWriter.WriteB3dm($"/tiles/texel_{tile_id}.b3dm", b3dm);
+            B3dmWriter.WriteB3dm($"./tiles/texel_{tile_id}.b3dm", b3dm);
         }
 
         /**

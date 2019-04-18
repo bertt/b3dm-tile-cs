@@ -12,6 +12,8 @@ $ docker build -t pg2b3dm .
 
 Running image:
 
+Sample on Windows: 
+
 ```
-$ docker run pg2b3dm -v tiles:tiles
+$ docker run -v C:/Users/bertt/tiles:/app/tiles -it pg2b3dm
 ```
