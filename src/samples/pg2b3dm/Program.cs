@@ -45,8 +45,9 @@ namespace pg2b3dm
 
             // get first batch of id's
             var subset = (from f in tree.Children[0].Features select(f.Id)).ToArray();
-
+            var tile_id = tree.Children[0].Id;
             var geometries = BoundingBoxRepository.GetGeometrySubset(connectionString, geometry_table, geometry_column, translation, subset);
+            WriteB3dm(geometries, tile_id, translation);
             // todo: write b3dms
             // var zupboxes = WriteB3dms(connectionString, geometry_table, geometry_column, translation);
 
@@ -54,6 +55,14 @@ namespace pg2b3dm
             Console.WriteLine("Elapsed: " + stopWatch.ElapsedMilliseconds/1000);
             Console.WriteLine("Program finished. Press any key to continue...");
             Console.ReadKey();
+        }
+
+        private static void WriteB3dm(List<GeometryRecord> geomrecords, int tile_id, double[] translation)
+        {
+            var g = geomrecords[0].Geometry;
+            var glb = GeometryToGlbConvertor.Convert(g, translation);
+            var b3dm = GlbToB3dmConvertor.Convert(glb);
+            B3dmWriter.WriteB3dm($".texel_{tile_id}.b3dm", b3dm);
         }
 
 
