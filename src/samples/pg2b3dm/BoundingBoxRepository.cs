@@ -13,7 +13,7 @@ namespace pg2b3dm
             var conn = new NpgsqlConnection(connectionString);
             conn.Open();
 
-            var cmd = new NpgsqlCommand($"SELECT st_xmin(geom1), st_ymin(geom1), st_zmin(geom1), st_xmax(geom1), st_ymax(geom1), st_zmax(geom1) FROM (select ST_3DExtent({geometry_column}) as geom1 from {geometry_table}) as t", conn);
+            var cmd = new NpgsqlCommand($"SELECT st_xmin(geom1), st_ymin(geom1), st_zmin(geom1), st_xmax(geom1), st_ymax(geom1), st_zmax(geom1) FROM (select ST_3DExtent({geometry_column}) as geom1 from {geometry_table} where ST_GeometryType(geom) =  'ST_PolyhedralSurface') as t", conn);
             var reader = cmd.ExecuteReader();
             reader.Read();
             var xmin = reader.GetDouble(0);
@@ -27,10 +27,16 @@ namespace pg2b3dm
             return new BoundingBox3D() { XMin = xmin, YMin = ymin, ZMin = zmin, XMax = xmax, YMax = ymax, ZMax = zmax };
         }
 
+        private static string GetGeometryTable(string geometry_table, string geometry_column, double[] translation)
+        {
+            var sql = $"select ST_RotateX(ST_Translate({geometry_column}, {translation[0]}*-1,{translation[1]}*-1 , {translation[2]}*-1), -pi() / 2) as geom1, ST_Area(ST_Force2D(geom)) AS weight FROM {geometry_table} where ST_GeometryType(geom) =  'ST_PolyhedralSurface' ORDER BY weight DESC";
+            return sql;
+        }
 
         public static List<BoundingBox3D> GetAllBoundingBoxes(string connectionString, string geometry_table, string geometry_column, double[] translation)
         {
-            var sql = $"SELECT ST_XMIN(geom1),ST_YMIN(geom1),ST_ZMIN(geom1), ST_XMAX(geom1),ST_YMAX(geom1),ST_ZMAX(geom1) FROM (select ST_RotateX(ST_Translate({geometry_column}, {translation[0]}*-1,{translation[1]}*-1 , {translation[2]}*-1), -pi() / 2) as geom1, ST_Area(ST_Force2D(geom)) AS weight FROM {geometry_table} where ST_GeometryType(geom) =  'ST_PolyhedralSurface' ORDER BY weight DESC) as t";
+            var geometryTable = GetGeometryTable(geometry_table, geometry_column, translation);
+            var sql = $"SELECT ST_XMIN(geom1),ST_YMIN(geom1),ST_ZMIN(geom1), ST_XMAX(geom1),ST_YMAX(geom1),ST_ZMAX(geom1) FROM ({geometryTable}) as t";
             var conn = new NpgsqlConnection(connectionString);
             conn.Open();
             var cmd = new NpgsqlCommand(sql, conn);
@@ -49,6 +55,29 @@ namespace pg2b3dm
             reader.Close();
             conn.Close();
             return bboxes;
+        }
+
+        public static List<GeometryRecord>  GetGeometrySubset(string connectionString, string geometry_table, string geometry_column, double[] translation, int[] row_numbers)
+        {
+            var geometries = new List<GeometryRecord>();
+            var ids = string.Join(",", row_numbers);
+            var geometryTable = GetGeometryTable(geometry_table, geometry_column, translation);
+            var sql = $"select row_number, ST_AsBinary(geom1) from(SELECT row_number() over(), geom1 FROM({geometryTable}) as t) as p where row_number in ({ids})";
+            var conn = new NpgsqlConnection(connectionString);
+            conn.Open();
+            var cmd = new NpgsqlCommand(sql, conn);
+            var reader = cmd.ExecuteReader();
+            while (reader.Read()) {
+                var rownumber = reader.GetInt32(0);
+                var stream = reader.GetStream(1);
+                var g = Geometry.Deserialize<WkbSerializer>(stream);
+                var geometryRecord = new GeometryRecord { RowNumber = rownumber, Geometry = g };
+                geometries.Add(geometryRecord);
+            }
+
+            reader.Close();
+            conn.Close();
+            return geometries;
         }
     }
 }

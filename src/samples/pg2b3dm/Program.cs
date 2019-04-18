@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using B3dm.Tile;
 using B3dm.Tile.Extensions;
 using Microsoft.Extensions.Configuration;
@@ -42,11 +43,15 @@ namespace pg2b3dm
             var s = JsonConvert.SerializeObject(tileset, Formatting.Indented);
             File.WriteAllText("tileset.json", s);
 
+            // get first batch of id's
+            var subset = (from f in tree.Children[0].Features select(f.Id)).ToArray();
+
+            var geometries = BoundingBoxRepository.GetGeometrySubset(connectionString, geometry_table, geometry_column, translation, subset);
             // todo: write b3dms
             // var zupboxes = WriteB3dms(connectionString, geometry_table, geometry_column, translation);
 
             stopWatch.Stop();
-            Console.WriteLine("Elapsed: " + stopWatch.ElapsedMilliseconds);
+            Console.WriteLine("Elapsed: " + stopWatch.ElapsedMilliseconds/1000);
             Console.WriteLine("Program finished. Press any key to continue...");
             Console.ReadKey();
         }
