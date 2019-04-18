@@ -13,5 +13,5 @@ $ docker build -t pg2b3dm .
 Running image:
 
 ```
-$ docker run pg2b3dm
+$ docker run pg2b3dm -v tiles:tiles
 ```
