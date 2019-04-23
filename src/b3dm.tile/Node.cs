@@ -3,9 +3,27 @@ using Wkb2Gltf;
 
 namespace B3dm.Tile
 {
-    public static class Counter
+    public sealed class Counter
     {
-        public static int Count;
+        private static Counter instance = null;
+        private static readonly object padlock = new object();
+
+        Counter()
+        {
+        }
+
+        public int Count { get; set; }
+
+        public static Counter Instance {
+            get {
+                lock (padlock) {
+                    if (instance == null) {
+                        instance = new Counter();
+                    }
+                    return instance;
+                }
+            }
+        }
     }
     public class Node
     {

@@ -39,7 +39,7 @@ namespace B3dm.Tile
                         }
                     }
 
-                    Console.WriteLine($"{x},{y},{features.Count}");
+                    // Console.WriteLine($"{x},{y},{features.Count}");
                     if (features.Count == 0) {
                         continue;
                     }

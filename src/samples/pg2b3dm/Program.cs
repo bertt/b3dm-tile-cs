@@ -13,23 +13,6 @@ using Wkx;
 
 namespace pg2b3dm
 {
-
-    public class Options
-    {
-        [Option('H', "host", Required = true, HelpText = "Database host")]
-        public string Host { get; set; }
-        [Option('D', "database", Required = true, HelpText = "Database name")]
-        public string Database { get; set; }
-        [Option('c', "column", Required = true, HelpText = "Geometry column")]
-        public string GeometryColumn { get; set; }
-        [Option('t', "table", Required = true, HelpText = "Database table")]
-        public string GeometryTable { get; set; }
-        [Option('u', "user", Required = true, HelpText = "Database user")]
-        public string User { get; set; }
-        [Option('p', "password", Required = true, HelpText = "Database password")]
-        public string Password { get; set; }
-    }
-
     class Program
     {
         static void Main(string[] args)
@@ -44,17 +27,16 @@ namespace pg2b3dm
                 Directory.CreateDirectory("./tiles");
                 var geometryTable = o.GeometryTable;
                 var geometryColumn = o.GeometryColumn;
-
+                Console.WriteLine("Calculating bounding boxes...");
                 var bbox3d = BoundingBoxRepository.GetBoundingBox3D(connectionString, geometryTable, geometryColumn);
                 var translation = bbox3d.GetCenter().ToVector();
                 var zupBoxes = GetZupBoxes(connectionString, geometryTable, geometryColumn, translation);
                 var tree = TileCutter.ConstructTree(zupBoxes);
 
+                Console.WriteLine("Writing tileset.json...");
                 WiteTilesetJson(translation, tree);
-
-                // get first batch of id's
-                var node = tree.Children[0];
-                WriteTile(connectionString, geometryTable, geometryColumn, translation, node);
+                Console.WriteLine("Writing tiles...");
+                WriteTile(connectionString, geometryTable, geometryColumn, translation, tree);
 
                 stopWatch.Stop();
                 Console.WriteLine("Elapsed: " + stopWatch.ElapsedMilliseconds / 1000);
@@ -65,13 +47,14 @@ namespace pg2b3dm
 
         private static void WriteTile(string connectionString, string geometryTable, string geometryColumn, double[] translation, Node node)
         {
-            var subset = (from f in node.Features select (f.Id)).ToArray();
-            var tile_id = node.Id;
-            var geometries = BoundingBoxRepository.GetGeometrySubset(connectionString, geometryTable, geometryColumn, translation, subset);
-            WriteB3dm(geometries, tile_id, translation);
-
+            if (node.Features.Count > 0) {
+                var subset = (from f in node.Features select (f.Id)).ToArray();
+                var geometries = BoundingBoxRepository.GetGeometrySubset(connectionString, geometryTable, geometryColumn, translation, subset);
+                WriteB3dm(geometries, node.Id, translation);
+            }
             // and write children too
-            foreach(var subnode in node.Children) {
+            foreach (var subnode in node.Children) {
+                Console.Write(".");
                 WriteTile(connectionString, geometryTable, geometryColumn, translation, subnode);
             }
         }
@@ -111,6 +94,7 @@ namespace pg2b3dm
             gltfall.Gltf.SaveBinaryModel(gltfall.Body, ms);
             var glb = ms.ToArray();
             var b3dm = GlbToB3dmConvertor.Convert(glb);
+            Console.WriteLine($"./tiles/{tile_id}.b3dm");
             B3dmWriter.WriteB3dm($"./tiles/{tile_id}.b3dm", b3dm);
         }
 
