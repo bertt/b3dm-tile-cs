@@ -42,26 +42,38 @@ namespace pg2b3dm
                 stopWatch.Start();
 
                 Directory.CreateDirectory("./tiles");
+                var geometryTable = o.GeometryTable;
+                var geometryColumn = o.GeometryColumn;
 
-                var bbox3d = BoundingBoxRepository.GetBoundingBox3D(connectionString, o.GeometryTable, o.GeometryColumn);
+                var bbox3d = BoundingBoxRepository.GetBoundingBox3D(connectionString, geometryTable, geometryColumn);
                 var translation = bbox3d.GetCenter().ToVector();
-                var zupBoxes = GetZupBoxes(connectionString, o.GeometryTable, o.GeometryColumn, translation);
+                var zupBoxes = GetZupBoxes(connectionString, geometryTable, geometryColumn, translation);
                 var tree = TileCutter.ConstructTree(zupBoxes);
+
                 WiteTilesetJson(translation, tree);
 
                 // get first batch of id's
-                var subset = (from f in tree.Children[0].Features select (f.Id)).ToArray();
-                var tile_id = tree.Children[0].Id;
-                var geometries = BoundingBoxRepository.GetGeometrySubset(connectionString, o.GeometryTable, o.GeometryColumn, translation, subset);
-                WriteB3dm(geometries, tile_id, translation);
-                // todo: write b3dms
-                // var zupboxes = WriteB3dms(connectionString, geometry_table, geometry_column, translation);
+                var node = tree.Children[0];
+                WriteTile(connectionString, geometryTable, geometryColumn, translation, node);
 
                 stopWatch.Stop();
                 Console.WriteLine("Elapsed: " + stopWatch.ElapsedMilliseconds / 1000);
                 Console.WriteLine("Program finished. Press any key to continue...");
                 Console.ReadKey();
             });
+        }
+
+        private static void WriteTile(string connectionString, string geometryTable, string geometryColumn, double[] translation, Node node)
+        {
+            var subset = (from f in node.Features select (f.Id)).ToArray();
+            var tile_id = node.Id;
+            var geometries = BoundingBoxRepository.GetGeometrySubset(connectionString, geometryTable, geometryColumn, translation, subset);
+            WriteB3dm(geometries, tile_id, translation);
+
+            // and write children too
+            foreach(var subnode in node.Children) {
+                WriteTile(connectionString, geometryTable, geometryColumn, translation, subnode);
+            }
         }
 
         private static void WiteTilesetJson(double[] translation, Node tree)

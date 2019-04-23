@@ -17,7 +17,7 @@ namespace B3dm.Tile
         public List<Node> Children { get; set; }
         public List<Feature> Features { get; set; }
 
-        public int Id { get; set; }
+        public int Id {get;set;}
 
         public BoundingBox3D CalculateBoundingBox3D()
         {
