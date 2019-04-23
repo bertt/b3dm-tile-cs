@@ -6,8 +6,10 @@ using System.Linq;
 using B3dm.Tile;
 using B3dm.Tile.Extensions;
 using CommandLine;
+using glTFLoader;
 using Newtonsoft.Json;
 using Wkb2Gltf;
+using Wkx;
 
 namespace pg2b3dm
 {
@@ -65,7 +67,7 @@ namespace pg2b3dm
         private static void WiteTilesetJson(double[] translation, Node tree)
         {
             var tileset = TreeSerializer.ToTileset(tree, translation);
-            var s = JsonConvert.SerializeObject(tileset, Formatting.Indented);
+            var s = JsonConvert.SerializeObject(tileset, Formatting.Indented, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
             File.WriteAllText("./tiles/tileset.json", s);
         }
 
@@ -83,52 +85,34 @@ namespace pg2b3dm
 
         private static void WriteB3dm(List<GeometryRecord> geomrecords, int tile_id, double[] translation)
         {
-            var g = geomrecords[0].Geometry;
-            var glb = GeometryToGlbConvertor.Convert(g, translation);
+            var triangleCollection = new TriangleCollection();
+            foreach(var g in geomrecords) {
+                var surface = (PolyhedralSurface)g.Geometry;
+                var triangles = Triangulator.Triangulate(surface);
+                triangleCollection.AddRange(triangles);
+            }
+
+            var bb = GetBoundingBox3D(geomrecords);
+            var gltfArray = Gltf2Loader.GetGltfArray(triangleCollection, bb);
+            var gltfall = Gltf2Loader.ToGltf(gltfArray, translation);
+            var ms = new MemoryStream();
+            gltfall.Gltf.SaveBinaryModel(gltfall.Body, ms);
+            var glb = ms.ToArray();
             var b3dm = GlbToB3dmConvertor.Convert(glb);
-            B3dmWriter.WriteB3dm($"./tiles/texel_{tile_id}.b3dm", b3dm);
+            B3dmWriter.WriteB3dm($"./tiles/{tile_id}.b3dm", b3dm);
         }
 
-        /**
-        private static List<BoundingBox3D> WriteB3dms(string connectionString, string geometry_table, string geometry_column, double[] translation)
+        private static BoundingBox3D GetBoundingBox3D(List<GeometryRecord> records)
         {
-            var conn = new NpgsqlConnection(connectionString);
-            conn.Open();
-
-            var i = 0;
-            var sql = $"SELECT ST_AsBinary(ST_RotateX(ST_Translate(geom, {translation[0]}*-1,{translation[1]}*-1 , {translation[2]}*-1), -pi() / 2)),ST_Area(ST_Force2D({geometry_column})) AS weight FROM {geometry_table} ORDER BY weight DESC";
-            var cmd = new NpgsqlCommand(sql, conn);
-            var reader = cmd.ExecuteReader();
             var bboxes = new List<BoundingBox3D>();
-            var zupboxes = new List<BoundingBox3D>();
-            while (reader.Read()) {
-                Console.Write(".");
-                var stream = reader.GetStream(0);
-                var g = Geometry.Deserialize<WkbSerializer>(stream);
-                if (g.GeometryType == GeometryType.PolyhedralSurface) {
-                    var polyhedralsurface = (PolyhedralSurface)g;
-                    var bbox = polyhedralsurface.GetBoundingBox3D();
-                    bboxes.Add(bbox);
-                    var zupBox = bbox.TransformYToZ();
-                    zupboxes.Add(zupBox);
-
-                    var glb = GeometryToGlbConvertor.Convert(g, translation);
-                    var b3dm = GlbToB3dmConvertor.Convert(glb);
-                    B3dmWriter.WriteB3dm($"texel_{i}.b3dm", b3dm);
-                }
-                else {
-                    Console.WriteLine("Geometry type: " + g.GeometryType.ToString() + " detected");
-                }
-                i++;
+            foreach (var record in records) {
+                var surface = (PolyhedralSurface)record.Geometry;
+                var bbox = surface.GetBoundingBox3D();
+                bboxes.Add(bbox);
             }
+            var combinedBoundingBox = BoundingBoxCalculator.GetBoundingBox(bboxes);
 
-            foreach(var box in bboxes) {
-                Debug.WriteLine(box.XMin + "," + box.YMin + "," + box.ZMin + "," + box.XMax + "," + box.YMax + "," + box.ZMax);
-            }
-
-            reader.Close();
-            conn.Close();
-            return zupboxes;
-        }*/
+            return combinedBoundingBox;
+        }
     }
 }

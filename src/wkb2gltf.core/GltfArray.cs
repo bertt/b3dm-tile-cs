@@ -10,8 +10,8 @@ namespace Wkb2Gltf
 
         public GltfArray(byte[] Vertices)
         {
-            this.vertices = Vertices;
-            this.n = (int)Math.Round((double)vertices.Length / 12, 0);
+            vertices = Vertices;
+            n = (int)Math.Round((double)vertices.Length / 12, 0);
 
         }
         public byte[] Vertices {

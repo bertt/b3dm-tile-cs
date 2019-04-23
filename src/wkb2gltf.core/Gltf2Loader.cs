@@ -6,22 +6,23 @@ namespace Wkb2Gltf
 {
     public static class Gltf2Loader
     {
-        public static GltfAll GetGltf(PolyhedralSurface polyhedralsurface, double[] translation, string buffer_uri="")
+
+        public static GltfAll ToGltf(GltfArray gltfArray, double[] translation, string buffer_uri = "")
         {
-            var gltfArray = GetGltfArray(polyhedralsurface);
             var body = gltfArray.AsBinary();
             var gltf = GetGltf(gltfArray, translation, buffer_uri);
             var all = new GltfAll() { Gltf = gltf, Body = body };
             return all;
         }
 
-        public static GltfArray GetGltfArray(PolyhedralSurface polyhedralsurface)
+        // var triangles = Triangulator.Triangulate(polyhedralsurface);
+        // var bb = polyhedralsurface.GetBoundingBox3D();
+
+        public static GltfArray GetGltfArray(TriangleCollection triangles, BoundingBox3D bb)
         {
-            var triangles = Triangulator.Triangulate(polyhedralsurface);
             var bytesVertices = triangles.PositionsToBinary();
             var bytesNormals = triangles.NormalsToBinary();
 
-            var bb = polyhedralsurface.GetBoundingBox3D();
 
             var gltfArray = new GltfArray(bytesVertices) {
                 Normals = bytesNormals,
@@ -30,7 +31,7 @@ namespace Wkb2Gltf
             return gltfArray;
         }
 
-        public static Gltf GetGltf(GltfArray gltfArray, double[] translation, string buffer_uri = "")
+        private static Gltf GetGltf(GltfArray gltfArray, double[] translation, string buffer_uri = "")
         {
             var gltf = new Gltf {
                 Asset = GetAsset(),

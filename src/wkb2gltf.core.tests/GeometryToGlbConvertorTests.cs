@@ -15,11 +15,14 @@ namespace Wkb2Gltf.Tests
             var translation = new double[] { 539085.1, 6989220.68, 52.98 };
 
             // act
-            var glb = GeometryToGlbConvertor.Convert(g, translation);
+            var surface = (PolyhedralSurface)g;
+            var triangles = Triangulator.Triangulate(surface);
+            var bb = surface.GetBoundingBox3D();
+            var gltfArray = Gltf2Loader.GetGltfArray(triangles,bb);
+            var gltf = Gltf2Loader.ToGltf(gltfArray, translation);
 
             // assert
-            Assert.IsTrue(glb.Length == 2764);
-
+            Assert.IsTrue(gltf!=null);
         }
     }
 }
