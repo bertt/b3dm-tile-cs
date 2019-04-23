@@ -29,6 +29,9 @@
     <None Update="testfixtures\bboxes_expected.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="testfixtures\nederland3d_6825.b3dm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="testfixtures\zupboxes_actual.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -1,3 +1,4 @@
+using glTFLoader;
 using NUnit.Framework;
 using System.IO;
 
@@ -6,6 +7,8 @@ namespace B3dm.Tile.Tests
     public class B3dmReaderTests
     {
         Stream b3dmfile;
+        string expectedMagicHeader = "b3dm";
+        int expectedVersionHeader = 1;
 
         [SetUp]
         public void Setup()
@@ -18,11 +21,11 @@ namespace B3dm.Tile.Tests
         public void ReadB3dmTest()
         {
             // arrange
-            var expectedMagicHeader = "b3dm";
-            var expectedVersionHeader = 1;
 
             // act
             var b3dm = B3dmReader.ReadB3dm(b3dmfile);
+            var stream = new MemoryStream(b3dm.GlbData);
+            var gltf = Interface.LoadModel(stream);
 
             // assert
             Assert.IsTrue(expectedMagicHeader == b3dm.B3dmHeader.Magic);
@@ -30,6 +33,27 @@ namespace B3dm.Tile.Tests
             Assert.IsTrue(b3dm.BatchTableJson.Length >= 0);
             Assert.IsTrue(b3dm.GlbData.Length > 0);
             var ms = new MemoryStream(b3dm.GlbData);
+        }
+
+        [Test]
+        public void ReadNederland3DB3dmTest()
+        {
+            // arrange
+            var b3dmfile1 = File.OpenRead(@"testfixtures/nederland3d_6825.b3dm");
+
+            // act
+            var b3dm = B3dmReader.ReadB3dm(b3dmfile1);
+            var stream = new MemoryStream(b3dm.GlbData);
+            // loading goes wrong, because animations?
+            // Unhandled Exception: Newtonsoft.Json.JsonSerializationException: Error setting value to 'Animations' on 'glTFLoader.Schema.Gltf'. ---> System.ArgumentException: Array not long enough
+            // at glTFLoader.Schema.Gltf.set_Animations(Animation[] value)
+
+            // var gltf = Interface.LoadModel(stream);
+
+
+            // assert
+            Assert.IsTrue(expectedMagicHeader == b3dm.B3dmHeader.Magic);
+            Assert.IsTrue(expectedVersionHeader == b3dm.B3dmHeader.Version);
         }
     }
 }
