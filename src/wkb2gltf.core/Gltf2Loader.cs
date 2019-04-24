@@ -148,7 +148,7 @@ namespace Wkb2Gltf
         {
             var material = new Material() {
                 Name = "Material",
-                PbrMetallicRoughness = new MaterialPbrMetallicRoughness() { MetallicFactor = 0 }
+                PbrMetallicRoughness = new MaterialPbrMetallicRoughness() { MetallicFactor = 0 },
             };
             return new Material[] { material };
         }

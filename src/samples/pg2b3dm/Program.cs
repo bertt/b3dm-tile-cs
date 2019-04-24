@@ -24,7 +24,13 @@ namespace pg2b3dm
                 var stopWatch = new Stopwatch();
                 stopWatch.Start();
 
-                Directory.CreateDirectory("./tiles");
+                if (!Directory.Exists("./output")) {
+                    Directory.CreateDirectory("./output");
+                }
+                if (!Directory.Exists("./output/tiles")) {
+                    Directory.CreateDirectory("./output/tiles");
+                }
+
                 var geometryTable = o.GeometryTable;
                 var geometryColumn = o.GeometryColumn;
                 Console.WriteLine("Calculating bounding boxes...");
@@ -63,7 +69,7 @@ namespace pg2b3dm
         {
             var tileset = TreeSerializer.ToTileset(tree, translation);
             var s = JsonConvert.SerializeObject(tileset, Formatting.Indented, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
-            File.WriteAllText("./tiles/tileset.json", s);
+            File.WriteAllText("./output/tileset.json", s);
         }
 
         private static List<BoundingBox3D> GetZupBoxes(string connectionString, string GeometryTable, string GeometryColumn, double[] translation)
@@ -94,8 +100,8 @@ namespace pg2b3dm
             gltfall.Gltf.SaveBinaryModel(gltfall.Body, ms);
             var glb = ms.ToArray();
             var b3dm = GlbToB3dmConvertor.Convert(glb);
-            Console.WriteLine($"./tiles/{tile_id}.b3dm");
-            B3dmWriter.WriteB3dm($"./tiles/{tile_id}.b3dm", b3dm);
+            // Console.WriteLine($"output/tiles/{tile_id}.b3dm");
+            B3dmWriter.WriteB3dm($"./output/tiles/{tile_id}.b3dm", b3dm);
         }
 
         private static BoundingBox3D GetBoundingBox3D(List<GeometryRecord> records)
