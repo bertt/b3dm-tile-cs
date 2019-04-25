@@ -37,7 +37,7 @@ namespace Wkb2Gltf
                 Asset = GetAsset(),
                 Scene = 0,
                 Materials = GetMaterials(),
-                Nodes = GetNodes(translation),
+                Nodes = GetNodes(),
                 Buffers = GetBuffers(gltfArray.Vertices.Length, buffer_uri),
                 Meshes = GetMeshes(),
                 BufferViews = GetBufferViews(gltfArray.Vertices.Length),
@@ -135,10 +135,10 @@ namespace Wkb2Gltf
             return new Buffer[] { buffer };
         }
 
-        private static Node[] GetNodes(double[] translation)
+        private static Node[] GetNodes()
         {
             var node = new Node() {
-                Translation = new float[] { (float)translation[0], (float)translation[1], (float)translation[2] },
+                Matrix = new float[] {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
                 Mesh = 0
             };
             return new Node[] { node };
