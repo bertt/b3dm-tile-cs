@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\earcut\earcut.csproj" />
-    <ProjectReference Include="..\wkb.triangulate\triangulator.csproj" />
+    <ProjectReference Include="..\triangulor\triangulator.csproj" />
   </ItemGroup>
 
 </Project>
