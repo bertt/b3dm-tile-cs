@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using glTFLoader;
 using NUnit.Framework;
-using Wkb.Triangulate;
+// using Triangulator;
 using Wkx;
 
 namespace Wkb2Gltf.Tests
@@ -27,10 +27,10 @@ namespace Wkb2Gltf.Tests
             // arrange
             var tempPath = Path.GetTempPath();
             var buildingWkb = File.OpenRead(@"testfixtures/building.wkb");
-            var g = Geometry.Deserialize<WkbSerializer>(buildingWkb);
+            var g = Wkx.Geometry.Deserialize<WkbSerializer>(buildingWkb);
             var surface = ((PolyhedralSurface)g);
             var translation = new double[] { 1842015.125, 5177109.25, 247.87364196777344};
-            var triangles = Triangulator.Triangulate(surface);
+            var triangles = Triangulator.Triangulator.Triangulate(surface);
             var bb = surface.GetBoundingBox3D();
             var gltfArray = Gltf2Loader.GetGltfArray(triangles, bb);
             var gltf = Gltf2Loader.ToGltf(gltfArray, translation);

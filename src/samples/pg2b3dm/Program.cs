@@ -9,7 +9,7 @@ using B3dm.Tileset;
 using CommandLine;
 using glTFLoader;
 using Newtonsoft.Json;
-using Wkb.Triangulate;
+using Triangulator;
 using Wkb2Gltf;
 using Wkx;
 
@@ -91,7 +91,7 @@ namespace pg2b3dm
             var triangleCollection = new TriangleCollection();
             foreach(var g in geomrecords) {
                 var surface = (PolyhedralSurface)g.Geometry;
-                var triangles = Triangulator.Triangulate(surface);
+                var triangles = Triangulator.Triangulator.Triangulate(surface);
                 triangleCollection.AddRange(triangles);
             }
 

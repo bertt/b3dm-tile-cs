@@ -12,7 +12,7 @@ namespace Wkb2Gltf.Tests
         {
             // arrange
             var buildingWkb = File.OpenRead(@"testfixtures/building.wkb");
-            var g = Geometry.Deserialize<WkbSerializer>(buildingWkb);
+            var g = Wkx.Geometry.Deserialize<WkbSerializer>(buildingWkb);
             Assert.IsTrue(g.GeometryType == GeometryType.PolyhedralSurface);
             var polyhedralsurface = ((PolyhedralSurface)g);
 

@@ -37,13 +37,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{9F9CE0
 		src\Dockerfile = src\Dockerfile
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b3dm.tileset", "b3dm.tileset\b3dm.tileset.csproj", "{11844F33-851E-4089-B86B-F04D464E0689}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b3dm.tileset", "src\b3dm.tileset\b3dm.tileset.csproj", "{11844F33-851E-4089-B86B-F04D464E0689}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b3dm.tileset.tests", "b3dm.tileset.tests\b3dm.tileset.tests.csproj", "{16EA295D-6BA1-450D-9AEE-C6938EE801E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b3dm.tileset.tests", "src\b3dm.tileset.tests\b3dm.tileset.tests.csproj", "{16EA295D-6BA1-450D-9AEE-C6938EE801E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wkb.triangulate", "wkb.triangulate\wkb.triangulate.csproj", "{85812A62-5B3B-48DE-B390-FCA0D2C2F837}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "triangulator", "src\wkb.triangulate\triangulator.csproj", "{85812A62-5B3B-48DE-B390-FCA0D2C2F837}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wkb.triangulate.tests", "wkb.triangulate.tests\wkb.triangulate.tests.csproj", "{A92AA836-A641-45AF-9960-48FE27DEC6EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "triangulator.tests", "src\wkb.triangulate.tests\triangulator.tests.csproj", "{A92AA836-A641-45AF-9960-48FE27DEC6EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
