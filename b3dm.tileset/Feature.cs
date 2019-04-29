@@ -1,6 +1,6 @@
 ﻿using Wkb2Gltf;
 
-namespace B3dm.Tile
+namespace B3dm.Tileset
 {
     public class Feature
     {

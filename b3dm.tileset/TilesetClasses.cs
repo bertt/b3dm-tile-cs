@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace B3dm.Tile
+namespace B3dm.Tileset
 {
     public class TileSet
     {

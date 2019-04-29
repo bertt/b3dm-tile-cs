@@ -3,7 +3,7 @@ using System.IO;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
-namespace B3dm.Tile.Tests
+namespace B3dm.Tileset.Tests
 {
     class TileSetJsonTests
     {

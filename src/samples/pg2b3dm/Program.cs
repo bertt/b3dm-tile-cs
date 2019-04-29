@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using B3dm.Tile;
 using B3dm.Tile.Extensions;
+using B3dm.Tileset;
 using CommandLine;
 using glTFLoader;
 using Newtonsoft.Json;

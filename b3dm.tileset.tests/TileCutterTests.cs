@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Wkb2Gltf;
 
-namespace B3dm.Tile.Tests
+namespace B3dm.Tileset.Tests
 {
     public class TileCutterTests
     {

@@ -7,7 +7,7 @@ Tool for converting from PostGIS to b3dm tiles.
 Building image:
 
 ```
-$ docker build -t pg2b3dm .
+$ docker build -t geodan/pg2b3dm .
 ```
 
 Running image:
@@ -15,7 +15,13 @@ Running image:
 Sample on Windows: 
 
 ```
-$ docker run -v C:/Users/bertt/tiles:/app/tiles -it pg2b3dm
+$ docker run -v C:/Users/bertt/tiles:/app/tiles -it geodan/pg2b3dm
+```
+
+Sample on Linux:
+
+```
+$ docker run -v $(pwd)/output:/app/output -it geodan/pg2b3dm -H my_host -u my_user -p my_password -D my_database -t my_table -c my_geometry_column
 ```
 
 ## Command line options

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Wkb2Gltf;
 
-namespace B3dm.Tile.Tests
+namespace B3dm.Tileset.Tests
 {
     public static class BBTestDataReader
     {

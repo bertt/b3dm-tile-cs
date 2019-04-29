@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Wkb2Gltf;
 
-namespace B3dm.Tile
+namespace B3dm.Tileset
 {
     public static class NodeRecursive
     {

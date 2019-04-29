@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace B3dm.Tile.Tests
+namespace B3dm.Tileset.Tests
 {
     public class TestDataTests
     {

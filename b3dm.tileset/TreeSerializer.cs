@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace B3dm.Tile
+namespace B3dm.Tileset
 {
     public static class TreeSerializer
     {

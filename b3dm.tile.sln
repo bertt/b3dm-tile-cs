@@ -37,6 +37,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{9F9CE0
 		src\Dockerfile = src\Dockerfile
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b3dm.tileset", "b3dm.tileset\b3dm.tileset.csproj", "{11844F33-851E-4089-B86B-F04D464E0689}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b3dm.tileset.tests", "b3dm.tileset.tests\b3dm.tileset.tests.csproj", "{16EA295D-6BA1-450D-9AEE-C6938EE801E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +87,14 @@ Global
 		{BA50EF47-5455-4B27-9CD1-14E85E769681}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA50EF47-5455-4B27-9CD1-14E85E769681}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA50EF47-5455-4B27-9CD1-14E85E769681}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11844F33-851E-4089-B86B-F04D464E0689}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11844F33-851E-4089-B86B-F04D464E0689}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11844F33-851E-4089-B86B-F04D464E0689}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11844F33-851E-4089-B86B-F04D464E0689}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16EA295D-6BA1-450D-9AEE-C6938EE801E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16EA295D-6BA1-450D-9AEE-C6938EE801E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16EA295D-6BA1-450D-9AEE-C6938EE801E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16EA295D-6BA1-450D-9AEE-C6938EE801E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
