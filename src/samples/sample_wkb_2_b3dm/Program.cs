@@ -2,6 +2,7 @@
 using System.IO;
 using B3dm.Tile;
 using glTFLoader;
+using Wkb.Triangulate;
 using Wkb2Gltf;
 using Wkx;
 

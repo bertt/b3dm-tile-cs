@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using NUnit.Framework;
+using Wkb.Triangulate;
 using Wkx;
 
 namespace Wkb2Gltf.Tests

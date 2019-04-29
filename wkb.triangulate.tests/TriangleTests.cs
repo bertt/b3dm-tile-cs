@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using Wkx;
 
-namespace Wkb2Gltf.Tests
+namespace Wkb.Triangulate.Tests
 {
     public class TriangleTests
     {

@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using glTFLoader;
 using NUnit.Framework;
+using Wkb.Triangulate;
 using Wkx;
 
 namespace Wkb2Gltf.Tests

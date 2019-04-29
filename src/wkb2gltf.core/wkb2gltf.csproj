@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\wkb.triangulate\wkb.triangulate.csproj" />
     <ProjectReference Include="..\earcut\earcut.csproj" />
   </ItemGroup>
 

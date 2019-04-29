@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using glTFLoader.Schema;
-using Wkx;
+using Wkb.Triangulate;
+using Wkb2Gltf.extensions;
 
 namespace Wkb2Gltf
 {
@@ -22,7 +23,6 @@ namespace Wkb2Gltf
         {
             var bytesVertices = triangles.PositionsToBinary();
             var bytesNormals = triangles.NormalsToBinary();
-
 
             var gltfArray = new GltfArray(bytesVertices) {
                 Normals = bytesNormals,
