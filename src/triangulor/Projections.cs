@@ -7,7 +7,8 @@ namespace Triangulator
 {
     public static class Projections
     {
-        public static bool InvertTriangle(Vector3 vectProd, Point point0, Point point1, Point point2)
+        // return false when triangle is clockwise (CW), true when counter clockwise (CCW) 
+        public static bool ShouldInvertTriangle(Vector3 vectProd, Point point0, Point point1, Point point2)
         {
             var v1 = point1.Minus(point0);
             var v2 = point2.Minus(point0);
@@ -16,8 +17,10 @@ namespace Triangulator
             var invert = (dotproduct < 0);
             return invert;
         }
+
         public static Vector3 GetVectorProduct(Polygon polygon)
         {
+            // buggy: only three points are used...
             var points = polygon.ExteriorRing.Points;
             var vect1 = points[1].Minus(points[0]);
             var vect2 = points[2].Minus(points[0]);
@@ -25,10 +28,10 @@ namespace Triangulator
             return vectProd;
         }
 
-        public static List<double> Get2DPoints(Polygon polygon3d)
+        public static List<double> Get2DPoints(Polygon polygon3d, Vector3 vectProd)
         {
             var points2d = new List<double>();
-            var vectProd = GetVectorProduct(polygon3d);
+            // var vectProd = GetVectorProduct(polygon3d);
             var points3d = polygon3d.ExteriorRing.Points;
 
             foreach (var point3d in points3d)

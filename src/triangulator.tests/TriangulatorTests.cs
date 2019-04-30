@@ -28,7 +28,7 @@ namespace Triangulator.Tests
         {
             // arrange
             var surface = new PolyhedralSurface();
-            var ground = GetSquare(-1,-1,0,1,1,0);
+            var ground = TestData.SimplePolygon(-1,-1,0,1,1,0);
             surface.Geometries.Add(ground);
 
             // act
@@ -45,25 +45,12 @@ namespace Triangulator.Tests
             Assert.IsTrue(triangles[1].GetP2().Equals(new Point(-1, 1, 0)));
         }
 
-        private static Polygon GetSquare(double minx, double miny,double minz,double maxx,double maxy, double maxz)
-        {
-            var groundRing = new LinearRing();
-            groundRing.Points.Add(new Point(minx, miny, minz));
-            groundRing.Points.Add(new Point(minx, maxy, minz));
-            groundRing.Points.Add(new Point(maxx, maxy, minz));
-            groundRing.Points.Add(new Point(maxx, miny, minz));
-            groundRing.Points.Add(new Point(minx, miny, minz));
-
-            var ground = new Polygon(groundRing);
-            return ground;
-        }
-
         [Test]
         public void MultiPolygonTriangulationTest()
         {
             // arrange
-            var p1 = GetSquare(-1, -1, 0, 1, 1, 0);
-            var p2 = GetSquare(2, 2, 0, 3, 3, 0);
+            var p1 = TestData.SimplePolygon(-1, -1, 0, 1, 1, 0);
+            var p2 = TestData.SimplePolygon(2, 2, 0, 3, 3, 0);
             var mp = new MultiPolygon(new List<Polygon>() { p1, p2 });
 
             // act

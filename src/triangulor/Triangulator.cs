@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Numerics;
 using Wkx;
 
 namespace Triangulator
@@ -36,15 +38,15 @@ namespace Triangulator
 
         public static TriangleCollection GetTriangles(Polygon geometry)
         {
-            var points2d = Projections.Get2DPoints(geometry);
+            var vectProd = Projections.GetVectorProduct(geometry);
+            var points2d = Projections.Get2DPoints(geometry, vectProd);
             var triangleidx = Earcut.Earcut.Tessellate(points2d, new List<int>());
-            var triangles = GetTriangles(geometry, triangleidx);
+            var triangles = GetTrianglesFromPolygon(geometry, triangleidx, vectProd);
             return triangles;
         }
 
-        public static TriangleCollection GetTriangles(Polygon polygon, List<int> triangleIndexes)
+        public static TriangleCollection GetTrianglesFromPolygon(Polygon polygon, List<int> triangleIndexes, Vector3 vectProd)
         {
-            var vectProd = Projections.GetVectorProduct(polygon);
             var triangles_count = triangleIndexes.Count / 3;
 
             var triangles = new TriangleCollection();
@@ -55,7 +57,7 @@ namespace Triangulator
                 var point2 = polygon.ExteriorRing.Points[triangleIndexes[i * 3 + 2]];
 
                 // triangle orientation
-                var invert = Projections.InvertTriangle(vectProd, point0, point1, point2);
+                var invert = Projections.ShouldInvertTriangle(vectProd, point0, point1, point2);
 
                 var triangle = (invert ? new Triangle(point1, point0, point2) : new Triangle(point0, point1, point2));
 

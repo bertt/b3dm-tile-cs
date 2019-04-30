@@ -7,6 +7,37 @@ namespace Triangulator.Tests
     public class ProjectionsTests
     {
         [Test]
+        public void GetVectorProductTest()
+        {
+            // arrange
+            var polygon = TestData.SimplePolygon(-1, -1, 0, 1, 1, 1);
+
+            // act
+            var vectProd = Projections.GetVectorProduct(polygon);
+
+            // assert
+            Assert.IsTrue(vectProd.Equals(new Vector3(0,0,-4)));
+        }
+
+
+        [Test]
+        public void ShouldInvertTriangleTest()
+        {
+            // arrange
+            var polygon = TestData.SimplePolygon(-1, -1, 0, 1, 1, 1);
+            var vectProd = Projections.GetVectorProduct(polygon);
+
+            // act
+            var shouldInvertCW = Projections.ShouldInvertTriangle(vectProd, new Point(-1, -1, 0), new Point(-1, 1, 0), new Point(1, 1, 0));
+            var shouldInvertCCW = Projections.ShouldInvertTriangle(vectProd, new Point(1, 1, 0), new Point(-1, 1, 0), new Point(-1, -1, 0));
+
+
+            // assert
+            Assert.IsFalse(shouldInvertCW);
+            Assert.IsTrue(shouldInvertCCW);
+        }
+
+        [Test]
         public void IsYZProjection()
         {
             var p = new Vector3(-23.204334043097425f, -0.24502019837234382f, 0f);
@@ -46,7 +77,7 @@ namespace Triangulator.Tests
 
             // act
             var vectProd = Projections.GetVectorProduct(polygon);
-            var poly = Projections.Get2DPoints(polygon);
+            var poly = Projections.Get2DPoints(polygon,vectProd);
             var isyz = Projections.IsYZProjection(vectProd);
             var iszx = Projections.IsZXProjection(vectProd);
 
