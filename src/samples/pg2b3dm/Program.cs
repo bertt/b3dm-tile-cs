@@ -91,7 +91,7 @@ namespace pg2b3dm
             var triangleCollection = new TriangleCollection();
             foreach(var g in geomrecords) {
                 var surface = (PolyhedralSurface)g.Geometry;
-                var triangles = Triangulator.Triangulator.Triangulate(surface);
+                var triangles = Triangulator.Triangulator.GetTriangles(surface);
                 triangleCollection.AddRange(triangles);
             }
 

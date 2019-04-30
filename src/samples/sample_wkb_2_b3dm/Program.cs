@@ -18,7 +18,7 @@ namespace sample_wkb_2_b3dm
             var translation = new double[] { 539085.1, 6989220.68, 52.98 };
 
             var surface = (PolyhedralSurface)g;
-            var triangles = Triangulator.Triangulator.Triangulate(surface);
+            var triangles = Triangulator.Triangulator.GetTriangles(surface);
             var bb = surface.GetBoundingBox3D();
             var gltfArray = Gltf2Loader.GetGltfArray(triangles, bb);
             var gltfall = Gltf2Loader.ToGltf(gltfArray, translation);
