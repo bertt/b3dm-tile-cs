@@ -29,15 +29,32 @@ namespace Triangulator
         {
             var allTriangles = new TriangleCollection();
             foreach (var poly in multipoly.Geometries) {
-                var triangles = GetTriangles(poly);
+                var triangles = GetTriangles1(poly);
                 allTriangles.AddRange(triangles);
             }
 
             return allTriangles;
         }
 
+        // just create triangle and return
+        public static TriangleCollection GetTriangles1(Polygon geometry)
+        {
+            var pnts = geometry.ExteriorRing.Points;
+            var triangle = new Triangle(pnts[0],pnts[1], pnts[2]);
+            return new TriangleCollection(){ triangle};
+
+            /**var vectProd = Projections.GetVectorProduct(geometry);
+            var points2d = Projections.Get2DPoints(geometry, vectProd);
+            var triangleidx = Earcut.Earcut.Tessellate(points2d, new List<int>());
+            var triangles = GetTrianglesFromPolygon(geometry, triangleidx, vectProd);
+            return triangles;
+            */
+        }
+
+
         public static TriangleCollection GetTriangles(Polygon geometry)
         {
+
             var vectProd = Projections.GetVectorProduct(geometry);
             var points2d = Projections.Get2DPoints(geometry, vectProd);
             var triangleidx = Earcut.Earcut.Tessellate(points2d, new List<int>());

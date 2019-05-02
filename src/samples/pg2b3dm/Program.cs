@@ -9,6 +9,7 @@ using B3dm.Tileset;
 using CommandLine;
 using glTFLoader;
 using Newtonsoft.Json;
+using Npgsql;
 using Triangulator;
 using Wkb2Gltf;
 using Wkx;
