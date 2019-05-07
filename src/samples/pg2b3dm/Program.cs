@@ -9,7 +9,6 @@ using B3dm.Tileset;
 using CommandLine;
 using glTFLoader;
 using Newtonsoft.Json;
-using Npgsql;
 using Triangulator;
 using Wkb2Gltf;
 using Wkx;
@@ -44,8 +43,9 @@ namespace pg2b3dm
 
                 Console.WriteLine("Writing tileset.json...");
                 WiteTilesetJson(translation, tree);
+
                 Console.WriteLine("Writing tiles...");
-                WriteTile(connectionString, geometryTable, geometryColumn, translation, tree);
+                WriteTiles(connectionString, geometryTable, geometryColumn, translation, tree);
 
                 stopWatch.Stop();
                 Console.WriteLine("Elapsed: " + stopWatch.ElapsedMilliseconds / 1000);
@@ -54,7 +54,7 @@ namespace pg2b3dm
             });
         }
 
-        private static void WriteTile(string connectionString, string geometryTable, string geometryColumn, double[] translation, Node node)
+        private static void WriteTiles(string connectionString, string geometryTable, string geometryColumn, double[] translation, Node node)
         {
             if (node.Features.Count > 0) {
                 var subset = (from f in node.Features select (f.Id)).ToArray();
@@ -64,7 +64,7 @@ namespace pg2b3dm
             // and write children too
             foreach (var subnode in node.Children) {
                 Console.Write(".");
-                WriteTile(connectionString, geometryTable, geometryColumn, translation, subnode);
+                WriteTiles(connectionString, geometryTable, geometryColumn, translation, subnode);
             }
         }
 
@@ -103,7 +103,6 @@ namespace pg2b3dm
             gltfall.Gltf.SaveBinaryModel(gltfall.Body, ms);
             var glb = ms.ToArray();
             var b3dm = GlbToB3dmConvertor.Convert(glb);
-            // Console.WriteLine($"output/tiles/{tile_id}.b3dm");
             B3dmWriter.WriteB3dm($"./output/tiles/{tile_id}.b3dm", b3dm);
         }
 

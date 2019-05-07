@@ -18,7 +18,7 @@ namespace Triangulator
         {
             var allTriangles = new TriangleCollection();
             foreach (var geometry in geometries) {
-                var triangles = GetTriangles(geometry);
+                var triangles = GetTriangles1(geometry);
                 allTriangles.AddRange(triangles);
             }
 

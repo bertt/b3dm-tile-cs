@@ -40,7 +40,6 @@ namespace B3dm.Tileset
                         }
                     }
 
-                    // Console.WriteLine($"{x},{y},{features.Count}");
                     if (features.Count == 0) {
                         continue;
                     }

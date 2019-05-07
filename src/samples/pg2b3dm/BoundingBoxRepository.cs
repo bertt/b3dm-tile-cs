@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Npgsql;
 using Wkb2Gltf;
 using Wkx;
@@ -60,7 +62,8 @@ namespace pg2b3dm
         public static List<GeometryRecord>  GetGeometrySubset(string connectionString, string geometry_table, string geometry_column, double[] translation, int[] row_numbers)
         {
             var geometries = new List<GeometryRecord>();
-            var ids = string.Join(",", row_numbers);
+            var new_row_numbers= Array.ConvertAll(row_numbers, x => x+1);
+            var ids = string.Join(",", new_row_numbers);
             var geometryTable = GetGeometryTable(geometry_table, geometry_column, translation);
             var sql = $"select row_number, ST_AsBinary(geom1) from(SELECT row_number() over(), geom1 FROM({geometryTable}) as t) as p where row_number in ({ids})";
             var conn = new NpgsqlConnection(connectionString);
