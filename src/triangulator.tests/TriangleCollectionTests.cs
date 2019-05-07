@@ -1,5 +1,4 @@
-﻿using Triangulator;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Wkx;
 
 namespace Triangulator.Tests

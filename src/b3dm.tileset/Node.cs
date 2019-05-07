@@ -21,6 +21,5 @@ namespace B3dm.Tileset
             var bbox = BoundingBoxCalculator.GetBoundingBox(bboxes);
             return bbox;
         }
-
     }
 }

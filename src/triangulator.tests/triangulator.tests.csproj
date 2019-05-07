@@ -20,10 +20,4 @@
     <ProjectReference Include="..\triangulor\triangulator.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="testfixtures\building.wkb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

@@ -16,7 +16,6 @@ namespace B3dm.Tileset
             var bbox3d = BoundingBoxCalculator.GetBoundingBox(zupboxes);
             var bbox = bbox3d.ToBoundingBox();
 
-            // todo: create quadtree
             double maxTileSize = 2000.0;
             var featuresPerTile = 20;
 
@@ -32,8 +31,7 @@ namespace B3dm.Tileset
 
                     // loop through all zupboxes
                     for (var t = 0; t < zupboxes.Count; t++) {
-                        var center = zupboxes[t].GetCenter();
-                        var isinside = tileextent.Inside(center);
+                        var isinside = tileextent.Inside(zupboxes[t]);
                         if (isinside) {
                             var f = new Feature() { Id = t, BoundingBox3D = zupboxes[t] };
                             features.Add(f);
