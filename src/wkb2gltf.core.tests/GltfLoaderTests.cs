@@ -33,7 +33,8 @@ namespace Wkb2Gltf.Tests
             var triangles = Triangulator.Triangulator.GetTriangles(surface);
             var bb = surface.GetBoundingBox3D();
             var gltfArray = Gltf2Loader.GetGltfArray(triangles, bb);
-            var gltf = Gltf2Loader.ToGltf(gltfArray, translation);
+            var material = MaterialMaker.CreateMaterial("Material_house", 139 / 255f, 69 / 255f, 19 / 255f, 1.0f);
+            var gltf = Gltf2Loader.ToGltf(gltfArray, translation, material);
             gltf.Gltf.SaveBinaryModel(gltf.Body, @"d:\aaa\hihi.glb");
         }
 

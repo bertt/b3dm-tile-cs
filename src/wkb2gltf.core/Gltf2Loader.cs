@@ -8,10 +8,10 @@ namespace Wkb2Gltf
     public static class Gltf2Loader
     {
 
-        public static GltfAll ToGltf(GltfArray gltfArray, double[] translation, string buffer_uri = "")
+        public static GltfAll ToGltf(GltfArray gltfArray, double[] translation, Material material, string buffer_uri = "")
         {
             var body = gltfArray.AsBinary();
-            var gltf = GetGltf(gltfArray, translation, buffer_uri);
+            var gltf = GetGltf(gltfArray, translation, material, buffer_uri);
             var all = new GltfAll() { Gltf = gltf, Body = body };
             return all;
         }
@@ -31,12 +31,12 @@ namespace Wkb2Gltf
             return gltfArray;
         }
 
-        private static Gltf GetGltf(GltfArray gltfArray, double[] translation, string buffer_uri = "")
+        private static Gltf GetGltf(GltfArray gltfArray, double[] translation, Material material, string buffer_uri = "")
         {
             var gltf = new Gltf {
                 Asset = GetAsset(),
                 Scene = 0,
-                Materials = GetMaterials(),
+                Materials = new Material[] { material },
                 Nodes = GetNodes(),
                 Buffers = GetBuffers(gltfArray.Vertices.Length, buffer_uri),
                 Meshes = GetMeshes(),

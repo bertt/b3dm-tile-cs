@@ -21,7 +21,8 @@ namespace sample_wkb_2_b3dm
             var triangles = Triangulator.Triangulator.GetTriangles(surface);
             var bb = surface.GetBoundingBox3D();
             var gltfArray = Gltf2Loader.GetGltfArray(triangles, bb);
-            var gltfall = Gltf2Loader.ToGltf(gltfArray, translation);
+            var material = MaterialMaker.CreateMaterial("Material_house", 139 / 255f, 69 / 255f, 19 / 255f, 1.0f);
+            var gltfall = Gltf2Loader.ToGltf(gltfArray, translation, material);
             var ms = new MemoryStream();
             gltfall.Gltf.SaveBinaryModel(gltfall.Body, ms);
             var glb = ms.ToArray();

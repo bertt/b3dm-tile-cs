@@ -8,6 +8,7 @@ using B3dm.Tile.Extensions;
 using B3dm.Tileset;
 using CommandLine;
 using glTFLoader;
+using glTFLoader.Schema;
 using Newtonsoft.Json;
 using Triangulator;
 using Wkb2Gltf;
@@ -45,7 +46,8 @@ namespace pg2b3dm
                 WiteTilesetJson(translation, tree);
 
                 Console.WriteLine("Writing tiles...");
-                WriteTiles(connectionString, geometryTable, geometryColumn, translation, tree);
+                var material = MaterialMaker.CreateMaterial("Material_house", 139 / 255f, 69 / 255f, 19 / 255f, 1.0f);
+                WriteTiles(connectionString, geometryTable, geometryColumn, translation, tree, material);
 
                 stopWatch.Stop();
                 Console.WriteLine("Elapsed: " + stopWatch.ElapsedMilliseconds / 1000);
@@ -54,21 +56,21 @@ namespace pg2b3dm
             });
         }
 
-        private static void WriteTiles(string connectionString, string geometryTable, string geometryColumn, double[] translation, Node node)
+        private static void WriteTiles(string connectionString, string geometryTable, string geometryColumn, double[] translation, B3dm.Tileset.Node node, Material material)
         {
             if (node.Features.Count > 0) {
                 var subset = (from f in node.Features select (f.Id)).ToArray();
                 var geometries = BoundingBoxRepository.GetGeometrySubset(connectionString, geometryTable, geometryColumn, translation, subset);
-                WriteB3dm(geometries, node.Id, translation);
+                WriteB3dm(geometries, node.Id, translation, material);
             }
             // and write children too
             foreach (var subnode in node.Children) {
                 Console.Write(".");
-                WriteTiles(connectionString, geometryTable, geometryColumn, translation, subnode);
+                WriteTiles(connectionString, geometryTable, geometryColumn, translation, subnode, material);
             }
         }
 
-        private static void WiteTilesetJson(double[] translation, Node tree)
+        private static void WiteTilesetJson(double[] translation, B3dm.Tileset.Node tree)
         {
             var tileset = TreeSerializer.ToTileset(tree, translation);
             var s = JsonConvert.SerializeObject(tileset, Formatting.Indented, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
@@ -87,7 +89,7 @@ namespace pg2b3dm
             return zupBoxes;
         }
 
-        private static void WriteB3dm(List<GeometryRecord> geomrecords, int tile_id, double[] translation)
+        private static void WriteB3dm(List<GeometryRecord> geomrecords, int tile_id, double[] translation, Material material)
         {
             var triangleCollection = new TriangleCollection();
             foreach(var g in geomrecords) {
@@ -98,7 +100,7 @@ namespace pg2b3dm
 
             var bb = GetBoundingBox3D(geomrecords);
             var gltfArray = Gltf2Loader.GetGltfArray(triangleCollection, bb);
-            var gltfall = Gltf2Loader.ToGltf(gltfArray, translation);
+            var gltfall = Gltf2Loader.ToGltf(gltfArray, translation, material);
             var ms = new MemoryStream();
             gltfall.Gltf.SaveBinaryModel(gltfall.Body, ms);
             var glb = ms.ToArray();
