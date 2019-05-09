@@ -26,7 +26,7 @@ namespace sample_wkb_2_b3dm
             var ms = new MemoryStream();
             gltfall.Gltf.SaveBinaryModel(gltfall.Body, ms);
             var glb = ms.ToArray();
-            var b3dm = GlbToB3dmConvertor.Convert(glb);
+            var b3dm = new B3dm.Tile.B3dm(glb);
             B3dmWriter.WriteB3dm("building.b3dm", b3dm);
             Console.WriteLine($"File building.b3dm is written...");
             Console.WriteLine($"Press any key to continue...");

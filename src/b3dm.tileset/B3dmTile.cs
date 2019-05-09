@@ -1,6 +1,6 @@
 ﻿using Wkx;
 
-namespace B3dm.Tile
+namespace B3dm.Tileset
 {
     public static class B3dmTile
     {

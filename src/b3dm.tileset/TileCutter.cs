@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using B3dm.Tile;
-using B3dm.Tile.Extensions;
 using Wkb2Gltf;
 using Wkx;
 

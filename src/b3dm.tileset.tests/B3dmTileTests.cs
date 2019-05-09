@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using Wkx;
 
-namespace B3dm.Tile.Tests
+namespace B3dm.Tileset.Tests
 {
     public class B3dmTileTests
     {

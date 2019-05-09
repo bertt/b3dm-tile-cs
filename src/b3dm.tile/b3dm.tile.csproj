@@ -32,10 +32,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Wkx" Version="0.5.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\wkb2gltf.core\wkb2gltf.csproj" />
   </ItemGroup>
 

@@ -1,7 +1,7 @@
 ﻿using Wkb2Gltf;
 using Wkx;
 
-namespace B3dm.Tile.Extensions
+namespace B3dm.Tileset
 {
     public static class BoundingBoxExtensions
     {

@@ -1,8 +1,7 @@
-﻿using B3dm.Tile.Extensions;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Wkx;
 
-namespace B3dm.Tile.Tests
+namespace B3dm.Tileset.Tests
 {
     public class PointExtensionTests
     {

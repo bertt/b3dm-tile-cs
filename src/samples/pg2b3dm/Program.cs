@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using B3dm.Tile;
-using B3dm.Tile.Extensions;
 using B3dm.Tileset;
 using CommandLine;
 using glTFLoader;
@@ -104,7 +103,7 @@ namespace pg2b3dm
             var ms = new MemoryStream();
             gltfall.Gltf.SaveBinaryModel(gltfall.Body, ms);
             var glb = ms.ToArray();
-            var b3dm = GlbToB3dmConvertor.Convert(glb);
+            var b3dm = new B3dm.Tile.B3dm(glb);
             B3dmWriter.WriteB3dm($"./output/tiles/{tile_id}.b3dm", b3dm);
         }
 

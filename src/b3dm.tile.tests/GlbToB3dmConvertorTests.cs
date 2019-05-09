@@ -15,7 +15,8 @@ namespace B3dm.Tile.Tests
             var buildingGlb = File.ReadAllBytes(@"testfixtures/building.glb");
 
             // act
-            var b3dm = GlbToB3dmConvertor.Convert(buildingGlb);
+
+            var b3dm = new B3dm(buildingGlb);
 
             // assert
             Assert.IsTrue(b3dm.GlbData.Length == 2924);
