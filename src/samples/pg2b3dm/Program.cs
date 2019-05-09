@@ -9,7 +9,6 @@ using CommandLine;
 using glTFLoader;
 using glTFLoader.Schema;
 using Newtonsoft.Json;
-using Triangulator;
 using Wkb2Gltf;
 using Wkx;
 

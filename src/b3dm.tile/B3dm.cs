@@ -9,12 +9,9 @@
             BatchTableJson = string.Empty;
         }
 
-        public B3dm(byte[] glb)
+        public B3dm(byte[] glb): this()
         {
             GlbData = glb;
-            B3dmHeader = new B3dmHeader();
-            FeatureTableJson = string.Empty;
-            BatchTableJson = string.Empty;
         }
 
         public B3dmHeader B3dmHeader { get; set; }
