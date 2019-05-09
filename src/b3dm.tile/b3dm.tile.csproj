@@ -31,8 +31,4 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\wkb2gltf.core\wkb2gltf.csproj" />
-  </ItemGroup>
-
 </Project>
