@@ -15,9 +15,6 @@ namespace Wkb2Gltf
             return all;
         }
 
-        // var triangles = Triangulator.Triangulate(polyhedralsurface);
-        // var bb = polyhedralsurface.GetBoundingBox3D();
-
         public static GltfArray GetGltfArray(TriangleCollection triangles, BoundingBox3D bb)
         {
             var bytesVertices = triangles.PositionsToBinary();
