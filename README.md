@@ -12,6 +12,8 @@ In this sample a b3dm is read and written to GLB format and glTF/bin format.
 
 For unpacking the GLB library glTF2Loader (https://www.nuget.org/packages/glTF2Loader/1.1.3-alpha) is used.
 
+Sample code:
+
 ```
 Console.WriteLine("Sample code for unpacking a b3dm to glb and glTF/bin file");
 var f = File.OpenRead(@"testfixtures/51.b3dm");
@@ -29,6 +31,16 @@ File.WriteAllBytes("testfixtures/51.glb", b3dm.GlbData);
 Interface.Unpack("testfixtures/51.glb", "testfixtures");
 ```
 
+
+Sample code for packing a glb file to b3dm:
+
+```
+var inputfile = @"testfixtures/building.glb";
+var buildingGlb = File.ReadAllBytes(inputfile);
+var b3dm = new B3dm.Tile.B3dm(buildingGlb);
+B3dmWriter.WriteB3dm($"building.b3dm", b3dm);
+```
+
 Example glTF viewers for .glTF: 
 
 - https://gltf-viewer.donmccurdy.com/
@@ -44,6 +56,10 @@ Example glTF viewers for .glTF:
 - NETStandard.Library 2.0.3
 
 ## History
+
+2019-05-09: version 0.5
+
+- Added pack glb file to b3dm
 
 2019-01-09: version 0.4.1
 
@@ -104,6 +120,17 @@ glTF version: 2.0
 Buffer bytes: 1848
 Glb created test.glb
 ```
+
+3] Command pack glb_filename to pack a glb to b3dm file
+
+Example:
+
+```
+$ b3dm pack test.glb
+
+B3dm created test.b3dm
+```
+
 
 ## Glt2Loader sample code
 

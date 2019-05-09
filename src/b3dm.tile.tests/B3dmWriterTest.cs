@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.IO;
+using NUnit.Framework;
 
 namespace B3dm.Tile.Tests
 {
@@ -7,13 +8,14 @@ namespace B3dm.Tile.Tests
         [Test]
         public void WriteB3dmTest()
         {
-            // todo: convert glb to b3dm....
-
             // arrange
+            var buildingGlb = File.ReadAllBytes(@"testfixtures/building.glb");
+            var b3dm = new B3dm(buildingGlb);
 
             // act
+            B3dmWriter.WriteB3dm($"output.b3dm", b3dm);
 
-            // assert
+            // Assert
         }
     }
 }

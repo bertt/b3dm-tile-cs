@@ -23,13 +23,5 @@ namespace B3dm.Tile
             binaryWriter.Flush();
             binaryWriter.Close();
         }
-
-        public static void WriteGlb(string fileName, B3dm b3dm)
-        {
-            var fs = File.Create(fileName);
-            var bw = new BinaryWriter(fs);
-            bw.Write(b3dm.GlbData);
-            bw.Close();
-        }
     }
 }

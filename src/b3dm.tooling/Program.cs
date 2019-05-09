@@ -1,8 +1,8 @@
-﻿using B3dm.Tile;
-using glTFLoader;
-using System;
+﻿using System;
 using System.IO;
 using System.Reflection;
+using B3dm.Tile;
+using glTFLoader;
 
 namespace b3dm.tooling
 {
@@ -19,16 +19,30 @@ namespace b3dm.tooling
                 Console.WriteLine($"b3dm v{versionString}");
                 Console.WriteLine("-------------");
                 Console.WriteLine("\nUsage:");
-                Console.WriteLine("  b3dm unpack <file>");
+                Console.WriteLine("  b3dm unpack <b3dm-file>");
+                Console.WriteLine("  b3dm pack <glb-file>");
+                Console.WriteLine("  b3dm info <b3dm-file>");
                 return;
             }
 
             if (args[0] == "unpack") {
                 Unpack(args[1]);
             }
+            else if (args[0] == "pack") {
+                Pack(args[1]);
+            }
             else if (args[0] == "info") {
                 Info(args[1]);
             }
+        }
+
+        static void Pack(string file)
+        {
+            var f = File.ReadAllBytes(file);
+            var b3dm = new B3dm.Tile.B3dm(f);
+            var b3dmfile = Path.GetFileNameWithoutExtension(file) + ".b3dm";
+            B3dmWriter.WriteB3dm(b3dmfile, b3dm);
+            Console.WriteLine("B3dm created " + b3dmfile);
         }
 
         static void Unpack(string file)
