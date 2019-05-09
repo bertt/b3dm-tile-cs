@@ -5,20 +5,20 @@
     <RootNamespace>B3dm.Tile</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>b3dm-tile</PackageId>
-    <Version>0.4.1</Version>
+    <Version>0.5</Version>
     <Authors>Bert Temme</Authors>
     <Company>Geodan</Company>
     <Product>b3dm-tile</Product>
-    <Description>.NET Standard 2.0 Library for (de)serializing B3dm files to/from glTF</Description>
+    <Description>.NET Standard 2.0 Library for (un)packing B3dm files to/from glTF</Description>
     <PackageProjectUrl>https://github.com/bertt/b3dm-tile-cs</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/bertt/b3dm-tile-cs/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/bertt/b3dm-tile-cs</RepositoryUrl>
     <PackageTags>b3dm tile gltf</PackageTags>
     <PackOnBuild>true</PackOnBuild>
     <ReleaseVersion>0.2</ReleaseVersion>
-    <AssemblyVersion>0.4.1.0</AssemblyVersion>
-    <PackageReleaseNotes>- Added parsing FeatureTableJson, FeatureTableBinary, BatchTableJson, batchTableBinary</PackageReleaseNotes>
-    <FileVersion>0.4.1.0</FileVersion>
+    <AssemblyVersion>0.5.0.0</AssemblyVersion>
+    <PackageReleaseNotes>- Added writer</PackageReleaseNotes>
+    <FileVersion>0.5.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
