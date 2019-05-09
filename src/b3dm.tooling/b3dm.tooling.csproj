@@ -7,7 +7,12 @@
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>b3dm</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
-    <Version>1.2.0</Version>
+    <Version>0.5</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Bert Temme</Authors>
+    <Company>Geodan</Company>
+    <PackageProjectUrl>https://github.com/bertt/b3dm-tile-cs</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/bertt/b3dm-tile-cs/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>

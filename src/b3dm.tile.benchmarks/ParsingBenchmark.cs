@@ -13,6 +13,5 @@ namespace b3dm.tile.benchmarks
             var stream = File.OpenRead("1311.b3dm");
             B3dmReader.ReadB3dm(stream);
         }
-
     }
 }

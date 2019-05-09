@@ -31,8 +31,7 @@ File.WriteAllBytes("testfixtures/51.glb", b3dm.GlbData);
 Interface.Unpack("testfixtures/51.glb", "testfixtures");
 ```
 
-
-Sample code for packing a glb file to b3dm:
+## Sample code for conversion glb -> b3dm:
 
 ```
 var inputfile = @"testfixtures/building.glb";

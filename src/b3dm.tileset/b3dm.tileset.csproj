@@ -6,7 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\b3dm.tile\b3dm.tile.csproj" />
+    <PackageReference Include="b3dm-tile" Version="0.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\wkb2gltf.core\wkb2gltf.csproj" />
   </ItemGroup>
 
