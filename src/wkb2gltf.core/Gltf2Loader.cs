@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using glTFLoader.Schema;
 using Wkb2Gltf.extensions;
-using Triangulator;
 
 namespace Wkb2Gltf
 {

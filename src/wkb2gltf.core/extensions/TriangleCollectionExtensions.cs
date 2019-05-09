@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Triangulator;
 
 namespace Wkb2Gltf.extensions
 {

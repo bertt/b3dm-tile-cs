@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using Triangulator;
 using Wkb2Gltf.extensions;
 using Wkx;
 
@@ -14,7 +13,7 @@ namespace Wkb2Gltf.Tests
             var p0 = new Point(0, 0, 1);
             var p1 = new Point(1, 0, 2);
             var p2 = new Point(1, 0, 3);
-            var t = new Triangulator.Triangle(p0, p1, p2);
+            var t = new Triangle(p0, p1, p2);
             triangles.Add(t);
 
             var bytes = triangles.PositionsToBinary();
@@ -28,7 +27,7 @@ namespace Wkb2Gltf.Tests
             var p0 = new Point(0, 0, 1);
             var p1 = new Point(1, 0, 2);
             var p2 = new Point(1, 0, 3);
-            var t = new Triangulator.Triangle(p0, p1, p2);
+            var t = new Triangle(p0, p1, p2);
             triangles.Add(t);
 
             var bytes = triangles.NormalsToBinary();

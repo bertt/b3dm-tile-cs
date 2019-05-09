@@ -2,7 +2,7 @@
 using System.Numerics;
 using Wkx;
 
-namespace Triangulator
+namespace Wkb2Gltf
 {
     public class Triangle
     {

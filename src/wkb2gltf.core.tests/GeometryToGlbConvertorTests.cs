@@ -17,7 +17,7 @@ namespace Wkb2Gltf.Tests
 
             // act
             var surface = (PolyhedralSurface)g;
-            var triangles = Triangulator.Triangulator.GetTriangles(surface);
+            var triangles = Triangulator.GetTriangles(surface);
             var bb = surface.GetBoundingBox3D();
             var gltfArray = Gltf2Loader.GetGltfArray(triangles,bb);
             var material = MaterialMaker.CreateMaterial("Material_house", 139 / 255f, 69 / 255f, 19 / 255f, 1.0f);

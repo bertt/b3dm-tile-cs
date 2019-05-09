@@ -18,7 +18,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\b3dm.tileset\b3dm.tileset.csproj" />
     <ProjectReference Include="..\..\b3dm.tile\b3dm.tile.csproj" />
-    <ProjectReference Include="..\..\wkb2gltf.core\wkb2gltf.csproj" />
   </ItemGroup>
 
   <ItemGroup>

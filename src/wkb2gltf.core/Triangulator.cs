@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Wkx;
 
-namespace Triangulator
+namespace Wkb2Gltf
 {
-    public class Triangulator
+    public static class Triangulator
     {
         public static TriangleCollection GetTriangles(PolyhedralSurface polyhedralsurface)
         {
