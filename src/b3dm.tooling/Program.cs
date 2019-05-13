@@ -51,14 +51,20 @@ namespace b3dm.tooling
             var b3dm = B3dmReader.ReadB3dm(f);
             Console.WriteLine("b3dm version: " + b3dm.B3dmHeader.Version);
             var stream = new MemoryStream(b3dm.GlbData);
-            var gltf = Interface.LoadModel(stream);
-            Console.WriteLine("glTF asset generator: " + gltf.Asset.Generator);
-            Console.WriteLine("glTF version: " + gltf.Asset.Version);
-            var bufferBytes = gltf.Buffers[0].ByteLength;
-            Console.WriteLine("Buffer bytes: " + bufferBytes);
-            var glbfile = Path.GetFileNameWithoutExtension(file) + ".glb";
-            File.WriteAllBytes(glbfile, b3dm.GlbData);
-            Console.WriteLine("Glb created " + glbfile);
+            try {
+                var gltf = Interface.LoadModel(stream);
+                Console.WriteLine("glTF asset generator: " + gltf.Asset.Generator);
+                Console.WriteLine("glTF version: " + gltf.Asset.Version);
+                var bufferBytes = gltf.Buffers[0].ByteLength;
+                Console.WriteLine("Buffer bytes: " + bufferBytes);
+                var glbfile = Path.GetFileNameWithoutExtension(file) + ".glb";
+                File.WriteAllBytes(glbfile, b3dm.GlbData);
+                Console.WriteLine("Glb created " + glbfile);
+            }
+            catch (InvalidDataException ex) {
+                Console.WriteLine("B3dm version not supported.");
+                Console.WriteLine(ex.Message);
+            }
         }
 
         static void Info(string file)
