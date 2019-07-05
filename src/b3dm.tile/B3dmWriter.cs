@@ -7,7 +7,8 @@ namespace B3dm.Tile
     {
         public static void WriteB3dm(string path, B3dm b3dm)
         {
-            b3dm.B3dmHeader.ByteLength = b3dm.GlbData.Length;
+            b3dm.B3dmHeader.ByteLength = b3dm.GlbData.Length + 28+ b3dm.FeatureTableJson.Length;
+            b3dm.B3dmHeader.FeatureTableJsonByteLength = 20;
             var fileStream = File.Open(path, FileMode.Create);
             var binaryWriter = new BinaryWriter(fileStream);
             binaryWriter.Write(b3dm.B3dmHeader.AsBinary());

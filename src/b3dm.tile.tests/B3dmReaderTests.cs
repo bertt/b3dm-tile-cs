@@ -13,7 +13,7 @@ namespace B3dm.Tile.Tests
         [SetUp]
         public void Setup()
         {
-            b3dmfile = File.OpenRead(@"testfixtures/py3dtiles_test_build_1.b3dm");
+            b3dmfile = File.OpenRead(@"testfixtures/1_expected.b3dm");
             Assert.IsTrue(b3dmfile != null);
         }
 

@@ -7,6 +7,7 @@
             B3dmHeader = new B3dmHeader();
             FeatureTableJson = string.Empty;
             BatchTableJson = string.Empty;
+            FeatureTableJson = "{\"BATCH_LENGTH\":0}  ";
         }
 
         public B3dm(byte[] glb): this()
