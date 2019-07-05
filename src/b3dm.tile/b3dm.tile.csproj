@@ -11,14 +11,15 @@
     <Product>b3dm-tile</Product>
     <Description>.NET Standard 2.0 Library for (un)packing B3dm files to/from glTF</Description>
     <PackageProjectUrl>https://github.com/bertt/b3dm-tile-cs</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/bertt/b3dm-tile-cs/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <RepositoryUrl>https://github.com/bertt/b3dm-tile-cs</RepositoryUrl>
     <PackageTags>b3dm tile gltf</PackageTags>
     <PackOnBuild>true</PackOnBuild>
     <ReleaseVersion>0.2</ReleaseVersion>
     <AssemblyVersion>0.7.0.0</AssemblyVersion>
-    <PackageReleaseNotes>- Fix packaging b3dm issue (due to missing FeatureTableJson)</PackageReleaseNotes>
+    <PackageReleaseNotes>- fix for writing b3dm</PackageReleaseNotes>
     <FileVersion>0.7.0.0</FileVersion>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
