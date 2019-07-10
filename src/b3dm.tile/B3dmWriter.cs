@@ -5,7 +5,7 @@ namespace B3dm.Tile
 {
     public static class B3dmWriter
     {
-        public static void WriteB3dm(string path, B3dm b3dm)
+        public static string WriteB3dm(string path, B3dm b3dm)
         {
             var header_length = 28;
             b3dm.B3dmHeader.ByteLength = b3dm.GlbData.Length + header_length  + b3dm.FeatureTableJson.Length + b3dm.BatchTableJson.Length + b3dm.BatchTableBinary.Length + b3dm.FeatureTableBinary.Length;
@@ -28,6 +28,7 @@ namespace B3dm.Tile
             binaryWriter.Write(b3dm.GlbData);
             binaryWriter.Flush();
             binaryWriter.Close();
+            return fileStream.Name;
         }
     }
 }

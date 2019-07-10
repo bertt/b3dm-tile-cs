@@ -16,7 +16,7 @@ namespace B3dm.Tile.Tests
             var b3dmExpected = File.ReadAllBytes(@"testfixtures/1_expected.b3dm");
 
             // act
-            var result = @"d:\aaa\1.b3dm";
+            var result = @"1.b3dm";
             B3dmWriter.WriteB3dm(result, b3dm);
 
             // Assert
@@ -45,9 +45,9 @@ namespace B3dm.Tile.Tests
             b3dm.BatchTableBinary = b3dmExpected.BatchTableBinary;
 
             // act
-            var result = @"d:\aaa\with_batch.b3dm";
-            B3dmWriter.WriteB3dm(result, b3dm);
-            var b3dmActual = B3dmReader.ReadB3dm(File.OpenRead(result));
+            var result = "with_batch.b3dm";
+            var newB3dm = B3dmWriter.WriteB3dm(result, b3dm);
+            var b3dmActual = B3dmReader.ReadB3dm(File.OpenRead(newB3dm));
 
             // Assert
             Assert.IsTrue(b3dmActual.B3dmHeader.Magic == b3dmExpected.B3dmHeader.Magic);
