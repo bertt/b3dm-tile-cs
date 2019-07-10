@@ -25,9 +25,44 @@ namespace B3dm.Tile.Tests
 
             Assert.IsTrue(FilesAreEqual(fiResult, fiExpected));
 
-            // filesize must be same as glbToB3dm (missing 20 bytes)... 
             Assert.IsTrue(fiResult.Length == b3dmExpected.Length);
         }
+
+        [Test]
+        public void WriteB3dmWithBatchTest()
+        {
+            // arrange
+            var buildingGlb = File.ReadAllBytes(@"testfixtures/with_batch.glb");
+            var batchTableJson = File.ReadAllText(@"testfixtures/BatchTableJsonExpected.json");
+
+            var b3dmBytesExpected = File.OpenRead(@"testfixtures/with_batch.b3dm");
+            var b3dmExpected = B3dmReader.ReadB3dm(b3dmBytesExpected);
+
+            var b3dm = new B3dm(buildingGlb);
+            b3dm.FeatureTableJson = b3dmExpected.FeatureTableJson;
+            b3dm.BatchTableJson = b3dmExpected.BatchTableJson;
+            b3dm.FeatureTableBinary = b3dmExpected.FeatureTableBinary;
+            b3dm.BatchTableBinary = b3dmExpected.BatchTableBinary;
+
+            // act
+            var result = @"d:\aaa\with_batch.b3dm";
+            B3dmWriter.WriteB3dm(result, b3dm);
+            var b3dmActual = B3dmReader.ReadB3dm(File.OpenRead(result));
+
+            // Assert
+            Assert.IsTrue(b3dmActual.B3dmHeader.Magic == b3dmExpected.B3dmHeader.Magic);
+            Assert.IsTrue(b3dmActual.B3dmHeader.Version== b3dmExpected.B3dmHeader.Version);
+            Assert.IsTrue(b3dmActual.B3dmHeader.FeatureTableJsonByteLength== b3dmExpected.B3dmHeader.FeatureTableJsonByteLength);
+            Assert.IsTrue(b3dmActual.B3dmHeader.BatchTableJsonByteLength== b3dmExpected.B3dmHeader.BatchTableJsonByteLength);
+            Assert.IsTrue(b3dmActual.B3dmHeader.ByteLength== b3dmExpected.B3dmHeader.ByteLength);
+
+            var fiResult = new FileInfo(result);
+            var fiExpected = new FileInfo(@"testfixtures/with_batch.b3dm");
+
+            Assert.IsTrue(fiResult.Length == fiExpected.Length);
+            Assert.IsTrue(FilesAreEqual(fiResult, fiExpected));
+        }
+
 
         const int BYTES_TO_READ = sizeof(Int64);
 

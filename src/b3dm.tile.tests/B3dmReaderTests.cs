@@ -1,4 +1,5 @@
 using glTFLoader;
+using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using System.IO;
 
@@ -32,7 +33,6 @@ namespace B3dm.Tile.Tests
             Assert.IsTrue(expectedVersionHeader == b3dm.B3dmHeader.Version);
             Assert.IsTrue(b3dm.BatchTableJson.Length >= 0);
             Assert.IsTrue(b3dm.GlbData.Length > 0);
-            var ms = new MemoryStream(b3dm.GlbData);
         }
 
         [Test]
@@ -49,6 +49,22 @@ namespace B3dm.Tile.Tests
             Assert.IsTrue(b3dm.GlbData.Length == 2924);
         }
 
+        [Test]
+        public void ReadB3dmWithBatchTest()
+        {
+            // arrange
+            var batchB3dm = File.OpenRead(@"testfixtures/with_batch.b3dm");
+            var expectedBatchTableJsonText = File.ReadAllText(@"testfixtures/BatchTableJsonExpected.json");
+            var expectedBatchTableJson = JObject.Parse(expectedBatchTableJsonText);
+
+            // act
+            var b3dm = B3dmReader.ReadB3dm(batchB3dm);
+            var actualBatchTableJson = JObject.Parse(b3dm.BatchTableJson);
+
+            // assert
+            Assert.IsTrue(b3dm.FeatureTableJson == "{\"BATCH_LENGTH\":12} ");
+            Assert.AreEqual(expectedBatchTableJson,actualBatchTableJson);
+        }
 
         [Test]
         public void ReadNederland3DB3dmTest()
@@ -58,13 +74,6 @@ namespace B3dm.Tile.Tests
 
             // act
             var b3dm = B3dmReader.ReadB3dm(b3dmfile1);
-            var stream = new MemoryStream(b3dm.GlbData);
-            // loading goes wrong, because animations?
-            // Unhandled Exception: Newtonsoft.Json.JsonSerializationException: Error setting value to 'Animations' on 'glTFLoader.Schema.Gltf'. ---> System.ArgumentException: Array not long enough
-            // at glTFLoader.Schema.Gltf.set_Animations(Animation[] value)
-
-            // var gltf = Interface.LoadModel(stream);
-
 
             // assert
             Assert.IsTrue(expectedMagicHeader == b3dm.B3dmHeader.Magic);
