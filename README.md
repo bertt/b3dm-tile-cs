@@ -56,6 +56,14 @@ Example glTF viewers for .glTF:
 
 ## History
 
+2019-07-10: Version 0.8
+
+- adding featuretable / batchtable support (json and binary formats) for reading and writing b3dm tiles
+
+2019-07-05: Version 0.7
+
+2019-05-16: Version 0.6
+
 2019-05-09: version 0.5
 
 - Added pack glb file to b3dm
