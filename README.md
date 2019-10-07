@@ -8,9 +8,9 @@ Batched 3D specification: https://github.com/AnalyticalGraphicsInc/3d-tiles/blob
 
 ## Sample code for conversion b3dm -> glb:
 
-In this sample a b3dm is read and written to GLB format and glTF/bin format. 
+In this sample a B3DM tile is converted to GLB format. 
 
-For unpacking the SharpGLTF library (https://github.com/vpenades/SharpGLTF is used.
+For glTF reading the SharpGLTF library (https://github.com/vpenades/SharpGLTF) is used.
 
 Sample code:
 
@@ -47,6 +47,14 @@ Example glTF viewers for .glTF:
 
 - NETStandard.Library 2.0.3
 
+## Benchmark
+
+```
+|                  Method |     Mean |    Error |   StdDev |   Median | Gen 0/1k Op | Gen 1/1k Op | Gen 2/1k Op | Allocated Memory/Op |
+|------------------------ |---------:|---------:|---------:|---------:|------------:|------------:|------------:|--------------------:|
+| ParseB3dmTileFromStream | 70.17 us | 2.062 us | 6.079 us | 68.53 us |     20.3857 |           - |           - |            84.98 KB |```
+```
+
 ## History
 
 2019-07-10: Version 0.8
@@ -73,19 +81,3 @@ Example glTF viewers for .glTF:
 
   - Added b3dm headers FeatureTableJsonByteLength, FeatureTableBinaryByteLength, BatchTableJsonByteLength, batchTableBinaryByteLength. 
 
-## Benchmark
-
-```
-|                  Method |     Mean |    Error |   StdDev |   Median | Gen 0/1k Op | Gen 1/1k Op | Gen 2/1k Op | Allocated Memory/Op |
-|------------------------ |---------:|---------:|---------:|---------:|------------:|------------:|------------:|--------------------:|
-| ParseB3dmTileFromStream | 70.17 us | 2.062 us | 6.079 us | 68.53 us |     20.3857 |           - |           - |            84.98 KB |```
-```
-
-## Glt2Loader sample code
-
-```
-// save gltf bin and gltf file
-File.WriteAllBytes($"building.bin", gltf.Body);
-gltf.Gltf.SaveModel($"building.gltf");
-
-```
