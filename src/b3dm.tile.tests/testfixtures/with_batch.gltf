@@ -1,0 +1,159 @@
+{
+  "asset": {
+    "generator": "FME 2018.1.1.0",
+    "version": "2.0"
+  },
+  "materials": [
+    {
+      "name": "default_material",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.8,
+          0.8,
+          0.8,
+          1
+        ],
+        "roughnessFactor": 0.30000000000000004,
+        "metallicFactor": 0.5
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "_BATCHID": 2,
+            "NORMAL": 1,
+            "POSITION": 0
+          },
+          "indices": 3,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "mesh": 0
+    }
+  ],
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "scene": 0,
+  "extensionsUsed": [
+    "CESIUM_RTC"
+  ],
+  "extensionsRequired": [
+    "CESIUM_RTC"
+  ],
+  "extensions": {
+    "CESIUM_RTC": {
+      "center": [
+        4280244.188298307,
+        644712.4287213027,
+        4669424.105615373
+      ]
+    }
+  },
+  "accessors": [
+    {
+      "bufferView": 0,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 2502,
+      "type": "VEC3",
+      "min": [
+        -20.149248123168945,
+        -24.33559799194336,
+        -141.0479736328125
+      ],
+      "max": [
+        20.149248123168945,
+        24.33559799194336,
+        141.0479736328125
+      ]
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 2502,
+      "type": "VEC3",
+      "min": [
+        -0.5325012803077698,
+        -0.7741689085960388,
+        -0.9464479684829712
+      ],
+      "max": [
+        0.9930614233016968,
+        0.9938670992851257,
+        0.9462318420410156
+      ]
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 0,
+      "componentType": 5121,
+      "count": 2502,
+      "type": "SCALAR",
+      "min": [
+        0
+      ],
+      "max": [
+        11
+      ]
+    },
+    {
+      "bufferView": 3,
+      "byteOffset": 0,
+      "componentType": 5123,
+      "count": 2502,
+      "type": "SCALAR",
+      "min": [
+        0
+      ],
+      "max": [
+        2501
+      ]
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 30024,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 30024,
+      "byteLength": 30024,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 60048,
+      "byteLength": 2504,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 62552,
+      "byteLength": 5004,
+      "target": 34963
+    }
+  ],
+  "buffers": [
+    {
+      "uri": "with_batch_data.bin",
+      "byteLength": 67556
+    }
+  ]
+}

@@ -10,25 +10,18 @@ Batched 3D specification: https://github.com/AnalyticalGraphicsInc/3d-tiles/blob
 
 In this sample a b3dm is read and written to GLB format and glTF/bin format. 
 
-For unpacking the GLB library glTF2Loader (https://www.nuget.org/packages/glTF2Loader/1.1.3-alpha) is used.
+For unpacking the SharpGLTF library (https://github.com/vpenades/SharpGLTF is used.
 
 Sample code:
 
 ```
-Console.WriteLine("Sample code for unpacking a b3dm to glb and glTF/bin file");
-var f = File.OpenRead(@"testfixtures/51.b3dm");
+var inputfile = @"testfixtures/662.b3dm";
+var outputfile = Path.GetFileNameWithoutExtension(inputfile) + ".glb";
+var f = File.OpenRead(inputfile);
 var b3dm = B3dmReader.ReadB3dm(f);
-Console.WriteLine("b3dm version: " + b3dm.B3dmHeader.Version);
 var stream = new MemoryStream(b3dm.GlbData);
-var gltf = Interface.LoadModel(stream);
-Console.WriteLine("glTF asset generator: " + gltf.Asset.Generator);
-Console.WriteLine("glTF version: " + gltf.Asset.Version);
-var model = gltf.SerializeModel();
-Console.WriteLine("glTF model: " + model);
-var bufferBytes = gltf.Buffers[0].ByteLength;
-Console.WriteLine("Buffer bytes: " + bufferBytes);
-File.WriteAllBytes("testfixtures/51.glb", b3dm.GlbData);
-Interface.Unpack("testfixtures/51.glb", "testfixtures");
+var gltf = ModelRoot.ReadGLB(stream, new ReadSettings());
+gltf.SaveGLB(outputfile);
 ```
 
 ## Sample code for conversion glb -> b3dm:

@@ -30,6 +30,7 @@ namespace B3dm.Tile
             Magic = Encoding.UTF8.GetString(reader.ReadBytes(4));
             Version = (int)reader.ReadUInt32();
             ByteLength = (int)reader.ReadUInt32();
+
             FeatureTableJsonByteLength = (int)reader.ReadUInt32();
             FeatureTableBinaryByteLength = (int)reader.ReadUInt32();
             BatchTableJsonByteLength = (int)reader.ReadUInt32();
