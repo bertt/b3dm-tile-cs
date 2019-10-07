@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using B3dm.Tile;
-using glTFLoader;
 using SharpGLTF.Schema2;
 
 namespace sample_read_b3dm
