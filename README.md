@@ -1,4 +1,4 @@
-# b3dm-cs
+# b3dm-tile-cs
 
 .NET Standard 2.0 Library for (de)serializing B3dm files to/from glTF
 
