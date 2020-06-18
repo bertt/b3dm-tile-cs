@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SharpGLTF.Toolkit" Version="1.0.0-alpha0013" />
+    <PackageReference Include="SharpGLTF.Toolkit" Version="1.0.0-alpha0017" />
   </ItemGroup>
 
   <ItemGroup>
