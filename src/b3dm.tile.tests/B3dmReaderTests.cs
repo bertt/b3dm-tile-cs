@@ -1,9 +1,6 @@
-using glTFLoader;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using System.IO;
-using System.Net;
-using System.Net.Http;
 
 namespace B3dm.Tile.Tests
 {
@@ -28,7 +25,9 @@ namespace B3dm.Tile.Tests
             // act
             var b3dm = B3dmReader.ReadB3dm(b3dmfile);
             var stream = new MemoryStream(b3dm.GlbData);
-            var gltf = Interface.LoadModel(stream);
+            var glb = SharpGLTF.Schema2.ModelRoot.ReadGLB(stream);
+            Assert.IsTrue(glb.Asset.Version.Major == 2.0);
+            Assert.IsTrue(glb.Asset.Generator == "SharpGLTF 1.0.0-alpha0009");
 
             // assert
             Assert.IsTrue(expectedMagicHeader == b3dm.B3dmHeader.Magic);
