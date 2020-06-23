@@ -45,8 +45,6 @@ Example glTF viewers for .glTF:
 
 ## Dependencies
 
-- SharpGLTF https://github.com/vpenades/SharpGLTF
-
 - NETStandard.Library 2.0.3
 
 ## Benchmark
