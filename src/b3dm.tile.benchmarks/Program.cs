@@ -7,7 +7,7 @@ namespace b3dm.tile.benchmarks
     {
         static void Main(string[] args)
         {
-            var summary = BenchmarkRunner.Run<ParsingBenchmark>();
+            var summary = BenchmarkRunner.Run<B3dmBenchmarks>();
             Console.Write(summary);
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();

@@ -47,12 +47,19 @@ Example glTF viewers for .glTF:
 
 - NETStandard.Library 2.0.3
 
-## Benchmark
+## Benchmarks
 
 ```
-|                  Method |     Mean |    Error |   StdDev |   Median | Gen 0/1k Op | Gen 1/1k Op | Gen 2/1k Op | Allocated Memory/Op |
-|------------------------ |---------:|---------:|---------:|---------:|------------:|------------:|------------:|--------------------:|
-| ParseB3dmTileFromStream | 70.17 us | 2.062 us | 6.079 us | 68.53 us |     20.3857 |           - |           - |            84.98 KB |```
+BenchmarkDotNet=v0.12.1, OS=Windows 10.0.19041.329 (2004/?/20H1)
+Intel Core i7-9750H CPU 2.60GHz, 1 CPU, 12 logical and 6 physical cores
+.NET Core SDK=3.1.301
+  [Host]     : .NET Core 3.1.5 (CoreCLR 4.700.20.26901, CoreFX 4.700.20.27001), X64 RyuJIT
+  DefaultJob : .NET Core 3.1.5 (CoreCLR 4.700.20.26901, CoreFX 4.700.20.27001), X64 RyuJIT
+
+|    Method |      Mean |    Error |    StdDev |    Median |   Gen 0 |   Gen 1 |   Gen 2 | Allocated |
+|---------- |----------:|---------:|----------:|----------:|--------:|--------:|--------:|----------:|
+|  ReadB3dm |  40.81 us | 0.930 us |  2.742 us |  39.88 us | 13.6719 |  0.2441 |       - |   85.1 KB |
+| WriteB3dm | 435.28 us | 8.416 us | 10.018 us | 434.28 us | 29.2969 | 29.2969 | 29.2969 |  99.09 KB |
 ```
 
 ## History
