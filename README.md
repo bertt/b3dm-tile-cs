@@ -57,6 +57,8 @@ Example glTF viewers for .glTF:
 
 ## History
 
+2020-07-01: Version 0.9 adding 8 byte padding rules
+
 2019-07-10: Version 0.8
 
 - adding featuretable / batchtable support (json and binary formats) for reading and writing b3dm tiles
