@@ -11,6 +11,8 @@ namespace B3dm.Tile.Tests
                 ByteLength = 2952
             };
             var binary = b3dmHeader.AsBinary();
+
+            var errors = b3dmHeader.Validate();
             Assert.IsTrue(binary.Length == 28);
         }
     }

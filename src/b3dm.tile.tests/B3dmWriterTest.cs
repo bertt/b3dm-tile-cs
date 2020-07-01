@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using NUnit.Framework;
 
 namespace B3dm.Tile.Tests
@@ -21,10 +20,6 @@ namespace B3dm.Tile.Tests
 
             // Assert
             var fiResult = new FileInfo(result);
-            var fiExpected = new FileInfo(@"testfixtures/1_expected.b3dm");
-
-            Assert.IsTrue(FilesAreEqual(fiResult, fiExpected));
-
             Assert.IsTrue(fiResult.Length == b3dmExpected.Length);
         }
 
@@ -37,6 +32,8 @@ namespace B3dm.Tile.Tests
 
             var b3dmBytesExpected = File.OpenRead(@"testfixtures/with_batch.b3dm");
             var b3dmExpected = B3dmReader.ReadB3dm(b3dmBytesExpected);
+            var errors = b3dmExpected.B3dmHeader.Validate();
+            Assert.IsTrue(errors.Count > 0);
 
             var b3dm = new B3dm(buildingGlb);
             b3dm.FeatureTableJson = b3dmExpected.FeatureTableJson;
@@ -50,47 +47,12 @@ namespace B3dm.Tile.Tests
             var b3dmActual = B3dmReader.ReadB3dm(File.OpenRead(newB3dm));
 
             // Assert
+            var errorsActual = b3dmActual.B3dmHeader.Validate();
+            Assert.IsTrue(errorsActual.Count == 0);
+
             Assert.IsTrue(b3dmActual.B3dmHeader.Magic == b3dmExpected.B3dmHeader.Magic);
             Assert.IsTrue(b3dmActual.B3dmHeader.Version== b3dmExpected.B3dmHeader.Version);
             Assert.IsTrue(b3dmActual.B3dmHeader.FeatureTableJsonByteLength== b3dmExpected.B3dmHeader.FeatureTableJsonByteLength);
-            Assert.IsTrue(b3dmActual.B3dmHeader.BatchTableJsonByteLength== b3dmExpected.B3dmHeader.BatchTableJsonByteLength);
-            Assert.IsTrue(b3dmActual.B3dmHeader.ByteLength== b3dmExpected.B3dmHeader.ByteLength);
-
-            var fiResult = new FileInfo(result);
-            var fiExpected = new FileInfo(@"testfixtures/with_batch.b3dm");
-
-            Assert.IsTrue(fiResult.Length == fiExpected.Length);
-            Assert.IsTrue(FilesAreEqual(fiResult, fiExpected));
-        }
-
-
-        const int BYTES_TO_READ = sizeof(Int64);
-
-        static bool FilesAreEqual(FileInfo first, FileInfo second)
-        {
-            if (first.Length != second.Length)
-                return false;
-
-            if (string.Equals(first.FullName, second.FullName, StringComparison.OrdinalIgnoreCase))
-                return true;
-
-            int iterations = (int)Math.Ceiling((double)first.Length / BYTES_TO_READ);
-
-            using (FileStream fs1 = first.OpenRead())
-            using (FileStream fs2 = second.OpenRead()) {
-                byte[] one = new byte[BYTES_TO_READ];
-                byte[] two = new byte[BYTES_TO_READ];
-
-                for (int i = 0; i < iterations; i++) {
-                    fs1.Read(one, 0, BYTES_TO_READ);
-                    fs2.Read(two, 0, BYTES_TO_READ);
-
-                    if (BitConverter.ToInt64(one, 0) != BitConverter.ToInt64(two, 0))
-                        return false;
-                }
-            }
-
-            return true;
         }
     }
 }

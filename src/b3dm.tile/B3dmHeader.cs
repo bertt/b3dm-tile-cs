@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -56,5 +57,30 @@ namespace B3dm.Tile
                 Concat(batchTableBinaryByteLength).
                 ToArray();
         }
+
+        public List<string> Validate()
+        {
+            var res = new List<string>();
+
+            var headerByteLength = AsBinary().Count();
+            var featureTableJsonByteOffset = headerByteLength;
+            var featureTableBinaryByteOffset = featureTableJsonByteOffset + FeatureTableJsonByteLength;
+            var batchTableJsonByteOffset = featureTableBinaryByteOffset + FeatureTableBinaryByteLength;
+            var batchTableBinaryByteOffset = batchTableJsonByteOffset + BatchTableJsonByteLength;
+            var glbByteOffset = batchTableBinaryByteOffset + BatchTableBinaryByteLength;
+
+            if (featureTableBinaryByteOffset % 8 > 0) {
+                res.Add("Feature table binary must be aligned to an 8-byte boundary.");
+            }
+            if (batchTableBinaryByteOffset % 8 > 0) {
+                res.Add("Batch table binary must be aligned to an 8-byte boundary.");
+            }
+            if (glbByteOffset % 8 > 0) {
+                res.Add("Glb must be aligned to an 8-byte boundary.");
+            }
+
+            return res;
+        }
+
     }
 }
