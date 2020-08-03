@@ -19,8 +19,7 @@ namespace b3dm.tile.benchmarks
         {
             var buildingGlb = File.ReadAllBytes(@"1.glb");
             var b3dm = new B3dm.Tile.B3dm(buildingGlb);
-            B3dmWriter.WriteB3dm("1_new.b3dm", b3dm);
-
+            var res = b3dm.ToBytes();
         }
 
     }

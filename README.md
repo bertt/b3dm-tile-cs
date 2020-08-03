@@ -30,7 +30,7 @@ gltf.SaveGLB(outputfile);
 var inputfile = @"testfixtures/building.glb";
 var buildingGlb = File.ReadAllBytes(inputfile);
 var b3dm = new B3dm.Tile.B3dm(buildingGlb);
-B3dmWriter.WriteB3dm($"building.b3dm", b3dm);
+var bytes = b3dm.ToBytes(b3dm);
 ```
 
 Example glTF viewers for .glTF: 
@@ -40,8 +40,6 @@ Example glTF viewers for .glTF:
 - glTF Validator: http://github.khronos.org/glTF-Validator/
 
 - Visual Studio Code: https://github.com/AnalyticalGraphicsInc/gltf-vscode
-
-<img src="gltf.png"/>
 
 ## Dependencies
 
@@ -59,10 +57,11 @@ Intel Core i7-9750H CPU 2.60GHz, 1 CPU, 12 logical and 6 physical cores
 |    Method |      Mean |    Error |    StdDev |    Median |   Gen 0 |   Gen 1 |   Gen 2 | Allocated |
 |---------- |----------:|---------:|----------:|----------:|--------:|--------:|--------:|----------:|
 |  ReadB3dm |  40.81 us | 0.930 us |  2.742 us |  39.88 us | 13.6719 |  0.2441 |       - |   85.1 KB |
-| WriteB3dm | 435.28 us | 8.416 us | 10.018 us | 434.28 us | 29.2969 | 29.2969 | 29.2969 |  99.09 KB |
 ```
 
 ## History
+
+2020-08-03: Version 0.10 breaking change: B3dmWriter for writing to file removed, use b3dm.ToBytes() instead
 
 2020-07-01: Version 0.9 adding 8 byte padding rules
 

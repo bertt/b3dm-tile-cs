@@ -5,7 +5,7 @@
     <RootNamespace>B3dm.Tile</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>b3dm-tile</PackageId>
-    <Version>0.9</Version>
+    <Version>0.10</Version>
     <Authors>Bert Temme</Authors>
     <Company>Geodan</Company>
     <Product>b3dm-tile</Product>
@@ -15,10 +15,10 @@
     <RepositoryUrl>https://github.com/bertt/b3dm-tile-cs</RepositoryUrl>
     <PackageTags>b3dm tile gltf</PackageTags>
     <PackOnBuild>true</PackOnBuild>
-    <ReleaseVersion>0.2</ReleaseVersion>
-    <AssemblyVersion>0.9.0.0</AssemblyVersion>
-    <PackageReleaseNotes>adding padding rules</PackageReleaseNotes>
-    <FileVersion>0.9.0.0</FileVersion>
+    <ReleaseVersion>0.10</ReleaseVersion>
+    <AssemblyVersion>0.10.0.0</AssemblyVersion>
+    <PackageReleaseNotes>breaking change: B3dmWriter removed, use b3dm.ToBytes() instead</PackageReleaseNotes>
+    <FileVersion>0.10.0.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 

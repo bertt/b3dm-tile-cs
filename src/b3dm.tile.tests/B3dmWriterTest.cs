@@ -12,15 +12,11 @@ namespace B3dm.Tile.Tests
             var buildingGlb = File.ReadAllBytes(@"testfixtures/1.glb");
             var b3dm = new B3dm(buildingGlb);
 
-            var b3dmExpected = File.ReadAllBytes(@"testfixtures/1_expected.b3dm");
-
             // act
-            var result = @"1.b3dm";
-            B3dmWriter.WriteB3dm(result, b3dm);
+            var bytes = b3dm.ToBytes();
 
             // Assert
-            var fiResult = new FileInfo(result);
-            Assert.IsTrue(fiResult.Length == b3dmExpected.Length);
+            Assert.IsTrue(bytes.Length == 94732);
         }
 
         [Test]
@@ -43,8 +39,12 @@ namespace B3dm.Tile.Tests
 
             // act
             var result = "with_batch.b3dm";
-            var newB3dm = B3dmWriter.WriteB3dm(result, b3dm);
-            var b3dmActual = B3dmReader.ReadB3dm(File.OpenRead(newB3dm));
+            var newB3dm = b3dm.ToBytes();
+            var fs = new FileStream(result, FileMode.Create, FileAccess.Write);
+            fs.Write(newB3dm, 0, newB3dm.Length);
+            fs.Close();
+
+            var b3dmActual = B3dmReader.ReadB3dm(File.OpenRead(result));
 
             // Assert
             var errorsActual = b3dmActual.B3dmHeader.Validate();
