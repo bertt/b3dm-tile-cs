@@ -39,11 +39,8 @@ namespace B3dm.Tile.Tests
 
             // act
             var result = "with_batch.b3dm";
-            var newB3dm = b3dm.ToBytes();
-            var fs = new FileStream(result, FileMode.Create, FileAccess.Write);
-            fs.Write(newB3dm, 0, newB3dm.Length);
-            fs.Close();
-
+            var bytes = b3dm.ToBytes();
+            File.WriteAllBytes(result, bytes);
             var b3dmActual = B3dmReader.ReadB3dm(File.OpenRead(result));
 
             // Assert

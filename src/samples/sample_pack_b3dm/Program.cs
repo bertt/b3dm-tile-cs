@@ -13,9 +13,7 @@ namespace sample_wkb_2_b3dm
             var buildingGlb = File.ReadAllBytes(inputfile);
             var b3dm = new B3dm.Tile.B3dm(buildingGlb);
             var bytes = b3dm.ToBytes();
-            var fs = new FileStream("test.b3dm", FileMode.Create, FileAccess.Write);
-            fs.Write(bytes, 0, bytes.Length);
-            fs.Close();
+            File.WriteAllBytes("test.b3dm", bytes);
             Console.WriteLine($"File building.b3dm is written...");
             Console.WriteLine($"Press any key to continue...");
             Console.ReadKey();
