@@ -34,14 +34,6 @@ var bytes = b3dm.ToBytes(b3dm);
 File.WriteAllBytes("test.b3dm", bytes);
 ```
 
-Example glTF viewers for .glTF: 
-
-- https://gltf-viewer.donmccurdy.com/
-
-- glTF Validator: http://github.khronos.org/glTF-Validator/
-
-- Visual Studio Code: https://github.com/AnalyticalGraphicsInc/gltf-vscode
-
 ## Dependencies
 
 - NETStandard.Library 2.0.3
