@@ -31,6 +31,9 @@ var inputfile = @"testfixtures/building.glb";
 var buildingGlb = File.ReadAllBytes(inputfile);
 var b3dm = new B3dm.Tile.B3dm(buildingGlb);
 var bytes = b3dm.ToBytes(b3dm);
+var fs = new FileStream("test.b3dm", FileMode.Create, FileAccess.Write);
+fs.Write(bytes, 0, bytes.Length);
+fs.Close();
 ```
 
 Example glTF viewers for .glTF: 
