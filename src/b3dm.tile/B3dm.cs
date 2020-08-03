@@ -43,21 +43,21 @@ namespace B3dm.Tile
             B3dmHeader.FeatureTableBinaryByteLength =featureTableBinary.Length;
             B3dmHeader.BatchTableBinaryByteLength = batchTableBinary.Length;
 
-            var memeoryStream = new MemoryStream();
-            var binaryWriter = new BinaryWriter(memeoryStream);
+            var memoryStream = new MemoryStream();
+            var binaryWriter = new BinaryWriter(memoryStream);
             binaryWriter.Write(B3dmHeader.AsBinary());
-            binaryWriter.Write(Encoding.UTF8.GetBytes(FeatureTableJson));
-            if (FeatureTableBinary != null) {
-                binaryWriter.Write(FeatureTableBinary);
+            binaryWriter.Write(Encoding.UTF8.GetBytes(featureTableJson));
+            if (featureTableBinary != null) {
+                binaryWriter.Write(featureTableBinary);
             }
-            binaryWriter.Write(Encoding.UTF8.GetBytes(BatchTableJson));
-            if (BatchTableBinary != null) {
-                binaryWriter.Write(BatchTableBinary);
+            binaryWriter.Write(Encoding.UTF8.GetBytes(batchTableJson));
+            if (batchTableBinary != null) {
+                binaryWriter.Write(batchTableBinary);
             }
             binaryWriter.Write(GlbData);
             binaryWriter.Flush();
             binaryWriter.Close();
-            return memeoryStream.ToArray();
+            return memoryStream.ToArray();
         }
     }
 }
