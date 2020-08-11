@@ -27,7 +27,7 @@ File.WriteAllBytes(outputfile, stream.ToArray());
 var inputfile = @"testfixtures/building.glb";
 var buildingGlb = File.ReadAllBytes(inputfile);
 var b3dm = new B3dm.Tile.B3dm(buildingGlb);
-var bytes = b3dm.ToBytes(b3dm);
+var bytes = b3dm.ToBytes();
 File.WriteAllBytes("test.b3dm", bytes);
 ```
 
