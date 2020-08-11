@@ -8,9 +8,7 @@ Batched 3D specification: https://github.com/AnalyticalGraphicsInc/3d-tiles/blob
 
 ## Sample code for conversion b3dm -> glb:
 
-In this sample a B3DM tile is converted to GLB format. 
-
-For glTF reading the SharpGLTF library (https://github.com/vpenades/SharpGLTF) is used.
+In this sample the pyaload of a B3DM tile is converted to GLB file. 
 
 Sample code:
 
