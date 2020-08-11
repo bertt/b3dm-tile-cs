@@ -20,8 +20,7 @@ var outputfile = Path.GetFileNameWithoutExtension(inputfile) + ".glb";
 var f = File.OpenRead(inputfile);
 var b3dm = B3dmReader.ReadB3dm(f);
 var stream = new MemoryStream(b3dm.GlbData);
-var gltf = ModelRoot.ReadGLB(stream, new ReadSettings());
-gltf.SaveGLB(outputfile);
+File.WriteAllBytes(outputfile, stream.ToArray());
 ```
 
 ## Sample code for conversion glb -> b3dm:
