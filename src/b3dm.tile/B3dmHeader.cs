@@ -38,6 +38,12 @@ namespace B3dm.Tile
             BatchTableBinaryByteLength = (int)reader.ReadUInt32();
         }
 
+        public int Length {
+            get {
+                return 28 + FeatureTableJsonByteLength + FeatureTableBinaryByteLength + BatchTableJsonByteLength + BatchTableBinaryByteLength;
+            }
+        }
+
         public byte[] AsBinary()
         {
             var magicBytes = Encoding.UTF8.GetBytes(Magic);
