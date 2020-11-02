@@ -51,6 +51,8 @@ Intel Core i7-9750H CPU 2.60GHz, 1 CPU, 12 logical and 6 physical cores
 
 ## History
 
+2020-11-02: Version 0.13, supporting cmpt tiles
+
 2020-08-03: Version 0.10 + 0.11 + 0.12 breaking change: B3dmWriter for writing to file removed, use b3dm.ToBytes() instead
 
 2020-07-01: Version 0.9 adding 8 byte padding rules
