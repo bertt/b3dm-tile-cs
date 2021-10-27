@@ -6,17 +6,21 @@ namespace B3dm.Tile.Tests
     public class B3dmWriterTest
     {
         [Test]
-        public void WriteB3dmTest()
+        public void WriteB3dmWithCyrlllicCharacters()
         {
             // arrange
             var buildingGlb = File.ReadAllBytes(@"testfixtures/1.glb");
             var b3dm = new B3dm(buildingGlb);
+            var batchTableJson = File.ReadAllText(@"testfixtures/BatchTableWithCyrillicCharacters.json");
+            b3dm.BatchTableJson = batchTableJson;
+            b3dm.FeatureTableJson = "{\"BATCH_LENGTH\":12} ";
 
             // act
             var bytes = b3dm.ToBytes();
+            var b3dmActual = B3dmReader.ReadB3dm(new MemoryStream(bytes));
 
             // Assert
-            Assert.IsTrue(bytes.Length == 94732);
+            Assert.IsTrue(b3dmActual.B3dmHeader.Validate().Count == 0);
         }
 
         [Test]
@@ -40,7 +44,9 @@ namespace B3dm.Tile.Tests
             // act
             var result = "with_batch.b3dm";
             var bytes = b3dm.ToBytes();
+
             File.WriteAllBytes(result, bytes);
+
             var b3dmActual = B3dmReader.ReadB3dm(File.OpenRead(result));
 
             // Assert

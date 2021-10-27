@@ -36,10 +36,10 @@ namespace B3dm.Tile
             var featureTableBinary = BufferPadding.AddPadding(FeatureTableBinary);
             var batchTableBinary = BufferPadding.AddPadding(BatchTableBinary);
 
-            B3dmHeader.ByteLength = GlbData.Length + header_length + featureTableJson.Length + batchTableJson.Length + batchTableBinary.Length + FeatureTableBinary.Length;
+            B3dmHeader.ByteLength = GlbData.Length + header_length + featureTableJson.Length + Encoding.UTF8.GetByteCount(batchTableJson) + batchTableBinary.Length + FeatureTableBinary.Length;
 
             B3dmHeader.FeatureTableJsonByteLength = featureTableJson.Length;
-            B3dmHeader.BatchTableJsonByteLength = batchTableJson.Length;
+            B3dmHeader.BatchTableJsonByteLength = Encoding.UTF8.GetByteCount(batchTableJson);
             B3dmHeader.FeatureTableBinaryByteLength =featureTableBinary.Length;
             B3dmHeader.BatchTableBinaryByteLength = batchTableBinary.Length;
 
