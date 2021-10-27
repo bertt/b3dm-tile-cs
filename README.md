@@ -51,6 +51,8 @@ Intel Core i7-9750H CPU 2.60GHz, 1 CPU, 12 logical and 6 physical cores
 
 ## History
 
+2021-10-27: Version 0.14, adding non latin batchtable support
+
 2020-11-02: Version 0.13, supporting cmpt tiles
 
 2020-08-03: Version 0.10 + 0.11 + 0.12 breaking change: B3dmWriter for writing to file removed, use b3dm.ToBytes() instead
