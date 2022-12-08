@@ -1,6 +1,6 @@
 # b3dm-tile-cs
 
-.NET Standard 2.0 Library for (de)serializing B3dm files to/from glTF
+.NET 6 Library for (de)serializing B3dm files to/from glTF 2.0
 
 Batched 3D specification: https://github.com/AnalyticalGraphicsInc/3d-tiles/blob/master/specification/TileFormats/Batched3DModel/README.md
 
@@ -8,7 +8,7 @@ Batched 3D specification: https://github.com/AnalyticalGraphicsInc/3d-tiles/blob
 
 ## Sample code for conversion b3dm -> glb:
 
-In this sample the pyaload of a B3DM tile is converted to GLB file. 
+In this sample the payload of a B3DM tile is converted to GLB file. 
 
 Sample code:
 
@@ -33,7 +33,7 @@ File.WriteAllBytes("test.b3dm", bytes);
 
 ## Dependencies
 
-- NETStandard.Library 2.0.3
+- .NET 6
 
 ## Benchmarks
 
@@ -50,6 +50,8 @@ Intel Core i7-9750H CPU 2.60GHz, 1 CPU, 12 logical and 6 physical cores
 ```
 
 ## History
+
+2022-12-08: Version 1.0, to .NET 6
 
 2021-10-27: Version 0.14, adding non latin batchtable support
 
