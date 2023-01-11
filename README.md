@@ -1,6 +1,6 @@
 # b3dm-tile-cs
 
-.NET 6 Library for (de)serializing B3dm files to/from glTF 2.0
+.NET 6 Library for reading/writing 3D Tiles B3dm files to/from glTF 2.0
 
 Batched 3D specification: https://github.com/AnalyticalGraphicsInc/3d-tiles/blob/master/specification/TileFormats/Batched3DModel/README.md
 
