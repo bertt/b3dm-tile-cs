@@ -51,6 +51,10 @@ Intel Core i7-9750H CPU 2.60GHz, 1 CPU, 12 logical and 6 physical cores
 
 ## History
 
+2023-01-11: Version 1.0.2, fix glb length
+
+2023-01-11: Version 1.0.1, adding padding for GLB
+
 2022-12-08: Version 1.0, to .NET 6
 
 2021-10-27: Version 0.14, adding non latin batchtable support

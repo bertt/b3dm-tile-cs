@@ -5,20 +5,21 @@
     <RootNamespace>B3dm.Tile</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>b3dm-tile</PackageId>
-    <Version>1.0</Version>
     <Authors>Bert Temme</Authors>
     <Company>Geodan</Company>
     <Product>b3dm-tile</Product>
-    <Description>.NET Standard 2.0 Library for (un)packing B3dm files to/from glTF</Description>
+    <Description>.NET 6 Library for (un)packing B3dm files to/from glTF</Description>
     <PackageProjectUrl>https://github.com/bertt/b3dm-tile-cs</PackageProjectUrl>
-    <PackageLicenseUrl></PackageLicenseUrl>
+	<RepositoryType>git</RepositoryType>
+	<PackageLicenseUrl></PackageLicenseUrl>
     <RepositoryUrl>https://github.com/bertt/b3dm-tile-cs</RepositoryUrl>
-    <PackageTags>b3dm tile gltf</PackageTags>
+	<PackageTags>b3dm tile gltf</PackageTags>
     <PackOnBuild>true</PackOnBuild>
-    <ReleaseVersion>0.10</ReleaseVersion>
-    <AssemblyVersion>1.0</AssemblyVersion>
-    <PackageReleaseNotes>fix for cyrillic characters in batch table</PackageReleaseNotes>
-    <FileVersion>1.0</FileVersion>
+	<Version>1.0.2</Version>
+	<ReleaseVersion>1.0.2</ReleaseVersion>
+    <AssemblyVersion>1.0.2</AssemblyVersion>
+    <PackageReleaseNotes>fix glb length</PackageReleaseNotes>
+    <FileVersion>1.0.2</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
