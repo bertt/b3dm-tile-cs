@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>B3dm.Tile</RootNamespace>
+    <RootNamespace>B3dmCore</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>b3dm-tile</PackageId>
     <Authors>Bert Temme</Authors>
@@ -15,11 +15,11 @@
     <RepositoryUrl>https://github.com/bertt/b3dm-tile-cs</RepositoryUrl>
 	<PackageTags>b3dm tile gltf</PackageTags>
     <PackOnBuild>true</PackOnBuild>
-	<Version>1.0.2</Version>
-	<ReleaseVersion>1.0.2</ReleaseVersion>
-    <AssemblyVersion>1.0.2</AssemblyVersion>
+	<Version>1.1</Version>
+	<ReleaseVersion>1.1</ReleaseVersion>
+    <AssemblyVersion>1.1</AssemblyVersion>
     <PackageReleaseNotes>fix glb length</PackageReleaseNotes>
-    <FileVersion>1.0.2</FileVersion>
+    <FileVersion>1.1</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 

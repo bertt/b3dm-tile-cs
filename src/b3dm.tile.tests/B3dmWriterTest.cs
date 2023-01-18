@@ -1,61 +1,60 @@
 ﻿using System.IO;
 using NUnit.Framework;
 
-namespace B3dm.Tile.Tests
+namespace B3dmCore;
+
+public class B3dmWriterTest
 {
-    public class B3dmWriterTest
+    [Test]
+    public void WriteB3dmWithCyrlllicCharacters()
     {
-        [Test]
-        public void WriteB3dmWithCyrlllicCharacters()
-        {
-            // arrange
-            var buildingGlb = File.ReadAllBytes(@"testfixtures/1.glb");
-            var b3dm = new B3dm(buildingGlb);
-            var batchTableJson = File.ReadAllText(@"testfixtures/BatchTableWithCyrillicCharacters.json");
-            b3dm.BatchTableJson = batchTableJson;
-            b3dm.FeatureTableJson = "{\"BATCH_LENGTH\":12} ";
+        // arrange
+        var buildingGlb = File.ReadAllBytes(@"testfixtures/1.glb");
+        var b3dm = new B3dm(buildingGlb);
+        var batchTableJson = File.ReadAllText(@"testfixtures/BatchTableWithCyrillicCharacters.json");
+        b3dm.BatchTableJson = batchTableJson;
+        b3dm.FeatureTableJson = "{\"BATCH_LENGTH\":12} ";
 
-            // act
-            var bytes = b3dm.ToBytes();
-            var b3dmActual = B3dmReader.ReadB3dm(new MemoryStream(bytes));
+        // act
+        var bytes = b3dm.ToBytes();
+        var b3dmActual = B3dmReader.ReadB3dm(new MemoryStream(bytes));
 
-            // Assert
-            Assert.IsTrue(b3dmActual.B3dmHeader.Validate().Count == 0);
-        }
+        // Assert
+        Assert.IsTrue(b3dmActual.B3dmHeader.Validate().Count == 0);
+    }
 
-        [Test]
-        public void WriteB3dmWithBatchTest()
-        {
-            // arrange
-            var buildingGlb = File.ReadAllBytes(@"testfixtures/with_batch.glb");
-            var batchTableJson = File.ReadAllText(@"testfixtures/BatchTableJsonExpected.json");
+    [Test]
+    public void WriteB3dmWithBatchTest()
+    {
+        // arrange
+        var buildingGlb = File.ReadAllBytes(@"testfixtures/with_batch.glb");
+        var batchTableJson = File.ReadAllText(@"testfixtures/BatchTableJsonExpected.json");
 
-            var b3dmBytesExpected = File.OpenRead(@"testfixtures/with_batch.b3dm");
-            var b3dmExpected = B3dmReader.ReadB3dm(b3dmBytesExpected);
-            var errors = b3dmExpected.B3dmHeader.Validate();
-            Assert.IsTrue(errors.Count > 0);
+        var b3dmBytesExpected = File.OpenRead(@"testfixtures/with_batch.b3dm");
+        var b3dmExpected = B3dmReader.ReadB3dm(b3dmBytesExpected);
+        var errors = b3dmExpected.B3dmHeader.Validate();
+        Assert.IsTrue(errors.Count > 0);
 
-            var b3dm = new B3dm(buildingGlb);
-            b3dm.FeatureTableJson = b3dmExpected.FeatureTableJson;
-            b3dm.BatchTableJson = b3dmExpected.BatchTableJson;
-            b3dm.FeatureTableBinary = b3dmExpected.FeatureTableBinary;
-            b3dm.BatchTableBinary = b3dmExpected.BatchTableBinary;
+        var b3dm = new B3dm(buildingGlb);
+        b3dm.FeatureTableJson = b3dmExpected.FeatureTableJson;
+        b3dm.BatchTableJson = b3dmExpected.BatchTableJson;
+        b3dm.FeatureTableBinary = b3dmExpected.FeatureTableBinary;
+        b3dm.BatchTableBinary = b3dmExpected.BatchTableBinary;
 
-            // act
-            var result = "with_batch.b3dm";
-            var bytes = b3dm.ToBytes();
+        // act
+        var result = "with_batch.b3dm";
+        var bytes = b3dm.ToBytes();
 
-            File.WriteAllBytes(result, bytes);
+        File.WriteAllBytes(result, bytes);
 
-            var b3dmActual = B3dmReader.ReadB3dm(File.OpenRead(result));
+        var b3dmActual = B3dmReader.ReadB3dm(File.OpenRead(result));
 
-            // Assert
-            var errorsActual = b3dmActual.B3dmHeader.Validate();
-            Assert.IsTrue(errorsActual.Count == 0);
+        // Assert
+        var errorsActual = b3dmActual.B3dmHeader.Validate();
+        Assert.IsTrue(errorsActual.Count == 0);
 
-            Assert.IsTrue(b3dmActual.B3dmHeader.Magic == b3dmExpected.B3dmHeader.Magic);
-            Assert.IsTrue(b3dmActual.B3dmHeader.Version== b3dmExpected.B3dmHeader.Version);
-            Assert.IsTrue(b3dmActual.B3dmHeader.FeatureTableJsonByteLength== b3dmExpected.B3dmHeader.FeatureTableJsonByteLength);
-        }
+        Assert.IsTrue(b3dmActual.B3dmHeader.Magic == b3dmExpected.B3dmHeader.Magic);
+        Assert.IsTrue(b3dmActual.B3dmHeader.Version== b3dmExpected.B3dmHeader.Version);
+        Assert.IsTrue(b3dmActual.B3dmHeader.FeatureTableJsonByteLength== b3dmExpected.B3dmHeader.FeatureTableJsonByteLength);
     }
 }
