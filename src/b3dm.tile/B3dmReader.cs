@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace B3dmCore;
@@ -15,6 +16,8 @@ public static class B3dmReader
 
         var glbLength = b3dmHeader.ByteLength - b3dmHeader.Length;
         var glbBuffer = reader.ReadBytes(glbLength);
+        // remove the trailing glb padding characters if any
+        glbBuffer = glbBuffer.TakeWhile((v, index) => glbBuffer.Skip(index).Any(w => w != 0x20)).ToArray();
 
         var b3dm = new B3dm {
             B3dmHeader = b3dmHeader,

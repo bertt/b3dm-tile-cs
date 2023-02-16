@@ -18,6 +18,26 @@ public class B3dmReaderTests
     }
 
     [Test]
+    public void ReadB3dmWithPaddingTest()
+    {
+        // arrange
+        var b3dmfile = File.OpenRead(@"testfixtures/2_0_1.b3dm");
+
+        // act
+        var b3dm = B3dmReader.ReadB3dm(b3dmfile);
+        var stream = new MemoryStream(b3dm.GlbData);
+        var glb = SharpGLTF.Schema2.ModelRoot.ReadGLB(stream);
+        Assert.IsTrue(glb.Asset.Version.Major == 2.0);
+
+        // assert
+        Assert.IsTrue(expectedMagicHeader == b3dm.B3dmHeader.Magic);
+        Assert.IsTrue(expectedVersionHeader == b3dm.B3dmHeader.Version);
+        Assert.IsTrue(b3dm.BatchTableJson.Length >= 0);
+        Assert.IsTrue(b3dm.GlbData.Length > 0);
+    }
+
+
+    [Test]
     public void ReadB3dmTest()
     {
         // arrange
@@ -35,6 +55,7 @@ public class B3dmReaderTests
         Assert.IsTrue(b3dm.BatchTableJson.Length >= 0);
         Assert.IsTrue(b3dm.GlbData.Length > 0);
     }
+
 
     [Test]
     public void ReadB3dmWithGlbTest()
