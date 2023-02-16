@@ -53,7 +53,7 @@ Intel Core i7-9750H CPU 2.60GHz, 1 CPU, 12 logical and 6 physical cores
 
 2023-02-16: Version 1.1.1, remove trailing byte padding when reading Glb
 
-2023-01-18: Version 1.1, namepsacespace changes from B3dm.Tile to B3dmCore
+2023-01-18: Version 1.1, namespace changes from B3dm.Tile to B3dmCore
 
 2023-01-11: Version 1.0.2, fix glb length
 
