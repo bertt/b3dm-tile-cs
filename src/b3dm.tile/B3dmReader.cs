@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -14,10 +15,16 @@ public static class B3dmReader
         var batchTableJson = Encoding.UTF8.GetString(reader.ReadBytes(b3dmHeader.BatchTableJsonByteLength));
         var batchTableBytes = reader.ReadBytes(b3dmHeader.BatchTableBinaryByteLength);
 
-        var glbLength = b3dmHeader.ByteLength - b3dmHeader.Length;
-        var glbBuffer = reader.ReadBytes(glbLength);
-        // remove the trailing glb padding characters if any
-        glbBuffer = glbBuffer.TakeWhile((v, index) => glbBuffer.Skip(index).Any(w => w != 0x20)).ToArray();
+        // the rest of the file is the glb
+        var glbMaxLength = b3dmHeader.ByteLength - b3dmHeader.Length;
+        var glbBuffer = reader.ReadBytes(glbMaxLength);
+        // but we get the length from the glb itself
+        var glbLength = BitConverter.ToInt32(glbBuffer, 8);
+
+        // if the glb is shorter than the expected length, we need to trim the buffer
+        if(glbLength < glbMaxLength) {
+            glbBuffer = glbBuffer.Take(glbLength).ToArray();
+        }
 
         var b3dm = new B3dm {
             B3dmHeader = b3dmHeader,

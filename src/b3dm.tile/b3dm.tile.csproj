@@ -15,11 +15,11 @@
     <RepositoryUrl>https://github.com/bertt/b3dm-tile-cs</RepositoryUrl>
 	<PackageTags>b3dm tile gltf</PackageTags>
     <PackOnBuild>true</PackOnBuild>
-	<Version>1.1.1</Version>
-	<ReleaseVersion>1.1.1</ReleaseVersion>
-    <AssemblyVersion>1.1.1</AssemblyVersion>
+	<Version>1.1.2</Version>
+	<ReleaseVersion>1.1.2</ReleaseVersion>
+    <AssemblyVersion>1.1.2</AssemblyVersion>
     <PackageReleaseNotes>fix reading glb with padding</PackageReleaseNotes>
-    <FileVersion>1.1.1</FileVersion>
+    <FileVersion>1.1.2</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
