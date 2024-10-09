@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>B3dmCore</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>b3dm-tile</PackageId>
@@ -15,11 +15,11 @@
     <RepositoryUrl>https://github.com/bertt/b3dm-tile-cs</RepositoryUrl>
 	<PackageTags>b3dm tile gltf</PackageTags>
     <PackOnBuild>true</PackOnBuild>
-	<Version>1.1.2</Version>
-	<ReleaseVersion>1.1.2</ReleaseVersion>
-    <AssemblyVersion>1.1.2</AssemblyVersion>
-    <PackageReleaseNotes>fix reading glb with padding</PackageReleaseNotes>
-    <FileVersion>1.1.2</FileVersion>
+	<Version>1.2.0</Version>
+	<ReleaseVersion>1.2.0</ReleaseVersion>
+    <AssemblyVersion>1.2.0</AssemblyVersion>
+    <PackageReleaseNotes>To .NET 8.0</PackageReleaseNotes>
+    <FileVersion>1.2.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 

@@ -13,6 +13,6 @@ public class B3dmHeaderTests
         var binary = b3dmHeader.AsBinary();
 
         var errors = b3dmHeader.Validate();
-        Assert.IsTrue(binary.Length == 28);
+        Assert.That(binary.Length == 28);
     }
 }

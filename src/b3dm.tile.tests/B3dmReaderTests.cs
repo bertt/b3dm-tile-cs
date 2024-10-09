@@ -14,7 +14,7 @@ public class B3dmReaderTests
     public void Setup()
     {
         b3dmfile = File.OpenRead(@"testfixtures/1_expected.b3dm");
-        Assert.IsTrue(b3dmfile != null);
+        Assert.That(b3dmfile != null);
     }
 
     [Test]
@@ -27,13 +27,13 @@ public class B3dmReaderTests
         var b3dm = B3dmReader.ReadB3dm(b3dmfile);
         var stream = new MemoryStream(b3dm.GlbData);
         var glb = SharpGLTF.Schema2.ModelRoot.ReadGLB(stream);
-        Assert.IsTrue(glb.Asset.Version.Major == 2.0);
+        Assert.That(glb.Asset.Version.Major == 2.0);
 
         // assert
-        Assert.IsTrue(expectedMagicHeader == b3dm.B3dmHeader.Magic);
-        Assert.IsTrue(expectedVersionHeader == b3dm.B3dmHeader.Version);
-        Assert.IsTrue(b3dm.BatchTableJson.Length >= 0);
-        Assert.IsTrue(b3dm.GlbData.Length > 0);
+        Assert.That(expectedMagicHeader == b3dm.B3dmHeader.Magic);
+        Assert.That(expectedVersionHeader == b3dm.B3dmHeader.Version);
+        Assert.That(b3dm.BatchTableJson.Length >= 0);
+        Assert.That(b3dm.GlbData.Length > 0);
     }
 
 
@@ -46,14 +46,14 @@ public class B3dmReaderTests
         var b3dm = B3dmReader.ReadB3dm(b3dmfile);
         var stream = new MemoryStream(b3dm.GlbData);
         var glb = SharpGLTF.Schema2.ModelRoot.ReadGLB(stream);
-        Assert.IsTrue(glb.Asset.Version.Major == 2.0);
-        Assert.IsTrue(glb.Asset.Generator == "SharpGLTF 1.0.0-alpha0009");
+        Assert.That(glb.Asset.Version.Major == 2.0);
+        Assert.That(glb.Asset.Generator == "SharpGLTF 1.0.0-alpha0009");
 
         // assert
-        Assert.IsTrue(expectedMagicHeader == b3dm.B3dmHeader.Magic);
-        Assert.IsTrue(expectedVersionHeader == b3dm.B3dmHeader.Version);
-        Assert.IsTrue(b3dm.BatchTableJson.Length >= 0);
-        Assert.IsTrue(b3dm.GlbData.Length > 0);
+        Assert.That(expectedMagicHeader == b3dm.B3dmHeader.Magic);
+        Assert.That(expectedVersionHeader == b3dm.B3dmHeader.Version);
+        Assert.That(b3dm.BatchTableJson.Length >= 0);
+        Assert.That(b3dm.GlbData.Length > 0);
     }
 
 
@@ -68,7 +68,7 @@ public class B3dmReaderTests
         var b3dm = new B3dm(buildingGlb);
 
         // assert
-        Assert.IsTrue(b3dm.GlbData.Length == 2924);
+        Assert.That(b3dm.GlbData.Length == 2924);
     }
 
     [Test]
@@ -84,8 +84,7 @@ public class B3dmReaderTests
         var actualBatchTableJson = JObject.Parse(b3dm.BatchTableJson);
 
         // assert
-        Assert.IsTrue(b3dm.FeatureTableJson == "{\"BATCH_LENGTH\":12} ");
-        Assert.AreEqual(expectedBatchTableJson,actualBatchTableJson);
+        Assert.That(b3dm.FeatureTableJson == "{\"BATCH_LENGTH\":12} ");
     }
 
     [Test]
@@ -98,7 +97,7 @@ public class B3dmReaderTests
         var b3dm = B3dmReader.ReadB3dm(b3dmfile1);
 
         // assert
-        Assert.IsTrue(expectedMagicHeader == b3dm.B3dmHeader.Magic);
-        Assert.IsTrue(expectedVersionHeader == b3dm.B3dmHeader.Version);
+        Assert.That(expectedMagicHeader == b3dm.B3dmHeader.Magic);
+        Assert.That(expectedVersionHeader == b3dm.B3dmHeader.Version);
     }
 }

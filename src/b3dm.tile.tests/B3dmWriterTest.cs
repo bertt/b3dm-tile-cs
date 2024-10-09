@@ -20,7 +20,7 @@ public class B3dmWriterTest
         var b3dmActual = B3dmReader.ReadB3dm(new MemoryStream(bytes));
 
         // Assert
-        Assert.IsTrue(b3dmActual.B3dmHeader.Validate().Count == 0);
+        Assert.That(b3dmActual.B3dmHeader.Validate().Count == 0);
     }
 
     [Test]
@@ -33,7 +33,7 @@ public class B3dmWriterTest
         var b3dmBytesExpected = File.OpenRead(@"testfixtures/with_batch.b3dm");
         var b3dmExpected = B3dmReader.ReadB3dm(b3dmBytesExpected);
         var errors = b3dmExpected.B3dmHeader.Validate();
-        Assert.IsTrue(errors.Count > 0);
+        Assert.That(errors.Count > 0);
 
         var b3dm = new B3dm(buildingGlb);
         b3dm.FeatureTableJson = b3dmExpected.FeatureTableJson;
@@ -51,10 +51,10 @@ public class B3dmWriterTest
 
         // Assert
         var errorsActual = b3dmActual.B3dmHeader.Validate();
-        Assert.IsTrue(errorsActual.Count == 0);
+        Assert.That(errorsActual.Count == 0);
 
-        Assert.IsTrue(b3dmActual.B3dmHeader.Magic == b3dmExpected.B3dmHeader.Magic);
-        Assert.IsTrue(b3dmActual.B3dmHeader.Version== b3dmExpected.B3dmHeader.Version);
-        Assert.IsTrue(b3dmActual.B3dmHeader.FeatureTableJsonByteLength== b3dmExpected.B3dmHeader.FeatureTableJsonByteLength);
+        Assert.That(b3dmActual.B3dmHeader.Magic == b3dmExpected.B3dmHeader.Magic);
+        Assert.That(b3dmActual.B3dmHeader.Version== b3dmExpected.B3dmHeader.Version);
+        Assert.That(b3dmActual.B3dmHeader.FeatureTableJsonByteLength== b3dmExpected.B3dmHeader.FeatureTableJsonByteLength);
     }
 }

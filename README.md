@@ -1,6 +1,6 @@
 # b3dm-tile-cs
 
-.NET 6 Library for reading/writing 3D Tiles B3dm files to/from glTF 2.0
+.NET 8.0 Library for reading/writing 3D Tiles B3dm files to/from glTF 2.0
 
 Batched 3D specification: https://github.com/AnalyticalGraphicsInc/3d-tiles/blob/master/specification/TileFormats/Batched3DModel/README.md
 
@@ -50,6 +50,8 @@ Intel Core i7-9750H CPU 2.60GHz, 1 CPU, 12 logical and 6 physical cores
 ```
 
 ## History
+
+2024-10-09: Version 1.2.0, to .NET 8.0
 
 2024-01-25: Version 1.1.2, fix glb length
 
